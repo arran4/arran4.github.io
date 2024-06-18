@@ -10,5 +10,5 @@ contactInfo:
     url: "https://stackoverflow.com/users/322817/arran-ubels"
     text: "Arran Ubels"
 
-summary:
-  - I work with Go, Flutter, Typescript, C, C++, Java, and more
+#summary:
+#  - I work with Go, Flutter, Typescript, C, C++, Java, and more
