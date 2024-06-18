@@ -2,3 +2,4 @@
 /.idea
 *.iml
 /.hugo_build.lock
+/node_modules/
