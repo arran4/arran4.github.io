@@ -1,0 +1,19 @@
+section:
+  name: Projects
+  id: projects
+  enable: true
+  weight: 1
+  showOnNavbar: true
+
+buttons:
+  - name: All
+    filter: "all"
+
+projects:
+  - name: golang-ical
+#    logo: images/projects/golang-ical.png
+    role: BDFL
+    timeline: "2018 - Present"
+    repo: https://github.com/arran4/golang-ical
+    summary: iCal serializer / deserializer for Golang.
+    tags: ["go", "library", "opensource"]

@@ -1,0 +1,37 @@
+section:
+  name: About
+  id: about
+  enable: true
+  weight: 2
+  showOnNavbar: true
+
+designation: Software Engineer
+
+socialLinks:
+  - name: Email
+    icon: "fas fa-envelope"
+    url: "githubio123@arran4.com"
+
+  - name: Github
+    icon: "fab fa-github"
+    url: "https://www.github.com/arran4"
+
+  - name: Stackoverflow
+    icon: "fab fa-stack-overflow"
+    url: "https://stackoverflow.com/users/322817/arran-ubels"
+
+  - name: LinkedIn
+    icon: "fab fa-linkedin"
+    url: "https://www.linkedin.com/in/arranubels/"
+
+  - name: Twitter
+    icon: "fab fa-twitter"
+    url: "https://www.twitter.com/arran4"
+
+  - name: Facebook
+    icon: "fab fa-facebook"
+    url: "https://www.facebook.com/arran.ubels"
+
+resourceLinks:
+  - title: "My Resume"
+    url: "https://github.com/arran4/resume/releases/latest"

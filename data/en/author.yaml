@@ -1,0 +1,14 @@
+name: "Arran Ubels"
+nickname: "Arran"
+image: "images/favicon.png"
+greeting: "Hi, Welcome to my github.io page"
+
+contactInfo:
+  email: "githubio123@arran4.com"
+  stack-overflow:
+    icon: stack-overflow
+    url: "https://stackoverflow.com/users/322817/arran-ubels"
+    text: "Arran Ubels"
+
+summary:
+  - I work with Go, Flutter, Typescript, C, C++, Java, and more
