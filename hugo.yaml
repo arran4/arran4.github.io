@@ -40,8 +40,6 @@ params:
     inverted: images/favicon.png
     favicon: images/favicon.png
   gitRepo: https://github.com/arran4/arran4.github.io/
-  gitBranch: main
-
 
   features:
     toc:
