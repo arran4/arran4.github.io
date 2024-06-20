@@ -38,12 +38,16 @@
   {{ $dates := dict "date" (time.AsTime .updated_at) }}
   {{ $heroUrl := printf "https://opengraph.githubassets.com/%s/%s" .default_branch .full_name }}
   {{ $localHero := printf "%s/hero.png" .node_id }}
+  {{ $startags := (slice "Untagged") }}
+  {{ if gt (length .topics) 0 }}
+    {{ $startags = .topics }}
+  {{ end }}
   {{ $params := dict
         "owner" .owner
         "language" .language
         "homepage" .homepage
         "html_url" .html_url
-        "star-tags" (.topics )
+        "star-tags" $startags
         "tags" (slice "Stars")
         "categories" (slice "Stars")
         "default_branch" .default_branch
