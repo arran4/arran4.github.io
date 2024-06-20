@@ -36,6 +36,11 @@ taxonomies:
   tag: tags
   star-tag: star-tags
 
+security:
+  funcs:
+    getenv:
+      - GITHUB_TOKEN
+
 params:
   background: images/IMG_20161023_131510.jpg
   logo:

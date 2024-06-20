@@ -1,15 +1,34 @@
 {{/* Get remote data. */}}
-{{ $data := dict }}
+{{ $data := slice }}
 {{ $url := "https://api.github.com/users/arran4/starred" }}
-{{ with resources.GetRemote $url }}
-  {{ with .Err }}
-    {{ errorf "Unable to get remote resource %s: %s" $url . }}
-  {{ else }}
-    {{ $data = . | transform.Unmarshal }}
-  {{ end }}
-{{ else }}
-  {{ errorf "Unable to get remote resource %s" $url }}
+{{ $githubToken := getenv "GITHUB_TOKEN" }}
+{{ $headers := dict }}
+{{ if $githubToken }}
+  {{ $headers = dict "Authorization" (printf "token %s" $githubToken) }}
 {{ end }}
+{{ $perPage := 100 }}
+{{ $maxPages := 20 }}
+{{ $morePages := true }}
+
+{{ range seq 1 $maxPages }}
+  {{ if $morePages }}
+    {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
+    {{ with resources.GetRemote $pagedUrl (dict "headers" $headers) }}
+      {{ with .Err }}
+        {{ errorf "Unable to get remote resource %s: %s" $pagedUrl . }}
+      {{ else }}
+        {{ $pageData := . | transform.Unmarshal }}
+        {{ $data = $data | append $pageData }}
+        {{ if lt (len $pageData) $perPage }}
+          {{ $morePages = false }}
+        {{ end }}
+      {{ end }}
+    {{ else }}
+      {{ errorf "Unable to get remote resource %s" $pagedUrl }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
 
 {{/* Add pages and page resources. */}}
 {{ range $data }}
