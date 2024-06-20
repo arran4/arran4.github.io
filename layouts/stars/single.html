@@ -31,15 +31,15 @@
     <div class="content">
         <div class="container p-0 read-area">
             <!--Hero Area-->
-            <div class="hero-area col-sm-12" id="hero-area" style='background-image: url({{ partial "helpers/get-hero.html" . }});'>
+            <div class="hero-area col-sm-12" id="hero-area" style='background-image: url({{ .Params.heroUrl }});'>
             </div>
 
             <!--Content Start-->
             <div class="page-content">
                 {{ if site.Params.features.blog.showAuthor | default true }}
                 <div class="author-profile ms-auto align-self-lg-center">
-                    <img class="rounded-circle" src='{{ partial "helpers/get-author-image.html" . }}' alt="Author Image">
-                    <h5 class="author-name">{{ partial "helpers/get-author-name.html" . }}</h5>
+                    <a href="{{ .Params.owner.html_url}}"><img class="rounded-circle" src='{{ .Params.owner.avatar_url }}' alt="Author Image"></a>
+                    <h5 class="author-name"><a href="{{ .Params.owner.html_url}}">{{ .Params.owner.login }}</a></h5>
                     <p class="text-muted">{{ .Page.Date | time.Format ":date_full" }}{{ if site.Params.features.readingTime }} | {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
                 </div>
                 {{ else }}
@@ -47,7 +47,7 @@
                 {{ end }}
 
                 <div class="title">
-                    <h1>{{ .Page.Title }}</h1>
+                    <h1><a href="{{ .Params.html_url}}">{{ .Page.Title }}</a></h1>
                 </div>
 
                 {{ if not (site.Params.features.blog.showAuthor | default true) }}

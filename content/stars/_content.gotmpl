@@ -1,6 +1,6 @@
 {{/* Get remote data. */}}
 {{ $data := dict }}
-{{ $url := "https://gohugo.io/shared/examples/data/books.json" }}
+{{ $url := "https://api.github.com/users/arran4/starred" }}
 {{ with resources.GetRemote $url }}
   {{ with .Err }}
     {{ errorf "Unable to get remote resource %s: %s" $url . }}
@@ -15,39 +15,48 @@
 {{ range $data }}
 
   {{/* Add page. */}}
-  {{ $content := dict "mediaType" "text/markdown" "value" .summary }}
-  {{ $dates := dict "date" (time.AsTime .date) }}
-  {{ $params := dict "author" .author "isbn" .isbn "rating" .rating "tags" .tags }}
+  {{ $content := dict "mediaType" "text/markdown" "value" .description }}
+  {{ $dates := dict "date" (time.AsTime .updated_at) }}
+  {{ $heroUrl := printf "https://opengraph.githubassets.com/%s/%s" .default_branch .full_name }}
+  {{ $localHero := printf "%s/hero.png" .node_id }}
+  {{ $params := dict
+        "owner" .owner
+        "language" .language
+        "homepage" .homepage
+        "html_url" .html_url
+        "tags" .topics
+        "default_branch" .default_branch
+        "hero" $localHero
+        "heroUrl" $heroUrl
+      }}
   {{ $page := dict
     "content" $content
     "dates" $dates
     "kind" "page"
     "params" $params
-    "path" .title
-    "title" .title
+    "path" .node_id
+    "title" .full_name
   }}
   {{ $.AddPage $page }}
 
   {{/* Add page resource. */}}
   {{ $item := . }}
-  {{ with $url := $item.cover }}
-    {{ with resources.GetRemote $url }}
+    {{ with resources.GetRemote $heroUrl }}
       {{ with .Err }}
-        {{ errorf "Unable to get remote resource %s: %s" $url . }}
+        {{ errorf "Unable to get remote resource %s: %s" $heroUrl . }}
       {{ else }}
         {{ $content := dict "mediaType" .MediaType.Type "value" .Content }}
         {{ $params := dict "alt" $item.title }}
         {{ $resource := dict
           "content" $content
           "params" $params
-          "path" (printf "%s/cover.%s" $item.title .MediaType.SubType)
+          "path" $localHero
         }}
         {{ $.AddResource $resource }}
       {{ end }}
     {{ else }}
-      {{ errorf "Unable to get remote resource %s" $url }}
+      {{ errorf "Unable to get remote resource %s" $heroUrl }}
     {{ end }}
-  {{ end }}
 
 {{ end }}
 
