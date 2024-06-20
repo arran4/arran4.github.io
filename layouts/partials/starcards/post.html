@@ -11,7 +11,7 @@
         <p class="card-text post-summary">{{ .Summary }}</p>
       </a>
       {{ if and site.Params.features.tags.enable site.Params.features.tags.on_card }}
-        {{ partial "misc/tags.html" .Params.tags }}
+        {{ partial "misc/startags.html" .Params.startags }}
       {{ end }}
     </div>
     <div class="card-footer">
