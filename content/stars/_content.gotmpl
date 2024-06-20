@@ -37,7 +37,6 @@
   {{ $content := dict "mediaType" "text/markdown" "value" .description }}
   {{ $dates := dict "date" (time.AsTime .updated_at) }}
   {{ $heroUrl := printf "https://opengraph.githubassets.com/%s/%s" .default_branch .full_name }}
-  {{ $localHero := printf "%s/hero.png" .node_id }}
   {{ $startags := (slice "Untagged") }}
   {{ if gt (len .topics) 0 }}
     {{ $startags = .topics }}
@@ -51,7 +50,6 @@
         "tags" (slice "Stars")
         "categories" (slice "Stars")
         "default_branch" .default_branch
-        "hero" $localHero
         "heroUrl" $heroUrl
       }}
   {{ $page := dict
