@@ -53,6 +53,8 @@
 
                 <div class="title">
                     <h1><a href="{{ .Params.html_url}}">{{ .Page.Title }}</a></h1>
+                    {{ if .Params.fork }} Forked {{ end }}
+                    {{ if .Params.archived }} Archived {{ end }}
                 </div>
 
                 {{ if not (site.Params.features.blog.showAuthor | default true) }}

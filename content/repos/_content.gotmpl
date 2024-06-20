@@ -51,6 +51,10 @@
         "categories" (slice "Repos")
         "default_branch" .default_branch
         "heroUrl" $heroUrl
+        "full_name" .full_name
+        "private" .private
+        "archived" .archived
+        "fork" .fork
       }}
   {{ $page := dict
     "content" $content
@@ -58,9 +62,10 @@
     "kind" "page"
     "params" $params
     "path" .node_id
-    "title" .full_name
+    "title" .name
   }}
-  {{ $.AddPage $page }}
-
+  {{ if not (or .private ) }}
+    {{ $.AddPage $page }}
+  {{ end }}
 {{ end }}
 

@@ -13,6 +13,8 @@
       {{ if and site.Params.features.tags.enable site.Params.features.tags.on_card }}
         {{ partial "misc/repotags.html" (index .Params "repo-tags" ) }}
       {{ end }}
+      {{ if .Params.fork }} Forked {{ end }}
+      {{ if .Params.archived }} Archived {{ end }}
     </div>
     <div class="card-footer">
       <span class="float-repot">
