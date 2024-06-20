@@ -1,0 +1,66 @@
+{{/* Get remote data. */}}
+{{ $data := slice }}
+{{ $url := "https://api.github.com/users/arran4/repos" }}
+{{ $githubToken := getenv "GITHUB_TOKEN" }}
+{{ $headers := dict }}
+{{ if $githubToken }}
+  {{ $headers = dict "Authorization" (printf "token %s" $githubToken) }}
+{{ end }}
+{{ $perPage := 100 }}
+{{ $maxPages := 20 }}
+{{ $morePages := true }}
+
+{{ range seq 1 $maxPages }}
+  {{ if $morePages }}
+    {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
+    {{ with resources.GetRemote $pagedUrl (dict "headers" $headers) }}
+      {{ with .Err }}
+        {{ errorf "Unable to get remote resource %s: %s" $pagedUrl . }}
+      {{ else }}
+        {{ $pageData := . | transform.Unmarshal }}
+        {{ $data = $data | append $pageData }}
+        {{ if lt (len $pageData) $perPage }}
+          {{ $morePages = false }}
+        {{ end }}
+      {{ end }}
+    {{ else }}
+      {{ errorf "Unable to get remote resource %s" $pagedUrl }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+
+{{/* Add pages and page resources. */}}
+{{ range $data }}
+
+  {{/* Add page. */}}
+  {{ $content := dict "mediaType" "text/markdown" "value" .description }}
+  {{ $dates := dict "date" (time.AsTime .updated_at) }}
+  {{ $heroUrl := printf "https://opengraph.githubassets.com/%s/%s" .default_branch .full_name }}
+  {{ $repotags := (slice "Untagged") }}
+  {{ if gt (len .topics) 0 }}
+    {{ $repotags = .topics }}
+  {{ end }}
+  {{ $params := dict
+        "owner" .owner
+        "language" .language
+        "homepage" .homepage
+        "html_url" .html_url
+        "repo-tags" $repotags
+        "tags" (slice "Repos")
+        "categories" (slice "Repos")
+        "default_branch" .default_branch
+        "heroUrl" $heroUrl
+      }}
+  {{ $page := dict
+    "content" $content
+    "dates" $dates
+    "kind" "page"
+    "params" $params
+    "path" .node_id
+    "title" .full_name
+  }}
+  {{ $.AddPage $page }}
+
+{{ end }}
+

@@ -35,6 +35,7 @@ taxonomies:
   category: categories
   tag: tags
   star-tag: star-tags
+  repo-tag: repo-tags
 
 security:
   funcs:
@@ -51,6 +52,8 @@ params:
   customMenus:
     - name: Stars
       url: /stars/
+    - name: Repos
+      url: /repos/
 
   features:
     toc:

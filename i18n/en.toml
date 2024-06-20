@@ -4,5 +4,11 @@ other = "Stars"
 [star-tags]
 other = "Star Tags"
 
+[repos]
+other = "Repos"
+
+[repo-tags]
+other = "Repo Tags"
+
 [more]
 other = "More"
