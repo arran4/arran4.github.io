@@ -64,24 +64,5 @@
   }}
   {{ $.AddPage $page }}
 
-  {{/* Add page resource. */}}
-  {{ $item := . }}
-    {{ with resources.GetRemote $heroUrl }}
-      {{ with .Err }}
-        {{ errorf "Unable to get remote resource %s: %s" $heroUrl . }}
-      {{ else }}
-        {{ $content := dict "mediaType" .MediaType.Type "value" .Content }}
-        {{ $params := dict "alt" $item.title }}
-        {{ $resource := dict
-          "content" $content
-          "params" $params
-          "path" $localHero
-        }}
-        {{ $.AddResource $resource }}
-      {{ end }}
-    {{ else }}
-      {{ errorf "Unable to get remote resource %s" $heroUrl }}
-    {{ end }}
-
 {{ end }}
 
