@@ -24,7 +24,7 @@
             <li id="list-heading">{{ i18n .Type }}</li>
             <div class="subtree taxonomy-terms">
               {{ $context := . }}
-              {{ partial "navigators/taxonomies.html" (dict "context" $context "taxo" "star-tags" "title" ( humanize "stars" ) ) }}
+              {{ partial "navigators/star-taxonomies.html" (dict "context" $context "taxo" "star-tags" "title" ( humanize "stars" ) ) }}
             </div>
           </ul>
         </div>
@@ -44,7 +44,7 @@
         {{ if .Layout }}
           {{/* ignore the search.md file*/}}
         {{ else }}
-          {{ partial "cards/post.html" . }}
+          {{ partial "starcards/post.html" . }}
         {{ end }}
       {{ end }}
     </div>
