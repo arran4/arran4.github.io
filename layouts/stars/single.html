@@ -14,10 +14,15 @@
             <input type="text" name="keyword" value="" placeholder="{{ i18n "search" }}" data-search="" id="search-box" />
             </form>
             <div class="sidebar-tree">
+                <ul class="tree">
+                    <li style="padding-left: 0px !important;"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ i18n .Type }}</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-tree">
                 <ul class="tree" id="tree">
-                    <li id="list-heading"><a href="{{ "/stars/" | relLangURL }}" data-filter="all">{{ i18n "stars" }}</a></li>
+                    <li id="list-heading">{{ i18n "star-tags" }}</li>
                     <div class="subtree">
-                        {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
+                        {{ partial "navigators/star-taxonomies.html" (dict "context" . "taxo" "star-tags" "title" ( humanize "tags" ) ) }}
                     </div>
                 </ul>
             </div>

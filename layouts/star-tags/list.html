@@ -16,14 +16,15 @@
         </form>
         <div class="sidebar-tree">
           <ul class="tree">
-            <li style="padding-left: 0px !important;"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ i18n .Type }}</a></li>
+            <li style="padding-left: 0px !important;"><a href="{{ "stars" | relLangURL }}" data-filter="all">{{ i18n "stars" }}</a></li>
           </ul>
         </div>
         <div class="sidebar-tree">
           <ul class="tree" id="tree">
-            <li id="list-heading">{{ i18n "star-tags" }}</li>
-            <div class="subtree">
-                {{ partial "navigators/star-taxonomies.html" (dict "context" . "taxo" "star-tags" "title" ( humanize "tags" ) ) }}
+            <li id="list-heading">{{ i18n .Type }}</li>
+            <div class="subtree taxonomy-terms">
+              {{ $context := . }}
+              {{ partial "navigators/taxonomies.html" (dict "context" $context "taxo" "star-tags" "title" ( humanize "stars" ) ) }}
             </div>
           </ul>
         </div>
@@ -35,7 +36,7 @@
 {{ define "content" }}
 <section class="content-section" id="content-section">
   <div class="content container-fluid" id="content">
-    <div class="container-fluid post-card-holder" id="post-card-holder star-card-holder">
+    <div class="container-fluid post-card-holder" id="post-card-holder">
       {{ $posts := where .RegularPagesRecursive "Layout" "!=" "search" }}
       {{ $numShow := site.Params.features.pagination.maxPostsPerPage | default 12}}
       {{ $paginator := .Paginate $posts $numShow }}
@@ -43,7 +44,7 @@
         {{ if .Layout }}
           {{/* ignore the search.md file*/}}
         {{ else }}
-          {{ partial "starcards/post.html" . }}
+          {{ partial "cards/post.html" . }}
         {{ end }}
       {{ end }}
     </div>
