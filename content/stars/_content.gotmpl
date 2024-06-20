@@ -39,7 +39,7 @@
   {{ $heroUrl := printf "https://opengraph.githubassets.com/%s/%s" .default_branch .full_name }}
   {{ $localHero := printf "%s/hero.png" .node_id }}
   {{ $startags := (slice "Untagged") }}
-  {{ if gt (length .topics) 0 }}
+  {{ if gt (len .topics) 0 }}
     {{ $startags = .topics }}
   {{ end }}
   {{ $params := dict
