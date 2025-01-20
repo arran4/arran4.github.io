@@ -14,7 +14,7 @@
   {{ if $morePages }}
     {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
     {{ with resources.GetRemote $pagedUrl (dict "headers" $headers) }}
-      {{ if index $resource "Err" }}
+      {{ if index . "Err" }}
         {{ with .Err }}
             {{ errorf "Unable to get remote resource %s: %s" $pagedUrl . }}
         {{ end }}
