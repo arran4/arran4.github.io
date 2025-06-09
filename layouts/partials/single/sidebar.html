@@ -1,0 +1,24 @@
+{{ $ctx := .context }}
+{{ $taxo := .taxo }}
+<section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+        <div class="sidebar" id="sidebar">
+            <form class="mx-auto" method="get" action="{{ "search" | relLangURL }}">
+            <input type="text" name="keyword" value="" placeholder="{{ i18n "search" }}" data-search="" id="search-box" />
+            </form>
+            <div class="sidebar-tree">
+                <ul class="tree">
+                    <li style="padding-left: 0px !important;"><a href="{{ $ctx.Type | relLangURL }}" data-filter="all">{{ i18n $ctx.Type }}</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-tree">
+                <ul class="tree" id="tree">
+                    <li id="list-heading">{{ i18n $taxo }}</li>
+                    <div class="subtree">
+                        {{ partial "navigators/taxonomies.html" (dict "context" $ctx "taxo" $taxo "title" (humanize "tags")) }}
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

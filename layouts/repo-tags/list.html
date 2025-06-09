@@ -24,7 +24,7 @@
             <li id="list-heading">{{ i18n .Type }}</li>
             <div class="subtree taxonomy-terms">
               {{ $context := . }}
-              {{ partial "navigators/repo-taxonomies.html" (dict "context" $context "taxo" "repo-tags" "title" ( humanize "repos" ) ) }}
+              {{ partial "navigators/taxonomies.html" (dict "context" $context "taxo" "repo-tags" "title" ( humanize "repos" ) ) }}
             </div>
           </ul>
         </div>
