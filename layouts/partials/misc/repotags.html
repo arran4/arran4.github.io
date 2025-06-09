@@ -1,8 +1,1 @@
-<div class="tags">
-  <ul style="padding-left: 0;">
-    {{ range . }}
-    {{ $url:= printf "repo-tags/%s/" . }}
-    <li class="rounded"><a href="{{ $url | urlize | relLangURL }}" class="btn btn-sm btn-info">{{ . }}</a></li>
-    {{ end }}
-  </ul>
-</div>
+{{ partial "misc/tags.html" (dict "tags" . "prefix" "repo-tags") }}

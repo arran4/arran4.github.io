@@ -23,7 +23,7 @@
           <ul class="tree" id="tree">
             <li id="list-heading">{{ i18n "repo-tags" }}</li>
             <div class="subtree">
-                {{ partial "navigators/repo-taxonomies.html" (dict "context" . "taxo" "repo-tags" "title" ( humanize "tags" ) ) }}
+                {{ partial "navigators/taxonomies.html" (dict "context" . "taxo" "repo-tags" "title" ( humanize "tags" ) ) }}
             </div>
           </ul>
         </div>

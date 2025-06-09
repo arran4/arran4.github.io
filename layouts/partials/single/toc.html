@@ -1,0 +1,11 @@
+<section class="toc-section" id="toc-section">
+    {{ if and site.Params.features.toc.enable ( .Params.enableTOC | default true ) }}
+    <div class="toc-holder">
+        <h5 class="text-center ps-3">{{ i18n "toc_heading" }}</h5>
+        <hr>
+        <div class="toc">
+            {{ .TableOfContents }}
+        </div>
+    </div>
+    {{ end }}
+</section>
