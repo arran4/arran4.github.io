@@ -1,0 +1,11 @@
+{{ define "navbar" }}
+    {{ partial "navigators/navbar.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<div class="container text-center" style="padding-top:4rem;padding-bottom:4rem;">
+    <h1>404</h1>
+    <p>Sorry, the page you are looking for cannot be found.</p>
+    <p><a href="{{ "/" | relURL }}">Return to the homepage</a></p>
+</div>
+{{ end }}
