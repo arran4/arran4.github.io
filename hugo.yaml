@@ -8,7 +8,8 @@ outputs:
     - JSON
 enableEmoji: true
 
-paginate: 1000
+pagination:
+  pagerSize: 1000
 rssLimit: 100
 
 languages:

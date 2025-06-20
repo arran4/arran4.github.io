@@ -13,15 +13,14 @@
 {{ range seq 1 $maxPages }}
   {{ if $morePages }}
     {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
-    {{ with resources.GetRemote $pagedUrl (dict "headers" $headers) }}
-        {{ with .Err }}
-            {{ errorf "Unable to get remote resource %s: %s" $pagedUrl . }}
-      {{ else }}
-        {{ $pageData := . | transform.Unmarshal }}
-        {{ $data = $data | append $pageData }}
-        {{ if lt (len $pageData) $perPage }}
-          {{ $morePages = false }}
-        {{ end }}
+    {{ $result := try (resources.GetRemote $pagedUrl (dict "headers" $headers)) }}
+    {{ if $result.Err }}
+      {{ errorf "Unable to get remote resource %s: %s" $pagedUrl $result.Err }}
+    {{ else if $result.Value }}
+      {{ $pageData := $result.Value | transform.Unmarshal }}
+      {{ $data = $data | append $pageData }}
+      {{ if lt (len $pageData) $perPage }}
+        {{ $morePages = false }}
       {{ end }}
     {{ else }}
       {{ errorf "Unable to get remote resource %s" $pagedUrl }}
