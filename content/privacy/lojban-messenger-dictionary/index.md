@@ -8,6 +8,8 @@ sitemap_exclude: true
 url: /lojban-messenger-dictionary/privacy/
 description: "Privacy policy for the Lojban Dictionary for Facebook Messenger."
 ---
+**Effective Date:** 2024-02-22
+
 Last updated: February 22, 2024
 
 This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Lojban Dictionary for Facebook Messenger. This is a hobby project and not a business. We do not collect any data outside of what Facebook collects. The Service is merely a lookup tool.

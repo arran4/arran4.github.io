@@ -9,6 +9,8 @@ url: /arrans-movie-night-scheduler/privacy/
 description: "Privacy policy for Arran's Movie Night Scheduler app."
 ---
 
+**Effective Date:** 2024-02-22
+
 Privacy Policy
 ==============
 
