@@ -2,8 +2,6 @@
 title: "RPG Gym Stats Privacy Policy"
 draft: false
 sitemap_exclude: true
-_build:
-  list: never
 ---
 
 RPG Gym Stats does not collect, store, or share personal data. The app runs entirely on your device without third-party integrations. If our practices change, we will update this policy.
