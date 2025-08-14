@@ -12,6 +12,10 @@ Last updated: February 22, 2024
 
 This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Lojban Dictionary for Facebook Messenger. This is a hobby project and not a business. We do not collect any data outside of what Facebook collects. The Service is merely a lookup tool.
 
+## Third-Party Services
+
+This application operates on Facebook Messenger and relies on Facebook's platform services. For details on how Facebook handles data, please see [Facebook's Data Policy](https://www.facebook.com/policy.php).
+
 ## Interpretation and Definitions
 
 ### Interpretation
