@@ -10,7 +10,7 @@ url: /cbz-viewer/privacy/
 description: "Privacy policy for the CBZ Viewer app."
 ---
 
-**Effective Date:** December 30, 2024
+**Effective Date:** 2024-12-30
 
 ## Overview
 CBZ Viewer respects your privacy and is committed to protecting it. This privacy policy outlines how CBZ Viewer handles your data.
