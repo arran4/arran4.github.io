@@ -1,6 +1,7 @@
 ---
 title: "Gizmo Card Creator"
 draft: false
+layout: app
 sitemap_exclude: true
 _build:
   list: never

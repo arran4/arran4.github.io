@@ -1,6 +1,7 @@
 ---
 title: "Cook Times Privacy Policy"
 draft: false
+layout: app
 sitemap_exclude: true
 _build:
   list: never

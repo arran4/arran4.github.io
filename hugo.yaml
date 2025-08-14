@@ -55,8 +55,6 @@ params:
       url: /stars/
     - name: Repos
       url: /repos/
-    - name: Aurelies Dinners
-      url: /aurelies-dinners/
 
   features:
     toc:

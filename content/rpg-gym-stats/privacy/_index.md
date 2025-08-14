@@ -1,6 +1,7 @@
 ---
 title: "RPG Gym Stats Privacy Policy"
 draft: false
+layout: app
 sitemap_exclude: true
 _build:
   list: never
