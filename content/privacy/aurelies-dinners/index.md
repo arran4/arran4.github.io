@@ -12,14 +12,8 @@ description: "Privacy policy for Aurelie's Dinners: Random Meals."
 ## Effective Date
 October 24, 2024
 
-## Last updated
-October 24, 2024
-
-## Data Access and Deletion
-To request access to or deletion of any personal data associated with this app, contact us at aureliesdinners@arran4.com. If the app does not store personal data, we will inform you accordingly.
-
 ## Introduction
-Aurelie's Dinners: Random Meals does not collect, store, or share any personal information. All meal data you enter stays on your device and is removed when the app is uninstalled.
+Aurelie's Dinners: Random Meals is developed and published on Google Play by Arran4. The app does not collect, store, or share any personal information. All meal data you enter stays on your device and is removed when the app is uninstalled.
 
 ## Data Collection
 The app does not use analytics, cookies, or third-party SDKs. Network access is only used when you choose to follow external links, such as the Google Play listing or recipe sites you add yourself.

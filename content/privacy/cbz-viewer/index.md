@@ -20,7 +20,7 @@ December 30, 2024
 To request access to or deletion of any personal data associated with this app, contact us at cbzviewer@arran4.com. If the app does not store personal data, we will inform you accordingly.
 
 ## Overview
-CBZ Viewer respects your privacy and is committed to protecting it. This privacy policy outlines how CBZ Viewer handles your data.
+CBZ Viewer by Ubels Software Development respects your privacy and is committed to protecting it. This privacy policy outlines how CBZ Viewer handles your data.
 
 ## Data Collection
 CBZ Viewer does not collect, store, or transmit any personal data or usage information. No analytics are used.

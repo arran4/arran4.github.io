@@ -8,16 +8,15 @@ sitemap_exclude: true
 url: /lojban-messenger-dictionary/privacy/
 description: "Privacy policy for the Lojban Dictionary for Facebook Messenger."
 ---
+
 ## Effective Date
 February 22, 2024
 
-## Last updated
-February 22, 2024
-
-## Data Access and Deletion
-To request access to or deletion of any personal data associated with this app, contact us at lojbanmessenger@arran4.com. Because the service does not store personal data outside of Facebook's systems, we may refer you to Facebook to complete your request.
-
 This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Lojban Dictionary for Facebook Messenger. This is a hobby project and not a business. We do not collect any data outside of what Facebook collects. The Service is merely a lookup tool.
+
+## Third-Party Services
+
+This application operates on Facebook Messenger and relies on Facebook's platform services. For details on how Facebook handles data, please see [Facebook's Data Policy](https://www.facebook.com/policy.php).
 
 ## Interpretation and Definitions
 
@@ -102,5 +101,5 @@ You are advised to review this Privacy Policy periodically for any changes. Chan
 
 If you have any questions about this Privacy Policy, You can contact us:
 
-By email: lojbanmessenger@arran4.com
+By email: [lojbanmessenger@arran4.com](mailto:lojbanmessenger@arran4.com)
 
