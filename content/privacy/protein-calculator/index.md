@@ -23,6 +23,9 @@ The app does not require an internet connection to function and does not access 
 ### Third-Party Services
 The Protein to Weight Calculator does not integrate with any third-party services, analytics tools, or advertising platforms. As a result, no external entities receive any information about you or your usage of the app.
 
+### Third-Party Links
+The Protein to Weight Calculator may contain links to external websites or resources. We are not responsible for the content or privacy practices of these third-party sites, which may have their own policies. We encourage you to review the privacy policies of any external resources you visit.
+
 ### Permissions
 The app does not request any permissions to access sensitive data or device features.
 
