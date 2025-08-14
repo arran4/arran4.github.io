@@ -75,6 +75,10 @@ We do not collect or disclose Personal Data for any legal requirements.
 
 While we do not collect Personal Data, Facebook handles any data security measures.
 
+### Analytics
+
+We do not perform analytics or tracking. Any analytics data is managed by Facebook and not collected by this Service.
+
 ## Children's Privacy
 
 Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone. Any data concerning children is managed by Facebook.

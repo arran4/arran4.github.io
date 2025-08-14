@@ -20,6 +20,9 @@ The Protein to Weight Calculator does **not collect, store, or share any persona
 ### Internet and Network Usage
 The app does not require an internet connection to function and does not access any network resources. This ensures that your information stays private and secure.
 
+### Analytics
+The app does not perform any analytics or tracking.
+
 ### Third-Party Services
 The Protein to Weight Calculator does not integrate with any third-party services, analytics tools, or advertising platforms. As a result, no external entities receive any information about you or your usage of the app.
 

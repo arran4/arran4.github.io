@@ -18,6 +18,9 @@ CBZ Viewer respects your privacy and is committed to protecting it. This privacy
 ## Data Collection
 CBZ Viewer does not collect, store, or transmit any personal data or usage information.
 
+## Analytics
+CBZ Viewer does not perform any analytics or tracking.
+
 ## Permissions
 The app may request permissions necessary to access your local storage for the purpose of reading and displaying CBZ files. These permissions are solely used for the app's functionality and do not involve data collection or sharing.
 

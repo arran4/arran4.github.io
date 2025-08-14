@@ -110,6 +110,10 @@ We may share Your personal information in the following situations:
 *   **With other users:** when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside.
 *   **With Your consent**: We may disclose Your personal information for any other purpose with Your consent.
 
+### Analytics
+
+We do not use analytics or tracking services. No usage data is collected for analytics purposes.
+
 ### Retention of Your Personal Data
 
 The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.
