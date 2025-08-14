@@ -35,6 +35,6 @@ While we do not anticipate changes to this privacy policy, we reserve the right 
 ## Contact Us
 If you have any questions about this privacy policy or the app, please contact us at:
 
-**Email:** cooktime@arran4.com
+**Email:** [cooktime@arran4.com](mailto:cooktime@arran4.com)
 
 This privacy policy applies solely to the **Cook Times App** and its users.
