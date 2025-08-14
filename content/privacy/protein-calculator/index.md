@@ -32,7 +32,7 @@ While we do not anticipate changes to this privacy policy, we reserve the right 
 ### Contact Us
 If you have any questions about this privacy policy or the app, please contact Arran4 at:
 
-**Email:** proteincalc@arran4.com
+**Email:** [proteincalc@arran4.com](mailto:proteincalc@arran4.com)
 
 ---
 
