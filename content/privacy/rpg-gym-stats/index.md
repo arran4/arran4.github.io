@@ -29,9 +29,9 @@ Link to the privacy policy of third-party service providers used by the app
 
 *   [Google Play Services](https://www.google.com/policies/privacy/)
 
-**Analytics**
+## Analytics
 
-The app does not use analytics or tracking services.
+The app does not use analytics or tracking services. No usage data is collected or tracked.
 
 **Log Data**
 
