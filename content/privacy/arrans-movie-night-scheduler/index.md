@@ -18,6 +18,8 @@ This Privacy Policy describes Our policies and procedures on the collection, use
 
 We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the [Privacy Policy Generator](https://www.termsfeed.com/privacy-policy-generator/).
 
+This is a personal project and not operated by a company. The only information stored is the scheduling data You enter so the Service can function.
+
 Interpretation and Definitions
 ------------------------------
 
@@ -110,11 +112,9 @@ We may share Your personal information in the following situations:
 *   **With other users:** when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside.
 *   **With Your consent**: We may disclose Your personal information for any other purpose with Your consent.
 
-### Retention of Your Personal Data
+### Data Retention
 
-The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.
-
-The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.
+We only store the information You explicitly enter into the Service, such as movie selections and scheduling details. This data remains available until You remove it yourself; there is no automatic deletion after a set period. We do not collect or retain additional personal or usage data beyond what You provide.
 
 ### Transfer of Your Personal Data
 
