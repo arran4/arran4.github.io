@@ -2,6 +2,7 @@
 title: "Privacy Policy"
 date: 2024-10-24T00:00:00Z
 draft: false
+layout: app
 ---
 
 We do not collect any personal information in our application.

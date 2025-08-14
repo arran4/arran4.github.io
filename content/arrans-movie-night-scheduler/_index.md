@@ -1,6 +1,7 @@
 ---
 title: "Arran's Movie Night Scheduler"
 draft: false
+layout: app
 sitemap_exclude: true
 _build:
   list: never
