@@ -15,6 +15,9 @@ Aurelie's Dinners: Random Meals does not collect, store, or share any personal i
 ## Data Collection
 The app does not use analytics, cookies, or third-party SDKs. Network access is only used when you choose to follow external links, such as the Google Play listing or recipe sites you add yourself.
 
+## Analytics
+This app does not perform any analytics or tracking.
+
 ## Third-Party Links
 Our application may link to external sites that are not operated by us. We have no control over the content and practices of these sites and cannot accept responsibility for their privacy policies.
 
