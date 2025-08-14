@@ -45,9 +45,9 @@ We do not collect Usage Data directly. Any usage data, such as your device's IP 
 
 Since we do not collect Personal Data, we do not use it for any purposes.
 
-### Retention of Your Personal Data
+### Data Retention
 
-We do not retain any Personal Data.
+The only data processed is the text You enter during a session. This information is used solely to perform the lookup and is not stored once Your request is complete.
 
 ### Transfer of Your Personal Data
 
