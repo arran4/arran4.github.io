@@ -9,6 +9,8 @@ url: /protein-calculator/privacy/
 description: "Privacy policy for the Protein to Weight Calculator app."
 ---
 
+The Protein to Weight Calculator helps you estimate daily protein needs while keeping your data private. All calculations happen entirely on your device, and no personal information is collected or shared.
+
 **Effective Date:** 2024-12-17
 
 ### Introduction
