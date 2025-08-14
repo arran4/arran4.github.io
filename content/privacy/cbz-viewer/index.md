@@ -16,7 +16,7 @@ description: "Privacy policy for the CBZ Viewer app."
 CBZ Viewer respects your privacy and is committed to protecting it. This privacy policy outlines how CBZ Viewer handles your data.
 
 ## Data Collection
-CBZ Viewer does not collect, store, or transmit any personal data or usage information.
+CBZ Viewer does not collect, store, or transmit any personal data or usage information. No analytics are used.
 
 ## Analytics
 CBZ Viewer does not perform any analytics or tracking.
