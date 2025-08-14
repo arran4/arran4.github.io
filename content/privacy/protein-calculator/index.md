@@ -29,7 +29,7 @@ The app does not perform any analytics or tracking.
 The Protein to Weight Calculator does not integrate with any third-party services, analytics tools, or advertising platforms. As a result, no external entities receive any information about you or your usage of the app.
 
 ### Third-Party Links
-The Protein to Weight Calculator may contain links to external websites or resources. We are not responsible for the content or privacy practices of these third-party sites, which may have their own policies. We encourage you to review the privacy policies of any external resources you visit.
+The Protein to Weight Calculator may contain links to external websites or resources for your convenience. These links are outside our control, and we are not responsible for the content or privacy practices of those third-party sites. External resources may have their own privacy policies or terms, which we encourage you to review before interacting with them.
 
 ### Permissions
 The app does not request any permissions to access sensitive data or device features.
