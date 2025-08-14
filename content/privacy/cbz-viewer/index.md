@@ -10,7 +10,14 @@ url: /cbz-viewer/privacy/
 description: "Privacy policy for the CBZ Viewer app."
 ---
 
-**Effective Date:** 2024-12-30
+## Effective Date
+December 30, 2024
+
+## Last updated
+December 30, 2024
+
+## Data Access and Deletion
+To request access to or deletion of any personal data associated with this app, contact us at cbzviewer@arran4.com. If the app does not store personal data, we will inform you accordingly.
 
 ## Overview
 CBZ Viewer respects your privacy and is committed to protecting it. This privacy policy outlines how CBZ Viewer handles your data.

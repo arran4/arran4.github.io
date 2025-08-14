@@ -9,6 +9,15 @@ url: /gizmo-card-creator/privacy/
 description: "Privacy policy for the Gizmo Card Creator app."
 ---
 
+## Effective Date
+January 31, 2024
+
+## Last updated
+January 31, 2024
+
+## Data Access and Deletion
+To request access to or deletion of any personal data associated with this app, contact us at gizmocardcreator@arran4.com. If the app does not store personal data, we will inform you accordingly.
+
 Ubels Software Development built the Gizmo Card Creator app as a Free app. This SERVICE is provided by Ubels Software Development at no cost and is intended for use as is.
 
 This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
@@ -67,8 +76,6 @@ These Services do not address anyone under the age of 13. I do not knowingly col
 ## Changes to This Privacy Policy
 
 I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
-
-This policy is effective as of 2024-01-31.
 
 ## Contact Us
 

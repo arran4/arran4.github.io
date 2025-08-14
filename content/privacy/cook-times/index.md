@@ -9,7 +9,14 @@ url: /cook-times/privacy/
 description: "Privacy policy for the Cook Times app."
 ---
 
-**Effective Date:** 2024-12-18
+## Effective Date
+December 18, 2024
+
+## Last updated
+December 18, 2024
+
+## Data Access and Deletion
+To request access to or deletion of any personal data associated with this app, contact us at cooktime@arran4.com. If the app does not store personal data, we will inform you accordingly.
 
 ## Introduction
 Thank you for using the **Cook Times App**. Your privacy is important to us, and we are committed to maintaining transparency about how your data is handled. This privacy policy explains that our app does not collect or share any personal information.

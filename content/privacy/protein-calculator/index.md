@@ -11,7 +11,14 @@ description: "Privacy policy for the Protein to Weight Calculator app."
 
 The Protein to Weight Calculator helps you estimate daily protein needs while keeping your data private. All calculations happen entirely on your device, and no personal information is collected or shared.
 
-**Effective Date:** 2024-12-17
+## Effective Date
+December 17, 2024
+
+## Last updated
+December 17, 2024
+
+## Data Access and Deletion
+To request access to or deletion of any personal data associated with this app, contact us at proteincalc@arran4.com. If the app does not store personal data, we will inform you accordingly.
 
 ### Introduction
 Thank you for using the **Protein to Weight Calculator**. Arran4 ("we", "us", or "our") is the developer of this app. Your privacy is important to us, and we are committed to maintaining transparency about how your data is handled. This privacy policy explains that our app does not collect or share any personal information.
