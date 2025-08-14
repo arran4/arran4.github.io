@@ -1,14 +1,14 @@
 ---
 title: "Protein Calculator App Privacy Policy"
-date: 2024-12-17
+date: 2024-12-18
 draft: false
 ---
 
 ## Privacy Policy for Protein Calculator App
 
-**Package Name:** `com.arran4.protiencalculator.protein_calc`
+**Package Name:** `com.arran4.protein_calculator.protein_calculator`
 
-**Effective Date:** 2024-12-17
+**Effective Date:** 2024-12-18
 
 ### Introduction
 Thank you for using the **Protein Calculator App**. Your privacy is important to us, and we are committed to maintaining transparency about how your data is handled. This privacy policy explains that our app does not collect or share any personal information.
@@ -31,7 +31,7 @@ While we do not anticipate changes to this privacy policy, we reserve the right 
 ### Contact Us
 If you have any questions about this privacy policy or the app, please contact us at:
 
-**Email:** proteincalc@arran4.com
+**Email:** proteincalculator@arran4.com
 
 ---
 
