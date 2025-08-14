@@ -15,7 +15,7 @@ description: "Privacy policy for the Cook Times app."
 Thank you for using the **Cook Times App**. Your privacy is important to us, and we are committed to maintaining transparency about how your data is handled. This privacy policy explains that our app does not collect or share any personal information.
 
 ## Data Collection
-The Cook Times App does **not collect, store, or share any personal data**. All calculations performed within the app are executed locally on your device.
+The Cook Times App does **not collect, store, or share any personal data**. All calculations performed within the app are executed locally on your device. No analytics are used.
 
 ## Internet and Network Usage
 The app does not require an internet connection to function and does not access any network resources. This ensures that your information stays private and secure.

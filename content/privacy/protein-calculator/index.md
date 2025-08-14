@@ -15,7 +15,7 @@ description: "Privacy policy for the Protein to Weight Calculator app."
 Thank you for using the **Protein to Weight Calculator**. Arran4 ("we", "us", or "our") is the developer of this app. Your privacy is important to us, and we are committed to maintaining transparency about how your data is handled. This privacy policy explains that our app does not collect or share any personal information.
 
 ### Data Collection
-The Protein to Weight Calculator does **not collect, store, or share any personal data**. All calculations performed within the app are executed locally on your device.
+The Protein to Weight Calculator does **not collect, store, or share any personal data**. All calculations performed within the app are executed locally on your device. No analytics are used.
 
 ### Internet and Network Usage
 The app does not require an internet connection to function and does not access any network resources. This ensures that your information stays private and secure.
