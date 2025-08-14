@@ -36,4 +36,3 @@ If you have any questions about this privacy policy or the app, please contact u
 ---
 
 This privacy policy applies solely to the **Protein Calculator App** and its users.
-
