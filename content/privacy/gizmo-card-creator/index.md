@@ -9,7 +9,7 @@ url: /gizmo-card-creator/privacy/
 description: "Privacy policy for the Gizmo Card Creator app."
 ---
 
-Ubels Software Development built the Gizmo Card Creator app as a Free app. This SERVICE is provided by Ubels Software Development at no cost and is intended for use as is.
+Arran4 built the Gizmo Card Creator app as a Free app. This SERVICE is provided by Arran4 at no cost and is intended for use as is.
 
 This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 
