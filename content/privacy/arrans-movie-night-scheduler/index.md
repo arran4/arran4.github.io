@@ -192,4 +192,4 @@ Contact Us
 
 If you have any questions about this Privacy Policy, You can contact us:
 
-*   By email: movienightscheduler@ubels.com.au
+*   By email: [movienightscheduler@arran4.com](mailto:movienightscheduler@arran4.com)
