@@ -14,7 +14,14 @@ description: "Privacy policy for Arran's Movie Night Scheduler app."
 Privacy Policy
 ==============
 
-Last updated: February 22, 2024
+## Effective Date
+February 22, 2024
+
+## Last updated
+February 22, 2024
+
+## Data Access and Deletion
+To request access to or deletion of any personal data associated with this app, contact us at movienightscheduler@arran4.com. If the app does not store personal data beyond the scheduling data you provide, we will inform you accordingly.
 
 This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
 

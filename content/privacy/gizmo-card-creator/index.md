@@ -9,7 +9,8 @@ url: /gizmo-card-creator/privacy/
 description: "Privacy policy for the Gizmo Card Creator app."
 ---
 
-**Effective Date:** 2024-01-31
+## Effective Date
+January 31, 2024
 
 Arran built the Gizmo Card Creator app as a Free app. This SERVICE is provided by Arran4 at no cost and is intended for use as is.
 
@@ -48,8 +49,6 @@ These Services do not address anyone under the age of 13. I do not knowingly col
 ## Changes to This Privacy Policy
 
 I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
-
-This policy is effective as of 2024-01-31.
 
 ## Contact Us
 
