@@ -1,7 +1,9 @@
 ---
 title: "RPG Gym Stats"
 draft: false
+layout: rpg-gym-stats
 sitemap_exclude: true
+description: "Turn workouts into an adventure with XP and achievements."
 ---
 
 RPG Gym Stats turns your workouts into an adventure where every rep earns experience.

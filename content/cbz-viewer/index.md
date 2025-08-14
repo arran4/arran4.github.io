@@ -1,7 +1,9 @@
 ---
 title: "CBZ Viewer"
 draft: false
+layout: cbz-viewer
 sitemap_exclude: true
+description: "Lightweight comic book reader for CBZ archives."
 ---
 
 CBZ Viewer is a lightweight comic book reader that opens your CBZ archives with ease.

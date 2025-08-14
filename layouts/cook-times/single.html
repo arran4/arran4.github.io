@@ -2,11 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ .Title }}</title>
+  {{ with .Params.description }}
+  <meta name="description" content="{{ . }}" />
+  {{ end }}
   <link rel="stylesheet" href="{{ "cook-times/style.css" | relURL }}">
 </head>
 <body>
   <main class="content">
+    <h1>{{ .Title }}</h1>
+    {{ with .PublishDate }}
+    <p><time datetime="{{ . }}">{{ .Format "2006-01-02" }}</time></p>
+    {{ end }}
     {{ .Content }}
   </main>
 </body>

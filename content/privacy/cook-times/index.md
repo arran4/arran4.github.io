@@ -2,10 +2,11 @@
 title: "Cook Times Privacy Policy"
 date: 2024-12-18T00:00:00Z
 draft: false
-layout: privacy
+layout: cook-times
 slug: privacy
 sitemap_exclude: true
 url: /cook-times/privacy/
+description: "Privacy policy for the Cook Times app."
 ---
 
 **Effective Date:** 2024-12-18

@@ -1,8 +1,9 @@
 ---
 title: "Arran's Movie Night Scheduler"
 draft: false
-layout: app
+layout: arrans-movie-night-scheduler
 sitemap_exclude: true
+description: "Plan movie nights with friends using suggestions and votes."
 ---
 
 Arran's Movie Night Scheduler helps you plan movie nights with friends by keeping track of suggestions and votes.

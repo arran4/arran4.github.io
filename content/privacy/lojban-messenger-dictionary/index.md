@@ -2,10 +2,11 @@
 title: "Lojban Dictionary for Facebook Messenger Privacy Policy"
 date: 2024-02-22T00:00:00Z
 draft: false
-layout: privacy
+layout: lojban-messenger-dictionary
 slug: privacy
 sitemap_exclude: true
 url: /lojban-messenger-dictionary/privacy/
+description: "Privacy policy for the Lojban Dictionary for Facebook Messenger."
 ---
 Last updated: February 22, 2024
 

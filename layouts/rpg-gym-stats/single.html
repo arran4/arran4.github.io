@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ .Title }}</title>
+  {{ with .Params.description }}
+  <meta name="description" content="{{ . }}" />
+  {{ end }}
   <link rel="stylesheet" href="{{ "rpg-gym-stats/style.css" | relURL }}">
 </head>
 <body>

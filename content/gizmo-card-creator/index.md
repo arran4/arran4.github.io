@@ -1,7 +1,9 @@
 ---
 title: "Gizmo Card Creator"
 draft: false
+layout: gizmo-card-creator
 sitemap_exclude: true
+description: "Design and print custom cards for the Gizmo board game."
 ---
 
 Gizmo Card Creator lets you design and print custom cards for the Gizmo board game.

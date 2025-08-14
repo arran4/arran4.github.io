@@ -6,6 +6,7 @@ layout: arrans-movie-night-scheduler
 slug: privacy
 sitemap_exclude: true
 url: /arrans-movie-night-scheduler/privacy/
+description: "Privacy policy for Arran's Movie Night Scheduler app."
 ---
 
 Privacy Policy
