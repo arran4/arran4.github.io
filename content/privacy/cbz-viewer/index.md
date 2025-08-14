@@ -13,7 +13,7 @@ description: "Privacy policy for the CBZ Viewer app."
 **Effective Date:** 2024-12-30
 
 ## Overview
-CBZ Viewer respects your privacy and is committed to protecting it. This privacy policy outlines how CBZ Viewer handles your data.
+CBZ Viewer by Ubels Software Development respects your privacy and is committed to protecting it. This privacy policy outlines how CBZ Viewer handles your data.
 
 ## Data Collection
 CBZ Viewer does not collect, store, or transmit any personal data or usage information. No analytics are used.
