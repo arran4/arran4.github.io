@@ -6,6 +6,7 @@ layout: rpg-gym-stats
 slug: privacy
 sitemap_exclude: true
 url: /rpg-gym-stats/privacy/
+description: "Privacy policy for the RPG Gym Stats app."
 ---
 
 Ubels Software Development built the RPG Gym Stats app as a Free app. This SERVICE is provided by Ubels Software Development at no cost and is intended for use as is.

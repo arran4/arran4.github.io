@@ -1,7 +1,9 @@
 ---
 title: "Cook Times"
 draft: false
+layout: cook-times
 sitemap_exclude: true
+description: "Track parallel kitchen timers for multiple dishes."
 ---
 
 Cook Times keeps your kitchen organized by tracking multiple dishes at once.

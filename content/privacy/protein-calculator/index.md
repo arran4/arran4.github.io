@@ -2,9 +2,11 @@
 title: "Privacy Policy for Protein Calculator App"
 date: 2024-12-17T00:00:00Z
 draft: false
+layout: protein-calculator
 slug: privacy
 sitemap_exclude: true
 url: /protein-calculator/privacy/
+description: "Privacy policy for the Protein Calculator app."
 ---
 
 **Effective Date:** 2024-12-17

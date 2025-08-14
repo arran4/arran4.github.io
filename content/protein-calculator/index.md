@@ -1,7 +1,9 @@
 ---
 title: "Protein Calculator"
 draft: false
+layout: protein-calculator
 sitemap_exclude: true
+description: "Estimate daily protein needs based on weight and goals."
 ---
 
 Protein Calculator estimates how much protein you need each day based on your weight and goals.

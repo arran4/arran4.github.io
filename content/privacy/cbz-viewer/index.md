@@ -3,10 +3,11 @@ title: "CBZ Viewer Privacy Policy"
 date: 2024-12-30T00:00:00Z
 publishDate: 2024-12-30T00:00:00Z
 draft: false
-layout: privacy
+layout: cbz-viewer
 slug: privacy
 sitemap_exclude: true
 url: /cbz-viewer/privacy/
+description: "Privacy policy for the CBZ Viewer app."
 ---
 
 **Effective Date:** December 30, 2024
@@ -22,6 +23,12 @@ The app may request permissions necessary to access your local storage for the p
 
 ## Third-Party Services
 CBZ Viewer does not integrate with any third-party services or analytics tools.
+
+## Data Security
+All files you open remain on your device. No information is transmitted or stored externally.
+
+## Children's Privacy
+CBZ Viewer does not target children and does not knowingly collect data from children under 13.
 
 ## Changes to This Privacy Policy
 As CBZ Viewer does not collect or use your data, this privacy policy is unlikely to change. However, if changes are made, they will be reflected in an updated version of this document with a new effective date.
