@@ -20,6 +20,9 @@ The Cook Times App does **not collect, store, or share any personal data**. All 
 ## Internet and Network Usage
 The app does not require an internet connection to function and does not access any network resources. This ensures that your information stays private and secure.
 
+## Analytics
+The Cook Times App does not perform any analytics or tracking.
+
 ## Third-Party Services
 The Cook Times App does not integrate with any third-party services, analytics tools, or advertising platforms. As a result, no external entities receive any information about you or your usage of the app.
 

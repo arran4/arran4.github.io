@@ -20,8 +20,14 @@ The Protein to Weight Calculator does **not collect, store, or share any persona
 ### Internet and Network Usage
 The app does not require an internet connection to function and does not access any network resources. This ensures that your information stays private and secure.
 
+### Analytics
+The app does not perform any analytics or tracking.
+
 ### Third-Party Services
 The Protein to Weight Calculator does not integrate with any third-party services, analytics tools, or advertising platforms. As a result, no external entities receive any information about you or your usage of the app.
+
+### Third-Party Links
+The Protein to Weight Calculator may contain links to external websites or resources. We are not responsible for the content or privacy practices of these third-party sites, which may have their own policies. We encourage you to review the privacy policies of any external resources you visit.
 
 ### Permissions
 The app does not request any permissions to access sensitive data or device features.
@@ -32,7 +38,7 @@ While we do not anticipate changes to this privacy policy, we reserve the right 
 ### Contact Us
 If you have any questions about this privacy policy or the app, please contact Arran4 at:
 
-**Email:** proteincalc@arran4.com
+**Email:** [proteincalc@arran4.com](mailto:proteincalc@arran4.com)
 
 ---
 

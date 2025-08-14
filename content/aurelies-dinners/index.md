@@ -17,4 +17,4 @@ Aurelies Dinners: Random Meals is an Android application (package name: `com.arr
 
 [Get it on Google Play](https://play.google.com/store/apps/details?id=com.arran4.aurelies_dinners)
 
-[Privacy Policy](privacy/)
+[Privacy Policy](/aurelies-dinners/privacy/)
