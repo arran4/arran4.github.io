@@ -164,6 +164,14 @@ The Company may disclose Your Personal Data in the good faith belief that such a
 
 The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.
 
+### Accessing and Deleting Your Data
+
+You may request access to or deletion of the scheduling data we store about you. To make such a request, email us at movienightscheduler@ubels.com.au or use any in-app privacy controls if available. We will respond to requests within 30 days and may ask you to verify your identity, such as confirming the email address associated with your account, before fulfilling the request.
+
+### Opting Out of Analytics and Data Sharing
+
+We do not currently use analytics, advertising, or share your data with third parties. If these features are introduced in the future, the app will provide a setting to opt out or you can contact us at the email above to request exclusion.
+
 Children's Privacy
 ------------------
 
