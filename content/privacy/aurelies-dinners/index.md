@@ -1,8 +1,11 @@
 ---
-title: "Privacy Policy"
+title: "Aurelie's Dinners Privacy Policy"
 date: 2024-10-24T00:00:00Z
 draft: false
 layout: app
+slug: privacy
+sitemap_exclude: true
+url: /aurelies-dinners/privacy/
 ---
 
 We do not collect, store, or share any personal information in our application. All meal data you enter stays on your device and is removed when the app is uninstalled.
