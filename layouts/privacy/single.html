@@ -1,0 +1,30 @@
+{{ define "header" }}
+{{ partial "single/header.html" . }}
+{{ end }}
+
+{{ define "navbar" }}
+{{ partial "navigators/navbar.html" . }}
+{{ end }}
+
+{{ define "sidebar" }}{{ end }}
+
+{{ define "content" }}
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      <div class="page-content">
+        <div class="title">
+          <h1>{{ .Title }}</h1>
+        </div>
+        <div class="post-content" id="post-content">
+          {{ .Content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ define "toc" }}
+{{ partial "single/toc.html" . }}
+{{ end }}
