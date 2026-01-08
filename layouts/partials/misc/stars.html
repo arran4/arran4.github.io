@@ -1,0 +1,10 @@
+{{ $repo := .repo }}
+{{ $stars := "" }}
+{{ if $repo }}
+  {{ $repo = replace $repo "https://github.com/" "" }}
+  {{ $stars = index site.Data.stars $repo }}
+{{ end }}
+{{ if $stars }}
+  <i class="fas fa-star"></i>
+  {{ $stars }}
+{{ end }}

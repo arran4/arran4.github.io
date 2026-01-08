@@ -28,7 +28,57 @@ jobs:
           hugo-version: '0.147.8'
           extended: true
 
+      - name: Cache stars data
+        id: cache-stars
+        uses: actions/cache@v3
+        with:
+          path: data/stars.json
+          key: ${{ runner.os }}-stars
+
+      - name: Fetch Stars
+        id: fetch_stars
+        run: |
+          sudo apt-get update && sudo apt-get install -y yq jq
+
+          if [ -f "data/stars.json" ]; then
+            mv data/stars.json data/stars.json.old
+          fi
+
+          STARS_FILE="data/stars.json"
+          echo "{}" > "$STARS_FILE"
+
+          for repo_url in $(yq e '.projects[].repo' data/en/sections/projects.yaml); do
+            if [[ "$repo_url" == "null" ]]; then
+              continue
+            fi
+            repo_path=$(echo "$repo_url" | sed 's/https://github.com\///')
+
+            stars=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$repo_path" | jq '.stargazers_count')
+
+            tmpfile=$(mktemp)
+            jq --arg repo "$repo_path" --argjson stars "$stars" '.[$repo] = $stars' "$STARS_FILE" > "$tmpfile" && mv "$tmpfile" "$STARS_FILE"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Diff check
+        id: diff_check
+        run: |
+          if [ -f "data/stars.json.old" ]; then
+            if diff -q data/stars.json data/stars.json.old; then
+              echo "Stars have not changed."
+              echo "changed=false" >> $GITHUB_OUTPUT
+            else
+              echo "Stars have changed."
+              echo "changed=true" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "No old stars file found."
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Everything required
+        if: steps.diff_check.outputs.changed == 'true'
         run: |
           hugo mod npm pack
           npm install
@@ -38,7 +88,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && steps.diff_check.outputs.changed == 'true' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
