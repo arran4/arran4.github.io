@@ -78,7 +78,7 @@ jobs:
           fi
 
       - name: Everything required
-        if: steps.diff_check.outputs.changed == 'true'
+        if: ${{ steps.diff_check.outputs.changed == 'true' || github.event_name == 'pull_request' }}
         run: |
           hugo mod npm pack
           npm install
@@ -88,7 +88,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' && steps.diff_check.outputs.changed == 'true' }}
+        if: ${{ github.ref == 'refs/heads/main' && (steps.diff_check.outputs.changed == 'true' || github.event_name == 'pull_request') }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
