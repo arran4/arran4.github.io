@@ -81,7 +81,8 @@ jobs:
         if: ${{ steps.diff_check.outputs.changed == 'true' || github.event_name == 'pull_request' }}
         run: |
           hugo mod npm pack
-          npm install
+          npm install --legacy-peer-deps
+          sudo rm -rf public/
           hugo --minify --templateMetrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
