@@ -51,8 +51,6 @@ params:
     favicon: images/favicon.png
   gitRepo: https://github.com/arran4/arran4.github.io/
   customMenus:
-    - name: Blog
-      url: https://arran4.github.io/blog/
     - name: Stars
       url: /stars/
     - name: Repos
