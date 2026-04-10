@@ -33,6 +33,7 @@
   "devDependencies": {
     "@fontsource/mulish": "5.2.8",
     "@fortawesome/fontawesome-free": "^7.2.0",
+    "@popperjs/core": "^2.11.8",
     "autoprefixer": "^10.4.27",
     "bootstrap": "^5.3.8",
     "eslint": "^8.57.1",
@@ -50,6 +51,7 @@
     "imagesloaded": "^5.0.0",
     "include-media": "^2.0.0",
     "katex": "^0.16.33",
+    "lodash-es": "^4.18.1",
     "mark.js": "^8.11.1",
     "mermaid": "^11.12.3",
     "plyr": "^3.8.4",
@@ -59,5 +61,8 @@
     "typeit": "^8.8.7"
   },
   "name": "arran4.github.io",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "overrides": {
+    "lodash-es": "^4.18.1"
+  }
 }
