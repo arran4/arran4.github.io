@@ -84,6 +84,7 @@ jobs:
         run: |
           hugo mod npm pack
           npm install
+          rm -rf public
           hugo --minify --templateMetrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
