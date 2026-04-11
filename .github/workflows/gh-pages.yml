@@ -53,7 +53,7 @@ jobs:
             if [[ "$repo_url" == "null" ]]; then
               continue
             fi
-            repo_path=$(echo "$repo_url" | sed 's/https://github.com\///')
+            repo_path=$(echo "$repo_url" | sed 's|https://github.com/||')
 
             stars=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$repo_path" | jq '.stargazers_count')
 
