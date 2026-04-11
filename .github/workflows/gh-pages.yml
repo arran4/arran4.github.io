@@ -49,11 +49,11 @@ jobs:
           STARS_FILE="data/stars.json"
           echo "{}" > "$STARS_FILE"
 
-          for repo_url in $(yq e '.projects[].repo' data/en/sections/projects.yaml); do
+          for repo_url in $(yq '.projects[].repo' data/en/sections/projects.yaml | tr -d '"'); do
             if [[ "$repo_url" == "null" ]]; then
               continue
             fi
-            repo_path=$(echo "$repo_url" | sed 's/https://github.com\///')
+            repo_path=$(echo "$repo_url" | sed 's|https://github.com/||')
 
             stars=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$repo_path" | jq '.stargazers_count')
 
@@ -83,8 +83,9 @@ jobs:
         if: ${{ steps.diff_check.outputs.changed == 'true' || github.event_name == 'pull_request' }}
         run: |
           hugo mod npm pack
-          npm install
-          sudo rm -rf public
+          npm install @popperjs/core@2.11.8 include-media@1.4.10 --save-dev --legacy-peer-deps
+          npm install --legacy-peer-deps
+          sudo rm -rf public/
           hugo --minify --templateMetrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
