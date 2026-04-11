@@ -1,8 +1,5 @@
 {
   "comments": {
-    "dependencies": {
-      "@popperjs/core": "^2.11.8"
-    },
     "devDependencies": {
       "@fontsource/mulish": "github.com/hugo-toha/toha/v4",
       "@fortawesome/fontawesome-free": "github.com/hugo-toha/toha/v4",
@@ -29,11 +26,9 @@
       "popper.js": "github.com/hugo-toha/toha/v4",
       "postcss": "github.com/hugo-toha/toha/v4",
       "postcss-cli": "github.com/hugo-toha/toha/v4",
-      "typeit": "github.com/hugo-toha/toha/v4"
+      "typeit": "github.com/hugo-toha/toha/v4",
+      "@popperjs/core": "github.com/hugo-toha/toha/v4"
     }
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.11.8"
   },
   "devDependencies": {
     "@fontsource/mulish": "5.2.8",

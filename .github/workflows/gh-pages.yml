@@ -85,8 +85,8 @@ jobs:
           hugo mod npm pack
           npm install
           sudo rm -rf public
-          chmod -R u+w ~/.cache/hugo_cache/ || true
-          chmod -R u+w $(go env GOPATH)/pkg/mod/ || true
+          sudo chmod -R u+w /home/runner/.cache/hugo_cache/ || true
+          sudo chmod -R u+w /home/runner/go/pkg/mod/ || true
           hugo --minify --templateMetrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
