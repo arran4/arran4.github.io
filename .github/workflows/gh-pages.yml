@@ -29,6 +29,7 @@ jobs:
           extended: true
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
 
       - name: Cache stars data
         id: cache-stars
@@ -85,8 +86,8 @@ jobs:
           hugo mod npm pack
           npm install
           sudo rm -rf public
-          sudo chmod -R u+w /home/runner/.cache/hugo_cache/ || true
-          sudo chmod -R u+w /home/runner/go/pkg/mod/ || true
+          chmod -R u+w ${{ runner.temp }}/hugo_cache || true
+          chmod -R u+w $(go env GOPATH)/pkg/mod/ || true
           hugo --minify --templateMetrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
