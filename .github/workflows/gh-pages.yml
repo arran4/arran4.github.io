@@ -49,7 +49,7 @@ jobs:
           STARS_FILE="data/stars.json"
           echo "{}" > "$STARS_FILE"
 
-          for repo_url in $(yq e '.projects[].repo' data/en/sections/projects.yaml); do
+          for repo_url in $(yq -r '.projects[].repo' data/en/sections/projects.yaml); do
             if [[ "$repo_url" == "null" ]]; then
               continue
             fi
