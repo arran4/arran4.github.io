@@ -25,7 +25,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.147.8'
+          hugo-version: '0.160.1'
           extended: true
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
