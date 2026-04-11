@@ -4,7 +4,7 @@ This repository contains the source of my personal website hosted on GitHub Page
 
 ## Building locally
 
-You need the extended version of Hugo and Node/npm installed. Run the following commands from the project root:
+You need the extended version of Hugo, Go, and Node/npm installed. Run the following commands from the project root:
 
 ```bash
 hugo mod npm pack && npm install && hugo --minify
