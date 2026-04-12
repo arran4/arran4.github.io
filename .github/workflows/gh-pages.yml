@@ -86,6 +86,9 @@ jobs:
           npm install @popperjs/core@2.11.8 include-media@1.4.10 --save-dev --legacy-peer-deps
           npm install --legacy-peer-deps
           sudo rm -rf public/
+          export HUGO_CACHEDIR=${{ runner.temp }}/hugo_cache
+          mkdir -p $HUGO_CACHEDIR
+          chmod -R u+w $HUGO_CACHEDIR
           hugo --minify --templateMetrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
