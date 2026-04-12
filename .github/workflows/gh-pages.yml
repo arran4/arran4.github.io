@@ -82,10 +82,13 @@ jobs:
       - name: Everything required
         if: ${{ steps.diff_check.outputs.changed == 'true' || github.event_name == 'pull_request' }}
         run: |
+          export HUGO_CACHEDIR=${{ runner.temp }}/hugo_cache
+          mkdir -p ${{ runner.temp }}/hugo_cache
           hugo mod npm pack
           npm install @popperjs/core@2.11.8 include-media@1.4.10 --save-dev --legacy-peer-deps
           npm install --legacy-peer-deps
           sudo rm -rf public/
+          chmod -R u+w ${{ runner.temp }}/hugo_cache
           hugo --minify --templateMetrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
