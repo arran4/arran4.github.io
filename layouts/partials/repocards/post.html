@@ -24,6 +24,9 @@
       <a
       href="{{ .RelPermalink | relLangURL }}"
       class="float-end btn btn-outline-info btn-sm">{{ i18n "more" }}</a>
+      {{ with .Params.pages_url }}
+        <a href="{{ . }}" class="float-end btn btn-primary btn-sm me-2" target="_blank" rel="noopener noreferrer" aria-label="Visit published site">Visit site</a>
+      {{ end }}
     </div>
   </div>
 </div>

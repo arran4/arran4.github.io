@@ -1,0 +1,37 @@
+{{ define "navbar" }}
+  {{ partial "navigators/navbar.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<section class="content-section" id="content-section">
+  <div class="content container-fluid" id="content">
+    <div class="container py-4">
+      <h1>{{ .Title }}</h1>
+      <p>Published websites and documentation from my public GitHub repositories, updated when this site rebuilds.</p>
+      {{ $repos := where site.RegularPages "Section" "repos" }}
+      {{ $sites := where $repos "Params.pages_url" "ne" "" }}
+      {{ if eq (len $sites) 0 }}
+        <p>No public GitHub Pages sites were discovered.</p>
+      {{ else }}
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+          {{ range sort $sites "Title" "asc" }}
+            <div class="col">
+              <article class="card h-100">
+                <div class="card-body">
+                  <h2 class="h5 card-title">{{ .Title }}</h2>
+                  {{ with .Plain }}<p class="card-text">{{ . | truncate 200 }}</p>{{ end }}
+                  {{ if .Params.archived }}<p class="small text-muted">Archived repository</p>{{ end }}
+                </div>
+                <div class="card-footer d-flex gap-2">
+                  <a href="{{ .Params.pages_url }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">Visit site</a>
+                  <a href="{{ .Params.html_url }}" class="btn btn-outline-info btn-sm" target="_blank" rel="noopener noreferrer">Source code</a>
+                </div>
+              </article>
+            </div>
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

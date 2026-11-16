@@ -55,6 +55,8 @@ params:
       url: /stars/
     - name: Repos
       url: /repos/
+    - name: Pages
+      url: /pages/
 
   features:
     toc:

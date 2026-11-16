@@ -21,6 +21,9 @@
 
                 <div class="title">
                     <h1><a href="{{ $ctx.Params.html_url}}">{{ $ctx.Page.Title }}</a></h1>
+                    {{ with $ctx.Params.pages_url }}
+                    <a href="{{ . }}" class="btn btn-primary btn-sm mt-2" target="_blank" rel="noopener noreferrer">Visit published GitHub Pages site</a>
+                    {{ end }}
                     {{ if $ctx.Params.fork }} Forked {{ end }}
                     {{ if $ctx.Params.archived }} Archived {{ end }}
                 </div>

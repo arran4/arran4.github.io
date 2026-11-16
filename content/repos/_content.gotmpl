@@ -32,6 +32,27 @@
 {{/* Add pages and page resources. */}}
 {{ range $data }}
 
+  {{/* Resolve the actual published Pages URL, including custom domains. */}}
+  {{ $pagesURL := "" }}
+  {{ if .has_pages }}
+    {{ $pagesAPI := printf "https://api.github.com/repos/%s/pages" .full_name }}
+    {{ $pagesResult := try (resources.GetRemote $pagesAPI (dict "headers" $headers)) }}
+    {{ if $pagesResult.Err }}
+      {{ errorf "Unable to resolve GitHub Pages URL for %s: %s" .full_name $pagesResult.Err }}
+    {{ else if not $pagesResult.Value }}
+      {{ errorf "GitHub Pages API returned no data for %s" .full_name }}
+    {{ else }}
+      {{ $pagesData := $pagesResult.Value | transform.Unmarshal }}
+      {{ if and $pagesData.public $pagesData.html_url }}
+        {{ $pagesURL = $pagesData.html_url }}
+      {{ else if not $pagesData.public }}
+        {{ warnf "Omitting non-public GitHub Pages site for %s" .full_name }}
+      {{ else }}
+        {{ errorf "GitHub Pages URL missing for %s" .full_name }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
   {{/* Add page. */}}
   {{ $content := dict "mediaType" "text/markdown" "value" .description }}
   {{ $dates := dict "date" (time.AsTime .updated_at) }}
@@ -44,6 +65,8 @@
         "owner" .owner
         "language" .language
         "homepage" .homepage
+        "has_pages" .has_pages
+        "pages_url" $pagesURL
         "html_url" .html_url
         "repo-tags" $repotags
         "tags" (slice "Repos")

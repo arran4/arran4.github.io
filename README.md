@@ -26,3 +26,10 @@ The published site is served from `https://arran4.github.io/`.
 ## License
 
 This content is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE).
+## GitHub Pages site catalogue
+
+The [Pages directory](https://arran4.github.io/pages/) lists public sites published by repositories owned by `arran4`. It is generated at Hugo build time from the same paginated GitHub repository feed as the [repository catalogue](https://arran4.github.io/repos/).
+
+For repositories reporting `has_pages: true`, Hugo fetches the Pages API's published `html_url`, which handles custom domains and does not confuse arbitrary repository homepage links with GitHub Pages. The published site is linked from the Pages directory, its repository card, and its detail page. Private Pages sites are not exposed.
+
+The nightly GitHub Actions run always builds and deploys the site, even when star counts have not changed, so additions and URL changes are picked up without manual edits. Page discovery errors stop the build rather than silently publishing an incomplete directory. Pull requests build the site for validation without deploying.
