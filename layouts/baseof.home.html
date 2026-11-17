@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="{{ site.Language.LanguageCode | default "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Personal projects, source code, documentation and notes by software engineer Arran Ubels.">
+  <title>{{ site.Title }} — Software, systems & notes</title>
+  <link rel="icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/workbench.css" | relURL }}">
+</head>
+<body class="wb">
+  <a class="wb-skip" href="#main-content">Skip to content</a>
+  <header class="wb-header">
+    <div class="wb-wrap wb-nav">
+      <a class="wb-mark" href="{{ "/" | relURL }}" aria-label="Arran — homepage"><span class="wb-monogram" aria-hidden="true">a4</span><span>arran<span class="wb-accent">.dev/</span></span></a>
+      <nav class="wb-links" aria-label="Main navigation">
+        <a href="#work">Selected work</a>
+        <a href="#sites">Published sites</a>
+        <a href="{{ "repos/" | relURL }}">All repositories</a>
+        <a href="https://arran4.github.io/blog/">Blog</a>
+        <a href="https://github.com/arran4" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  {{ block "main" . }}{{ end }}
+  <footer class="wb-footer">
+    <div class="wb-wrap wb-footer-inner">
+      <p><strong>arran4</strong> <span class="wb-muted">/ Software, tools, documentation, experiments.</span></p>
+      <nav aria-label="Footer navigation">
+        <a href="{{ "/" | relURL }}">Home</a><a href="{{ "repos/" | relURL }}">Repositories</a><a href="{{ "stars/" | relURL }}">Stars</a><a href="https://github.com/arran4">GitHub</a>
+      </nav>
+      <p class="wb-small wb-muted">Public project links are maintained in the website repository. No client-side tracking or third-party UI dependencies on this page.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,35 +1,32 @@
 {{ define "navbar" }}
   {{ partial "navigators/navbar.html" . }}
 {{ end }}
-
 {{ define "content" }}
+<link rel="stylesheet" href="{{ "css/workbench.css" | relURL }}">
 <section class="content-section" id="content-section">
   <div class="content container-fluid" id="content">
-    <div class="container py-4">
-      <h1>{{ .Title }}</h1>
-      <p>Published websites and documentation from my public GitHub repositories, updated when this site rebuilds.</p>
-      {{ $repos := where site.RegularPages "Section" "repos" }}
-      {{ $sites := where $repos "Params.pages_url" "ne" "" }}
-      {{ if eq (len $sites) 0 }}
-        <p>No public GitHub Pages sites were discovered.</p>
-      {{ else }}
-        <div class="row row-cols-1 row-cols-md-2 g-3">
-          {{ range sort $sites "Title" "asc" }}
-            <div class="col">
-              <article class="card h-100">
-                <div class="card-body">
-                  <h2 class="h5 card-title">{{ .Title }}</h2>
-                  {{ with .Plain }}<p class="card-text">{{ . | truncate 200 }}</p>{{ end }}
-                  {{ if .Params.archived }}<p class="small text-muted">Archived repository</p>{{ end }}
-                </div>
-                <div class="card-footer d-flex gap-2">
-                  <a href="{{ .Params.pages_url }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">Visit site</a>
-                  <a href="{{ .Params.html_url }}" class="btn btn-outline-info btn-sm" target="_blank" rel="noopener noreferrer">Source code</a>
-                </div>
+    <div class="container wb-pages">
+      <header class="wb-pages-head">
+        <p class="wb-kicker">REFERENCE / PUBLIC REPOSITORY INVENTORY</p>
+        <h1>Public GitHub Pages sites</h1>
+        <p>This manually reviewed index includes all public repositories found with Pages enabled as of 17 November 2026. It is intentionally not linked from the site's main menu. URLs are listed only when a published destination was advertised by the repository.</p>
+      </header>
+      {{ range site.Data.pages.groups }}
+        <section class="wb-pages-group" aria-label="{{ .name }}">
+          <h2>{{ .name }}</h2>
+          <p>{{ .intro }}</p>
+          <div class="wb-pages-grid">
+            {{ range where site.Data.pages.sites "group" .id }}
+              <article class="wb-pages-card">
+                <h3>{{ .name }}</h3>
+                <p>{{ .summary }}</p>
+                {{ if .archived }}<p class="wb-pages-note">Archived repository</p>{{ end }}
+                {{ if .url }}<a href="{{ .url }}" target="_blank" rel="noopener noreferrer">Published site ↗</a>{{ else }}<span class="wb-pages-note">Published URL not confirmed</span>{{ end }}
+                <a href="https://github.com/{{ .repo }}" target="_blank" rel="noopener noreferrer">Repository ↗</a>
               </article>
-            </div>
-          {{ end }}
-        </div>
+            {{ end }}
+          </div>
+        </section>
       {{ end }}
     </div>
   </div>
