@@ -34,25 +34,8 @@ jobs:
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
-      - name: Fetch Stars
-        id: fetch_stars
-        run: |
-          sudo apt-get update && sudo apt-get install -y yq jq
-
-          STARS_FILE="data/stars.json"
-          echo "{}" > "$STARS_FILE"
-
-          for repo_url in $(yq '.projects[].repo' data/en/sections/projects.yaml | tr -d '"'); do
-            if [[ "$repo_url" == "null" ]]; then
-              continue
-            fi
-            repo_path=$(echo "$repo_url" | sed 's|https://github.com/||')
-
-            stars=$(curl -fsSL --retry 3 "https://api.github.com/repos/$repo_path" | jq '.stargazers_count')
-
-            tmpfile=$(mktemp)
-            jq --arg repo "$repo_path" --argjson stars "$stars" '.[$repo] = $stars' "$STARS_FILE" > "$tmpfile" && mv "$tmpfile" "$STARS_FILE"
-          done
+      - name: Refresh public star-count snapshot (best effort)
+        run: python3 scripts/refresh-stars.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
