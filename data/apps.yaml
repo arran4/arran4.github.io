@@ -1,0 +1,36 @@
+# Public landing pages already hosted within arran4.github.io.
+# This is not a list of separately enabled GitHub Pages repositories.
+# Source repos may be private; do not link them automatically.
+apps:
+  - name: "Movie Night Scheduler"
+    path: "/arrans-movie-night-scheduler/"
+    summary: "Plan shared movie nights with polls and suggestions."
+    group: planning
+  - name: "Aurelie's Dinners"
+    path: "/aurelies-dinners/"
+    summary: "An offline Android meal picker for saved dinner ideas."
+    group: everyday
+  - name: "CBZ Viewer"
+    path: "/cbz-viewer/"
+    summary: "Read CBZ comic archives with bookmarks and an offline-friendly design."
+    group: reading
+  - name: "Cook Times"
+    path: "/cook-times/"
+    summary: "Track several kitchen timers and meal timings."
+    group: everyday
+  - name: "Gizmo Card Creator"
+    path: "/gizmo-card-creator/"
+    summary: "Design and print custom cards for a board game."
+    group: creative
+  - name: "Lojban Messenger Dictionary"
+    path: "/lojban-messenger-dictionary/"
+    summary: "Look up Lojban words inside Facebook Messenger conversations."
+    group: reading
+  - name: "Protein Calculator"
+    path: "/protein-calculator/"
+    summary: "Estimate protein targets based on activity and goals."
+    group: everyday
+  - name: "RPG Gym Stats"
+    path: "/rpg-gym-stats/"
+    summary: "Record workouts with XP and achievements."
+    group: everyday

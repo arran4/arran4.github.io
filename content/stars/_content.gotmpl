@@ -12,7 +12,8 @@
     {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
     {{ $result := try (resources.GetRemote $pagedUrl (dict "headers" $headers)) }}
     {{ if $result.Err }}
-      {{ errorf "Unable to get remote resource %s: %s" $pagedUrl $result.Err }}
+      {{ warnf "Public GitHub starred endpoint unavailable at %s: %s; published list may be incomplete (%d entries fetched)" $pagedUrl $result.Err (len $data) }}
+      {{ $morePages = false }}
     {{ else if $result.Value }}
       {{ $pageData := $result.Value | transform.Unmarshal }}
       {{ $data = $data | append $pageData }}
@@ -20,7 +21,8 @@
         {{ $morePages = false }}
       {{ end }}
     {{ else }}
-      {{ errorf "Unable to get remote resource %s" $pagedUrl }}
+      {{ warnf "Public GitHub starred endpoint returned no data at %s; published list may be incomplete (%d entries fetched)" $pagedUrl (len $data) }}
+      {{ $morePages = false }}
     {{ end }}
   {{ end }}
 {{ end }}

@@ -114,3 +114,14 @@ body.wb {margin:0; background:var(--wb-bg); color:var(--wb-text); font:16px/1.65
 @media (max-width:980px) {.wb-feature-grid {grid-template-columns:repeat(2,minmax(0,1fr))}.wb-hero {grid-template-columns:1fr;gap:3rem}.wb-console {max-width:540px}.wb-pages-grid {grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:680px) {.wb-wrap {width:min(100% - 1.5rem,1200px)}.wb-nav {align-items:flex-start;flex-direction:column;padding:1rem 0;gap:.8rem}.wb-links {gap:.6rem 1rem;font-size:.77rem}.wb-hero {padding:3rem 0}.wb h1 {font-size:clamp(2.4rem,11vw,4.2rem)}.wb-section-heading {flex-direction:column;align-items:start;gap:.8rem}.wb-feature-grid,.wb-site-list,.wb-pages-grid,.wb-recovery ul {grid-template-columns:1fr}.wb-site-group {grid-template-columns:1fr;gap:.7rem}.wb-cta {flex-direction:column;align-items:start;padding:1.35rem}.wb-console {transform:none}}
 @media (prefers-reduced-motion:reduce) {html {scroll-behavior:auto}.wb-feature {transition:none}}
+
+/* First-party app pages have a separate index from Pages-enabled repositories. */
+.wb-app-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.wb-app-card {background:var(--wb-panel);border:1px solid var(--wb-line);border-radius:9px;padding:1.2rem;min-width:0}
+.wb-app-card h3 {font-size:1rem;line-height:1.35;margin:.5rem 0;letter-spacing:-.025em}
+.wb-app-card h3 a {color:var(--wb-text)}
+.wb-app-card h3 a:hover {color:var(--wb-accent)}
+.wb-app-card h3 span {color:var(--wb-accent)}
+.wb-app-card p:not(.wb-label) {font-size:.83rem;line-height:1.6;color:var(--wb-muted);margin:.4rem 0}
+@media(max-width:980px){.wb-app-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.wb-app-grid{grid-template-columns:1fr}}

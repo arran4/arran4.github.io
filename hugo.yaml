@@ -54,10 +54,10 @@ params:
       url: https://arran4.github.io/blog/
     - name: Header
       url: https://arran4.github.io/header/
-    - name: Gentoo Overlay
-      url: https://arran4.github.io/arrans_overlay/
-    - name: KLookup
-      url: https://arran4.github.io/klookup/
+    - name: Gentoo Packages
+      url: https://arran4.github.io/gentoo-packages/
+    - name: Go Subcommand
+      url: https://arran4.github.io/go-subcommand/
 
   features:
     toc:

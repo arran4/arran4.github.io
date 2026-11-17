@@ -10,10 +10,10 @@
   <p>A relative link may have sent you into the wrong project directory. Return to the main index or jump directly to a familiar published site:</p>
   <p><a href="{{ "/" | relURL }}">Return to the homepage ↗</a></p>
   <ul>
-    {{ range where site.Data.pages.sites "featured" true }}
+    {{ range sort (where site.Data.pages.sites "featured" true) "featured_order" }}
       {{ with .url }}<li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ end }}{{ .name }} <span aria-hidden="true">↗</span>{{ with .url }}</a></li>{{ end }}
     {{ end }}
   </ul>
-  <p>Or visit <a href="{{ "repos/" | relURL }}">the complete repository index</a>.</p>
+  <p>Or visit <a href="{{ "repos/" | relURL }}">the complete repository index</a> or <a href="{{ "/" | relURL }}#apps">the application directory</a>.</p>
 </section>
 {{ end }}

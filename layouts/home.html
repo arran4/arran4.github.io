@@ -27,7 +27,7 @@
       <p>Documentation and project pages, directly accessible without going through a repository listing.</p>
     </div>
     <div class="wb-feature-grid">
-      {{ range where site.Data.pages.sites "featured" true }}
+      {{ range sort (where site.Data.pages.sites "featured" true) "featured_order" }}
         <article class="wb-feature">
           <div class="wb-feature-top"><span class="wb-label">{{ .group | humanize }}</span><span class="wb-glyph" aria-hidden="true">↗</span></div>
           <h3>{{ .name }}</h3>
@@ -41,10 +41,26 @@
     </div>
   </section>
 
+  <section id="apps" class="wb-section wb-wrap wb-app-section" aria-labelledby="apps-title">
+    <div class="wb-section-heading">
+      <div><p class="wb-kicker">02 / APPS & USEFUL SMALL TOOLS</p><h2 id="apps-title">Apps and project pages</h2></div>
+      <p>Public landing pages hosted on this site, including apps with source code that is not necessarily public.</p>
+    </div>
+    <div class="wb-app-grid">
+      {{ range site.Data.apps.apps }}
+        <article class="wb-app-card">
+          <p class="wb-label">{{ .group | humanize }}</p>
+          <h3><a href="{{ .path | relURL }}">{{ .name }} <span aria-hidden="true">↗</span></a></h3>
+          <p>{{ .summary }}</p>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+
   <section id="sites" class="wb-section wb-wrap wb-site-section" aria-labelledby="sites-title">
     <div class="wb-section-heading">
-      <div><p class="wb-kicker">02 / SHORTCUTS TO PUBLIC WORK</p><h2 id="sites-title">Published sites</h2></div>
-      <p>Not every repository needs a place in the main navigation. Find the published site by what it does.</p>
+      <div><p class="wb-kicker">03 / SHORTCUTS TO PUBLIC WORK</p><h2 id="sites-title">Published sites</h2></div>
+      <p>Browse the full public Pages catalogue by purpose. These are direct published-site links, not repository landing pages.</p>
     </div>
     {{ range site.Data.pages.groups }}
       {{ $group := . }}
@@ -83,7 +99,7 @@
   </section>
 
   <section class="wb-cta wb-wrap" id="about" aria-labelledby="about-title">
-    <div><p class="wb-kicker">03 / SOURCE & CONTEXT</p><h2 id="about-title">Read the code. Follow the trail.</h2>
+    <div><p class="wb-kicker">04 / SOURCE & CONTEXT</p><h2 id="about-title">Read the code. Follow the trail.</h2>
       <p>This is a curated starting point, not a complete software catalogue. The full repository index remains available, including smaller utilities and older experiments.</p></div>
     <div class="wb-actions"><a class="wb-button wb-button-primary" href="{{ "repos/" | relURL }}">Explore repositories ↗</a><a class="wb-button wb-button-ghost" href="https://github.com/arran4" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a></div>
   </section>

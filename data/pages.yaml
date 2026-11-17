@@ -1,5 +1,7 @@
 # Public GitHub Pages catalogue. Maintained by hand from public GitHub repository metadata (2026-11-17). No build-time Pages API calls. An empty url means Pages is enabled but the published address was not verified.
 # Links are repository-advertised homepage URLs where they point to the Pages site; check availability before promoting.
+# featured is a deliberately small, manually reviewed editorial selection, not a Pages ranking.
+# featured_order controls homepage order. This file does not update automatically.
 groups:
   - id: linux
     name: "Linux, Gentoo & desktop"
@@ -22,14 +24,14 @@ sites:
     group: linux
     summary: "Gentoo overlay packages and documentation."
     url: "https://arran4.github.io/arrans_overlay/"
-    featured: true
+    featured: false
     archived: false
   - repo: "arran4/gentoo-overlay-publisher"
     name: "Gentoo Overlay Publisher"
     group: linux
     summary: "Safely publish generated ebuilds and metadata into overlays."
     url: "https://arran4.github.io/gentoo-overlay-publisher/"
-    featured: true
+    featured: false
     archived: false
   - repo: "arran4/eselect-version-manager"
     name: "Eselect Version Manager"
@@ -48,9 +50,10 @@ sites:
   - repo: "arran4/gentoo-packages"
     name: "Gentoo Packages"
     group: linux
-    summary: "Gentoo package resources."
+    summary: "Browse the Gentoo packages catalogue and package information."
     url: "https://arran4.github.io/gentoo-packages/"
-    featured: false
+    featured: true
+    featured_order: 2
     archived: false
   - repo: "arran4/gentoo-overlay-publisher-smoke-overlay"
     name: "Overlay Publisher Smoke Overlay"
@@ -64,7 +67,7 @@ sites:
     group: linux
     summary: "KDE Plasma 6 lookup utility with extensible providers."
     url: "https://arran4.github.io/klookup/"
-    featured: true
+    featured: false
     archived: false
   - repo: "arran4/header"
     name: "Header"
@@ -72,6 +75,7 @@ sites:
     summary: "Inspect, validate and visualise website metadata from the command line."
     url: "https://arran4.github.io/header/"
     featured: true
+    featured_order: 3
     archived: false
   - repo: "arran4/go-subcommand"
     name: "go-subcommand"
@@ -79,13 +83,14 @@ sites:
     summary: "Dependency-free Go subcommand and CLI argument generation."
     url: "https://arran4.github.io/go-subcommand/"
     featured: true
+    featured_order: 4
     archived: false
   - repo: "arran4/gogenconf"
     name: "gogenconf"
     group: development
     summary: "Declarative configuration and generated strongly typed Go bindings."
     url: "https://arran4.github.io/gogenconf/"
-    featured: true
+    featured: false
     archived: false
   - repo: "arran4/go-gui-projects"
     name: "Go GUI Projects"
@@ -170,6 +175,7 @@ sites:
     summary: "Articles and notes on software and engineering."
     url: "https://arran4.github.io/blog/"
     featured: true
+    featured_order: 1
     archived: false
   - repo: "arran4/awesome-terminal-multiplexers"
     name: "Awesome Terminal Multiplexers"
