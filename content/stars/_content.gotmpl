@@ -1,11 +1,8 @@
 {{/* Get remote data. */}}
 {{ $data := slice }}
 {{ $url := "https://api.github.com/users/arran4/starred" }}
-{{ $githubToken := getenv "GITHUB_TOKEN" }}
+{{/* Public starred repositories only. Do not authenticate these requests. */}}
 {{ $headers := dict }}
-{{ if $githubToken }}
-  {{ $headers = dict "Authorization" (printf "token %s" $githubToken) }}
-{{ end }}
 {{ $perPage := 100 }}
 {{ $maxPages := 20 }}
 {{ $morePages := true }}
