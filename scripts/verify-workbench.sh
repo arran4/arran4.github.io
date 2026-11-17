@@ -8,6 +8,16 @@ done
 
 grep -Fq 'wb-feature-grid' public/index.html || { echo "Custom homepage was not rendered" >&2; exit 1; }
 grep -Fq 'Published sites' public/index.html || { echo "Published-site shortcuts missing" >&2; exit 1; }
+grep -Fq 'Apps and project pages' public/index.html || { echo "App directory missing" >&2; exit 1; }
+grep -Fq 'https://arran4.github.io/gentoo-packages/' public/index.html || { echo "Featured Gentoo Packages link missing" >&2; exit 1; }
+for app in arrans-movie-night-scheduler aurelies-dinners cbz-viewer cook-times gizmo-card-creator lojban-messenger-dictionary protein-calculator rpg-gym-stats; do
+  test -s "public/$app/index.html" || { echo "Missing public app landing page: $app" >&2; exit 1; }
+  grep -Fq "/$app/" public/index.html || { echo "App shortcut missing: $app" >&2; exit 1; }
+done
+if grep -Eq 'github.com/arran4/(cbz_viewer|cards)(["/]|$)' public/index.html; then
+  echo "Homepage must not link to private app source repositories" >&2
+  exit 1
+fi
 grep -Fq 'https://arran4.github.io/klookup/' public/index.html || { echo "Expected direct link missing" >&2; exit 1; }
 grep -Fq 'Public GitHub Pages sites' public/pages/index.html || { echo "Reference directory was not rendered" >&2; exit 1; }
 grep -Fq 'That page isn' public/404.html || { echo "Recovery 404 page was not rendered" >&2; exit 1; }
