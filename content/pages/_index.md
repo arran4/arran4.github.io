@@ -1,6 +1,6 @@
 ---
-title: "GitHub Pages sites"
-description: "Public sites and documentation published through GitHub Pages across my repositories."
+title: "Public GitHub Pages sites"
+description: "Reference index of public websites and documentation published through my repositories."
 ---
 
-These live websites and documentation sites are discovered automatically from public repositories on GitHub. Visit a site directly, or open its source repository.
+This reference index is based on an audited static inventory of public repositories with GitHub Pages enabled. It is deliberately unlisted from the navigation; the homepage features direct links to the projects most people are looking for.

@@ -26,10 +26,20 @@ The published site is served from `https://arran4.github.io/`.
 ## License
 
 This content is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE).
-## GitHub Pages site catalogue
+## Published sites and custom homepage
 
-The [Pages directory](https://arran4.github.io/pages/) lists public sites published by repositories owned by `arran4`. It is generated at Hugo build time from the same paginated GitHub repository feed as the [repository catalogue](https://arran4.github.io/repos/).
+The home page is a custom, accessible visual project index backed by `data/pages.yaml`.
+This manually reviewed static file lists **all 33 public repositories found with Pages enabled on 2026-11-17**, including this website. Entries include a repository, category, description, featured flag and URL. Five Pages-enabled repositories have no confirmed published URL; they remain visible in the inventory with a source link but are not assigned invented web addresses.
 
-For repositories reporting `has_pages: true`, Hugo fetches the Pages API's published `html_url`, which handles custom domains and does not confuse arbitrary repository homepage links with GitHub Pages. The published site is linked from the Pages directory, its repository card, and its detail page. Private Pages sites are not exposed.
+Update `data/pages.yaml` through a normal code review whenever a new Pages site is launched, renamed, archived, or removed. **No Pages API calls occur at build time.** Curated direct links also appear in the existing theme navigation so a user can recover after a broken relative link. The comprehensive `/pages/` directory is generated for reference but intentionally not added to the primary menu.
 
-The nightly GitHub Actions run always builds and deploys the site, even when star counts have not changed, so additions and URL changes are picked up without manual edits. Page discovery errors stop the build rather than silently publishing an incomplete directory. Pull requests build the site for validation without deploying.
+The `/repos/` catalogue still queries the **unauthenticated public** `https://api.github.com/users/arran4/repos` endpoint. It matches entries from `data/pages.yaml` to attach a direct site link where the published URL is known. No GitHub token is passed to those requests, and the workflow's single public star count request is also unauthenticated. The nightly GitHub Actions job rebuilds even if star counts are unchanged.
+
+### Design and verification
+
+The bespoke homepage and its styles are kept in `layouts/home.html`, `layouts/baseof.home.html` and `static/css/workbench.css`. Legacy app/privacy pages and the old Toha-backed repository browser are retained to preserve their paths.
+
+To check this change:
+1. Review every public Pages-enabled repository against `data/pages.yaml` and resolve the five missing site URLs where possible.
+2. Run the Hugo build (`hugo mod npm pack && npm install && hugo --minify`), then inspect `public/index.html`, `public/pages/index.html`, `public/404.html` and the generated `/repos/` entries.
+3. Verify all links, keyboard navigation, colour contrast, mobile layout and the light/dark presentations before merging.

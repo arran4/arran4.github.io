@@ -47,13 +47,11 @@ jobs:
             fi
             repo_path=$(echo "$repo_url" | sed 's|https://github.com/||')
 
-            stars=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$repo_path" | jq '.stargazers_count')
+            stars=$(curl -fsSL --retry 3 "https://api.github.com/repos/$repo_path" | jq '.stargazers_count')
 
             tmpfile=$(mktemp)
             jq --arg repo "$repo_path" --argjson stars "$stars" '.[$repo] = $stars' "$STARS_FILE" > "$tmpfile" && mv "$tmpfile" "$STARS_FILE"
           done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -70,8 +68,6 @@ jobs:
           mkdir -p $HUGO_CACHEDIR
           chmod -R u+w $HUGO_CACHEDIR
           hugo --minify --templateMetrics
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

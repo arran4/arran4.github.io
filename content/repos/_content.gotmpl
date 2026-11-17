@@ -1,11 +1,8 @@
 {{/* Get remote data. */}}
 {{ $data := slice }}
 {{ $url := "https://api.github.com/users/arran4/repos" }}
-{{ $githubToken := getenv "GITHUB_TOKEN" }}
+{{/* Public user repository endpoint. Never send credentials with these requests. */}}
 {{ $headers := dict }}
-{{ if $githubToken }}
-  {{ $headers = dict "Authorization" (printf "token %s" $githubToken) }}
-{{ end }}
 {{ $perPage := 100 }}
 {{ $maxPages := 20 }}
 {{ $morePages := true }}
@@ -32,25 +29,11 @@
 {{/* Add pages and page resources. */}}
 {{ range $data }}
 
-  {{/* Resolve the actual published Pages URL, including custom domains. */}}
+  {{/* Published URL comes only from a reviewed, static public-repository inventory. */}}
   {{ $pagesURL := "" }}
-  {{ if .has_pages }}
-    {{ $pagesAPI := printf "https://api.github.com/repos/%s/pages" .full_name }}
-    {{ $pagesResult := try (resources.GetRemote $pagesAPI (dict "headers" $headers)) }}
-    {{ if $pagesResult.Err }}
-      {{ errorf "Unable to resolve GitHub Pages URL for %s: %s" .full_name $pagesResult.Err }}
-    {{ else if not $pagesResult.Value }}
-      {{ errorf "GitHub Pages API returned no data for %s" .full_name }}
-    {{ else }}
-      {{ $pagesData := $pagesResult.Value | transform.Unmarshal }}
-      {{ if and $pagesData.public $pagesData.html_url }}
-        {{ $pagesURL = $pagesData.html_url }}
-      {{ else if not $pagesData.public }}
-        {{ warnf "Omitting non-public GitHub Pages site for %s" .full_name }}
-      {{ else }}
-        {{ errorf "GitHub Pages URL missing for %s" .full_name }}
-      {{ end }}
-    {{ end }}
+  {{ $knownSites := where site.Data.pages.sites "repo" .full_name }}
+  {{ if gt (len $knownSites) 0 }}
+    {{ $pagesURL = (index $knownSites 0).url }}
   {{ end }}
 
   {{/* Add page. */}}
