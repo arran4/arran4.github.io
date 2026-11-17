@@ -6,14 +6,14 @@
   <meta name="color-scheme" content="dark light">
   <meta name="description" content="Personal projects, source code, documentation and notes by software engineer Arran Ubels.">
   <title>{{ site.Title }} — Software, systems & notes</title>
-  <link rel="icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
+  {{ with resources.Get "images/favicon.png" }}<link rel="icon" type="image/png" href="{{ .RelPermalink }}">{{ end }}
   <link rel="stylesheet" href="{{ "css/workbench.css" | relURL }}">
 </head>
 <body class="wb">
   <a class="wb-skip" href="#main-content">Skip to content</a>
   <header class="wb-header">
     <div class="wb-wrap wb-nav">
-      <a class="wb-mark" href="{{ "/" | relURL }}" aria-label="Arran — homepage"><span class="wb-monogram" aria-hidden="true">a4</span><span>arran<span class="wb-accent">.dev/</span></span></a>
+      <a class="wb-mark" href="{{ "/" | relURL }}" aria-label="Arran — homepage"><span class="wb-monogram" aria-hidden="true">a4</span><span>arran4<span class="wb-accent">.github.io/</span></span></a>
       <nav class="wb-links" aria-label="Main navigation">
         <a href="#work">Selected work</a>
         <a href="#sites">Published sites</a>
