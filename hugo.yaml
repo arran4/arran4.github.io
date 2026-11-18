@@ -38,11 +38,6 @@ taxonomies:
   star-tag: star-tags
   repo-tag: repo-tags
 
-security:
-  funcs:
-    getenv:
-      - GITHUB_TOKEN
-
 params:
   background: images/IMG_20161023_131510.jpg
   logo:
@@ -55,6 +50,14 @@ params:
       url: /stars/
     - name: Repos
       url: /repos/
+    - name: Blog
+      url: https://arran4.github.io/blog/
+    - name: Header
+      url: https://arran4.github.io/header/
+    - name: Gentoo Packages
+      url: https://arran4.github.io/gentoo-packages/
+    - name: Go Subcommand
+      url: https://arran4.github.io/go-subcommand/
 
   features:
     toc:

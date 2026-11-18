@@ -1,0 +1,107 @@
+{{ define "main" }}
+<main id="main-content">
+  <section class="wb-hero wb-wrap" aria-labelledby="wb-heading">
+    <div>
+      <p class="wb-eyebrow"><span class="wb-pulse" aria-hidden="true"></span> OPEN SOURCE / SOFTWARE ENGINEERING</p>
+      <h1 id="wb-heading">Software, systems, <span class="wb-accent">and useful oddities.</span></h1>
+      <p class="wb-lede">I'm Arran. I build software, explore how systems work, and publish the code and documentation along the way. This is a map of the projects and experiments worth finding again.</p>
+      <div class="wb-actions">
+        <a class="wb-button wb-button-primary" href="#work">Explore selected work <span aria-hidden="true">↘</span></a>
+        <a class="wb-button wb-button-ghost" href="#sites">Find a published site</a>
+      </div>
+    </div>
+    <aside class="wb-console" aria-label="Areas of interest">
+      <div class="wb-console-top"><span aria-hidden="true">● ● ●</span><span>~/workbench</span></div>
+      <p class="wb-console-title">current interests<span class="wb-cursor" aria-hidden="true">_</span></p>
+      <div class="wb-console-row"><span>01</span><span>Linux / Gentoo</span><span>↗</span></div>
+      <div class="wb-console-row"><span>02</span><span>Go / developer tooling</span><span>↗</span></div>
+      <div class="wb-console-row"><span>03</span><span>KDE / desktop utilities</span><span>↗</span></div>
+      <div class="wb-console-row"><span>04</span><span>Feeds / publishing</span><span>↗</span></div>
+      <p class="wb-console-foot">Everything here links to public project material.</p>
+    </aside>
+  </section>
+
+  <section id="work" class="wb-section wb-wrap" aria-labelledby="selected-title">
+    <div class="wb-section-heading">
+      <div><p class="wb-kicker">01 / FIND SOMETHING USEFUL</p><h2 id="selected-title">Selected work</h2></div>
+      <p>Documentation and project pages, directly accessible without going through a repository listing.</p>
+    </div>
+    <div class="wb-feature-grid">
+      {{ range sort (where site.Data.pages.sites "featured" true) "featured_order" }}
+        <article class="wb-feature">
+          <div class="wb-feature-top"><span class="wb-label">{{ .group | humanize }}</span><span class="wb-glyph" aria-hidden="true">↗</span></div>
+          <h3>{{ .name }}</h3>
+          <p>{{ .summary }}</p>
+          <div class="wb-feature-actions">
+            {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">Open site <span aria-hidden="true">↗</span></a>{{ end }}
+            <a class="wb-secondary-link" href="https://github.com/{{ .repo }}" target="_blank" rel="noopener noreferrer">Source</a>
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+
+  <section id="apps" class="wb-section wb-wrap wb-app-section" aria-labelledby="apps-title">
+    <div class="wb-section-heading">
+      <div><p class="wb-kicker">02 / APPS & USEFUL SMALL TOOLS</p><h2 id="apps-title">Apps and project pages</h2></div>
+      <p>Public landing pages hosted on this site, including apps with source code that is not necessarily public.</p>
+    </div>
+    <div class="wb-app-grid">
+      {{ range site.Data.apps.apps }}
+        <article class="wb-app-card">
+          <p class="wb-label">{{ .group | humanize }}</p>
+          <h3><a href="{{ .path | relURL }}">{{ .name }} <span aria-hidden="true">↗</span></a></h3>
+          <p>{{ .summary }}</p>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+
+  <section id="sites" class="wb-section wb-wrap wb-site-section" aria-labelledby="sites-title">
+    <div class="wb-section-heading">
+      <div><p class="wb-kicker">03 / SHORTCUTS TO PUBLIC WORK</p><h2 id="sites-title">Published sites</h2></div>
+      <p>Browse the full public Pages catalogue by purpose. These are direct published-site links, not repository landing pages.</p>
+    </div>
+    {{ range site.Data.pages.groups }}
+      {{ $group := . }}
+      {{ if ne .id "archive" }}
+        {{ $items := where site.Data.pages.sites "group" .id }}
+        <section class="wb-site-group" aria-label="{{ .name }}">
+          <div class="wb-group-head"><h3>{{ .name }}</h3><p>{{ .intro }}</p></div>
+          <ul class="wb-site-list">
+            {{ range $items }}
+              <li>
+                {{ if .url }}
+                  <a href="{{ .url }}" target="_blank" rel="noopener noreferrer"><span>{{ .name }}</span><span class="wb-site-arrow" aria-hidden="true">↗</span></a>
+                {{ else }}
+                  <a href="https://github.com/{{ .repo }}" target="_blank" rel="noopener noreferrer"><span>{{ .name }}</span><span class="wb-site-pending">Site URL unconfirmed · source ↗</span></a>
+                {{ end }}
+              </li>
+            {{ end }}
+          </ul>
+        </section>
+      {{ end }}
+    {{ end }}
+    <details class="wb-archive">
+      <summary>Older projects, forks and experiments <span aria-hidden="true">+</span></summary>
+      <ul class="wb-site-list">
+        {{ range where site.Data.pages.sites "group" "archive" }}
+          <li>
+            {{ if .url }}
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer"><span>{{ .name }}</span><span class="wb-site-arrow" aria-hidden="true">↗</span></a>
+            {{ else }}
+              <a href="https://github.com/{{ .repo }}" target="_blank" rel="noopener noreferrer"><span>{{ .name }}</span><span class="wb-site-pending">Site URL unconfirmed · source ↗</span></a>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </details>
+  </section>
+
+  <section class="wb-cta wb-wrap" id="about" aria-labelledby="about-title">
+    <div><p class="wb-kicker">04 / SOURCE & CONTEXT</p><h2 id="about-title">Read the code. Follow the trail.</h2>
+      <p>This is a curated starting point, not a complete software catalogue. The full repository index remains available, including smaller utilities and older experiments.</p></div>
+    <div class="wb-actions"><a class="wb-button wb-button-primary" href="{{ "repos/" | relURL }}">Explore repositories ↗</a><a class="wb-button wb-button-ghost" href="https://github.com/arran4" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a></div>
+  </section>
+</main>
+{{ end }}

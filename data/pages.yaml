@@ -1,0 +1,256 @@
+# Public GitHub Pages catalogue. Maintained by hand from public GitHub repository metadata (2026-11-17). No build-time Pages API calls. An empty url means Pages is enabled but the published address was not verified.
+# Links are repository-advertised homepage URLs where they point to the Pages site; check availability before promoting.
+# featured is a deliberately small, manually reviewed editorial selection, not a Pages ranking.
+# featured_order controls homepage order. This file does not update automatically.
+groups:
+  - id: linux
+    name: "Linux, Gentoo & desktop"
+    intro: "Portage tooling, KDE applications and Linux-oriented infrastructure."
+  - id: development
+    name: "Developer tools & libraries"
+    intro: "Go tooling, code utilities, documentation and development experiments."
+  - id: feeds
+    name: "Publishing, feeds & automation"
+    intro: "RSS bridges, import tools and automation."
+  - id: resources
+    name: "Writing & reference collections"
+    intro: "Technical notes, curated links and the personal site itself."
+  - id: archive
+    name: "Older work & experiments"
+    intro: "Archived, forked or historical work retained for reference."
+sites:
+  - repo: "arran4/arrans_overlay"
+    name: "Arran's Gentoo Overlay"
+    group: linux
+    summary: "Gentoo overlay packages and documentation."
+    url: "https://arran4.github.io/arrans_overlay/"
+    featured: false
+    archived: false
+  - repo: "arran4/gentoo-overlay-publisher"
+    name: "Gentoo Overlay Publisher"
+    group: linux
+    summary: "Safely publish generated ebuilds and metadata into overlays."
+    url: "https://arran4.github.io/gentoo-overlay-publisher/"
+    featured: false
+    archived: false
+  - repo: "arran4/eselect-version-manager"
+    name: "Eselect Version Manager"
+    group: linux
+    summary: "Project-aware toolchain selection with Gentoo eselect."
+    url: "https://arran4.github.io/eselect-version-manager/"
+    featured: false
+    archived: false
+  - repo: "arran4/eselect-version-manager-overlay"
+    name: "Eselect Version Manager Overlay"
+    group: linux
+    summary: "Portage ebuilds and integration fixtures for version management."
+    url: "https://arran4.github.io/eselect-version-manager-overlay/"
+    featured: false
+    archived: false
+  - repo: "arran4/gentoo-packages"
+    name: "Gentoo Packages"
+    group: linux
+    summary: "Browse the Gentoo packages catalogue and package information."
+    url: "https://arran4.github.io/gentoo-packages/"
+    featured: true
+    featured_order: 2
+    archived: false
+  - repo: "arran4/gentoo-overlay-publisher-smoke-overlay"
+    name: "Overlay Publisher Smoke Overlay"
+    group: linux
+    summary: "Disposable end-to-end testing overlay; not for production use."
+    url: ""
+    featured: false
+    archived: false
+  - repo: "arran4/klookup"
+    name: "KLookup"
+    group: linux
+    summary: "KDE Plasma 6 lookup utility with extensible providers."
+    url: "https://arran4.github.io/klookup/"
+    featured: false
+    archived: false
+  - repo: "arran4/header"
+    name: "Header"
+    group: development
+    summary: "Inspect, validate and visualise website metadata from the command line."
+    url: "https://arran4.github.io/header/"
+    featured: true
+    featured_order: 3
+    archived: false
+  - repo: "arran4/go-subcommand"
+    name: "go-subcommand"
+    group: development
+    summary: "Dependency-free Go subcommand and CLI argument generation."
+    url: "https://arran4.github.io/go-subcommand/"
+    featured: true
+    featured_order: 4
+    archived: false
+  - repo: "arran4/gogenconf"
+    name: "gogenconf"
+    group: development
+    summary: "Declarative configuration and generated strongly typed Go bindings."
+    url: "https://arran4.github.io/gogenconf/"
+    featured: false
+    archived: false
+  - repo: "arran4/go-gui-projects"
+    name: "Go GUI Projects"
+    group: development
+    summary: "A list of Go GUI projects."
+    url: "https://arran4.github.io/go-gui-projects/"
+    featured: false
+    archived: false
+  - repo: "arran4/mlocate_explorer"
+    name: "mlocate Explorer"
+    group: development
+    summary: "Explore the Linux mlocate database."
+    url: "https://arran4.github.io/mlocate_explorer/"
+    featured: false
+    archived: false
+  - repo: "arran4/kagura-original"
+    name: "Kagura"
+    group: development
+    summary: "Java reporting and marshalling framework."
+    url: "https://arran4.github.io/kagura-original/"
+    featured: false
+    archived: false
+  - repo: "arran4/strings2"
+    name: "strings2"
+    group: development
+    summary: "Go string helpers; Pages enabled but the homepage points to pkg.go.dev."
+    url: ""
+    featured: false
+    archived: false
+  - repo: "arran4/githubpages"
+    name: "GitHub Pages example"
+    group: development
+    summary: "An example of Hugo and GitHub Pages deployment with Actions."
+    url: ""
+    featured: false
+    archived: false
+  - repo: "arran4/abc-mediawatch-rss"
+    name: "ABC Media Watch RSS"
+    group: feeds
+    summary: "RSS feed generator for ABC Media Watch."
+    url: "https://arran4.github.io/abc-mediawatch-rss/"
+    featured: false
+    archived: false
+  - repo: "arran4/abc-justin-rss"
+    name: "ABC Just In RSS"
+    group: feeds
+    summary: "Converts ABC breaking news into RSS."
+    url: "https://arran4.github.io/abc-justin-rss/"
+    featured: false
+    archived: false
+  - repo: "arran4/abc-kohler-report-rss"
+    name: "ABC Kohler Report RSS"
+    group: feeds
+    summary: "RSS generator for the ABC Kohler Report."
+    url: "https://arran4.github.io/abc-kohler-report-rss/"
+    featured: false
+    archived: false
+  - repo: "arran4/whirlpool-forum-rss"
+    name: "Whirlpool Forum RSS"
+    group: feeds
+    summary: "RSS generator for Whirlpool forum discussions."
+    url: "https://arran4.github.io/whirlpool-forum-rss/"
+    featured: false
+    archived: false
+  - repo: "arran4/phpbb2-rss"
+    name: "phpBB2 RSS"
+    group: feeds
+    summary: "Turns phpBB2 forum topic lists into RSS feeds."
+    url: ""
+    featured: false
+    archived: false
+  - repo: "arran4/send_to_linkwarden"
+    name: "Send to Linkwarden"
+    group: feeds
+    summary: "Linkwarden sharing integration."
+    url: "https://arran4.github.io/send_to_linkwarden/"
+    featured: false
+    archived: false
+  - repo: "arran4/blog"
+    name: "Blog"
+    group: resources
+    summary: "Articles and notes on software and engineering."
+    url: "https://arran4.github.io/blog/"
+    featured: true
+    featured_order: 1
+    archived: false
+  - repo: "arran4/awesome-terminal-multiplexers"
+    name: "Awesome Terminal Multiplexers"
+    group: resources
+    summary: "Curated resources for terminal multiplexers."
+    url: "https://arran4.github.io/awesome-terminal-multiplexers/"
+    featured: false
+    archived: false
+  - repo: "arran4/awesome-fodmap-resources"
+    name: "Awesome FODMAP Resources"
+    group: resources
+    summary: "Curated low-FODMAP resources."
+    url: "https://arran4.github.io/awesome-fodmap-resources/"
+    featured: false
+    archived: false
+  - repo: "arran4/awesome-pocketchip"
+    name: "Awesome PocketC.H.I.P."
+    group: resources
+    summary: "Guides, firmware links and community resources for PocketC.H.I.P."
+    url: "https://arran4.github.io/awesome-pocketchip/"
+    featured: false
+    archived: false
+  - repo: "arran4/awesome-postserver"
+    name: "Awesome Postserver"
+    group: resources
+    summary: "Resources for post-cloud, self-hosted and serverless syncing."
+    url: "https://arran4.github.io/awesome-postserver/"
+    featured: false
+    archived: false
+  - repo: "arran4/ux"
+    name: "UX Reference Links"
+    group: resources
+    summary: "Reference links for user experience and interface design."
+    url: "https://arran4.github.io/ux/"
+    featured: false
+    archived: false
+  - repo: "arran4/arran4.github.io"
+    name: "This site"
+    group: resources
+    summary: "Personal project index and navigation hub."
+    url: "https://arran4.github.io/"
+    featured: false
+    archived: false
+  - repo: "arran4/Dimension"
+    name: "Dimension"
+    group: archive
+    summary: "An archived peer-to-peer group chat and file transfer experiment."
+    url: "https://arran4.github.io/Dimension/"
+    featured: false
+    archived: true
+  - repo: "arran4/trakt-import-github-action"
+    name: "Trakt Import Action"
+    group: archive
+    summary: "Archived integration for importing viewing history to Trakt."
+    url: "https://arran4.github.io/trakt-import-github-action/"
+    featured: false
+    archived: true
+  - repo: "arran4/fork-flutter_colorpicker"
+    name: "Flutter Color Picker (fork)"
+    group: archive
+    summary: "Archived Flutter colour-picker fork."
+    url: "https://arran4.github.io/fork-flutter_colorpicker/"
+    featured: false
+    archived: true
+  - repo: "arran4/fork-o-marshmallow-PocketCHIP-pocket-home"
+    name: "PocketCHIP Home (fork)"
+    group: archive
+    summary: "Alternative PocketCHIP home-screen project."
+    url: "https://arran4.github.io/fork-o-marshmallow-PocketCHIP-pocket-home/"
+    featured: false
+    archived: false
+  - repo: "arran4/StartHere"
+    name: "StartHere"
+    group: archive
+    summary: "Archived repository with Pages enabled; published URL not advertised."
+    url: ""
+    featured: false
+    archived: true

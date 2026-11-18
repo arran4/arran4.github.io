@@ -1,11 +1,8 @@
 {{/* Get remote data. */}}
 {{ $data := slice }}
 {{ $url := "https://api.github.com/users/arran4/repos" }}
-{{ $githubToken := getenv "GITHUB_TOKEN" }}
+{{/* Public user repository endpoint. Never send credentials with these requests. */}}
 {{ $headers := dict }}
-{{ if $githubToken }}
-  {{ $headers = dict "Authorization" (printf "token %s" $githubToken) }}
-{{ end }}
 {{ $perPage := 100 }}
 {{ $maxPages := 20 }}
 {{ $morePages := true }}
@@ -32,6 +29,13 @@
 {{/* Add pages and page resources. */}}
 {{ range $data }}
 
+  {{/* Published URL comes only from a reviewed, static public-repository inventory. */}}
+  {{ $pagesURL := "" }}
+  {{ $knownSites := where site.Data.pages.sites "repo" .full_name }}
+  {{ if gt (len $knownSites) 0 }}
+    {{ $pagesURL = (index $knownSites 0).url }}
+  {{ end }}
+
   {{/* Add page. */}}
   {{ $content := dict "mediaType" "text/markdown" "value" .description }}
   {{ $dates := dict "date" (time.AsTime .updated_at) }}
@@ -44,6 +48,8 @@
         "owner" .owner
         "language" .language
         "homepage" .homepage
+        "has_pages" .has_pages
+        "pages_url" $pagesURL
         "html_url" .html_url
         "repo-tags" $repotags
         "tags" (slice "Repos")

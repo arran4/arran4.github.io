@@ -1,11 +1,19 @@
 {{ define "navbar" }}
-    {{ partial "navigators/navbar.html" . }}
+  {{ partial "navigators/navbar.html" . }}
 {{ end }}
 
 {{ define "content" }}
-<div class="container text-center" style="padding-top:4rem;padding-bottom:4rem;">
-    <h1>404</h1>
-    <p>Sorry, the page you are looking for cannot be found.</p>
-    <p><a href="{{ "/" | relURL }}">Return to the homepage</a></p>
-</div>
+<link rel="stylesheet" href="{{ "css/workbench.css" | relURL }}">
+<section class="wb-recovery">
+  <p class="wb-kicker">404 / WRONG TURN</p>
+  <h1>That page isn't here.</h1>
+  <p>A relative link may have sent you into the wrong project directory. Return to the main index or jump directly to a familiar published site:</p>
+  <p><a href="{{ "/" | relURL }}">Return to the homepage ↗</a></p>
+  <ul>
+    {{ range sort (where site.Data.pages.sites "featured" true) "featured_order" }}
+      {{ with .url }}<li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ end }}{{ .name }} <span aria-hidden="true">↗</span>{{ with .url }}</a></li>{{ end }}
+    {{ end }}
+  </ul>
+  <p>Or visit <a href="{{ "repos/" | relURL }}">the complete repository index</a> or <a href="{{ "/" | relURL }}#apps">the application directory</a>.</p>
+</section>
 {{ end }}
