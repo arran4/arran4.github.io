@@ -46,4 +46,19 @@ if printf '%s\n' "$repos" | grep -Ev '^arran4/[A-Za-z0-9_.-]+$'; then
   echo "Pages catalogue contains non-arran4 repository entries" >&2
   exit 1
 fi
+# Exercise the repository catalogue without any successful repository API lookup.
+# A rate-limited deployment must still publish a useful, public-only /repos/ page.
+offline_dir=$(mktemp -d)
+trap 'rm -rf "$offline_dir"' EXIT
+HUGO_REPOS_OFFLINE=1 hugo --minify --destination "$offline_dir" --quiet
+test -s "$offline_dir/repos/index.html" || { echo "Offline repository catalogue missing" >&2; exit 1; }
+grep -Fq 'Visit site' "$offline_dir/repos/index.html" || {
+  echo "Offline repository catalogue has no published-site shortcuts" >&2
+  exit 1
+}
+grep -Fq 'go-subcommand' "$offline_dir/repos/index.html" || {
+  echo "Offline repository catalogue is missing reviewed projects" >&2
+  exit 1
+}
+
 echo "Custom homepage, Pages directory, recovery links, and public-only catalogue verified."
