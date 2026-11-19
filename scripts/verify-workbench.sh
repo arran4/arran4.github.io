@@ -6,6 +6,16 @@ for page in public/index.html public/pages/index.html public/404.html public/rep
   test -s "$page" || { echo "Missing generated output: $page" >&2; exit 1; }
 done
 
+# Toha v4.13.0 publishes a read-only static/sitemap.xml from the module cache.
+# The site-local override must be writable and replaced with Hugo's real sitemap.
+test -s public/sitemap.xml || { echo "Missing generated sitemap" >&2; exit 1; }
+test -w public/sitemap.xml || { echo "Generated sitemap is read-only" >&2; exit 1; }
+if grep -Fq 'This writable project-local file overrides' public/sitemap.xml; then
+  echo "Sitemap placeholder was not replaced by Hugo" >&2
+  exit 1
+fi
+grep -Fq '<urlset' public/sitemap.xml || { echo "Expected XML sitemap missing" >&2; exit 1; }
+
 grep -Fq 'wb-feature-grid' public/index.html || { echo "Custom homepage was not rendered" >&2; exit 1; }
 grep -Fq 'Published sites' public/index.html || { echo "Published-site shortcuts missing" >&2; exit 1; }
 grep -Fq 'Apps and project pages' public/index.html || { echo "App directory missing" >&2; exit 1; }
