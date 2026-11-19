@@ -4,7 +4,7 @@ This repository contains the source of my personal website hosted on GitHub Page
 
 ## Building locally
 
-You need Hugo **v0.170.1**, Go and (for the existing Toha-based subpages) Node/npm. Hugo's extended edition was merged into the standard release in 0.170. Run the following commands from the project root:
+You need Hugo **v0.170.1**, Go and (for the existing Toha-based subpages) Node/npm **plus Dart Sass**. The Extended edition was removed in v0.170.0; Toha's old Sass assets now require a separately installed `sass` binary that supports the embedded protocol. CI pins the official Dart Sass **1.108.2** Linux archive by SHA-256. This dependency is temporary and is not needed by the homepage itself. Run the following commands from the project root:
 
 ```bash
 hugo mod npm pack && npm install && hugo --minify
@@ -35,7 +35,7 @@ The homepage is a **releases-first, repository-owned Hugo view**: `layouts/home.
 - Curated Awesome/reference collections have a separate section. The compact combined public Pages and app directory shows twelve items initially, then supports category filtering and search. A site URL that cannot be verified falls back to its public GitHub repository URL.
 - `data/home.yaml` disables support/publication links by default. `?preview-support=1` displays a review-only panel. No unverified Substack URL is published.
 - The [owner-assigned photography issue](https://github.com/arran4/arran4.github.io/issues/111) is deferred; significant [upstream contributions](https://github.com/arran4/arran4.github.io/issues/112) are not inferred solely from forks.
-- The homepage change **does not remove Toha, its Hugo module, or NPM**: `/repos/`, `/stars/`, other applications, privacy/404 and older generated pages continue using those assets until [the full legacy parity migration](https://github.com/arran4/arran4.github.io/issues/110) is complete.
+- The homepage change **does not remove Toha, its Hugo module, or NPM** (or the Dart Sass build binary needed by the legacy theme on Hugo 0.170+): `/repos/`, `/stars/`, other applications, privacy/404 and older generated pages continue using those assets until [the full legacy parity migration](https://github.com/arran4/arran4.github.io/issues/110) is complete.
 
 This website is the intended future first-party location for owner-reviewed Introducing, Getting started and What's new articles, as recorded in [public-relations](https://github.com/arran4/public-relations/issues/77). Release tags and publication approval remain distinct.
 
