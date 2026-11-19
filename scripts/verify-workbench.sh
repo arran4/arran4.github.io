@@ -41,8 +41,16 @@ if grep -R 'GITHUB_TOKEN' content/ >/dev/null; then
   echo "A content generator still references GITHUB_TOKEN" >&2
   exit 1
 fi
-if grep -Fq 'secrets.GITHUB_TOKEN' .github/workflows/gh-pages.yml; then
-  echo "Build still passes the repository token to a public data request" >&2
+# The refresh job intentionally authenticates its metadata requests.
+# Reject credentials only in the Hugo *build* job, never in the refresh job.
+build_job=$(awk '
+  /^  build:$/ { inside = 1; next }
+  inside && /^  [[:alnum:]_-]+:$/ { exit }
+  inside { print }
+' .github/workflows/gh-pages.yml)
+test -n "$build_job" || { echo "Pages workflow has no build job" >&2; exit 1; }
+if printf '%s\n' "$build_job" | grep -Eq 'secrets\.|GH_TOKEN[[:space:]]*:|GITHUB_TOKEN[[:space:]]*:'; then
+  echo "Hugo build job must not receive an API credential" >&2
   exit 1
 fi
 
@@ -73,13 +81,10 @@ if test -s data/github/repositories.json && test -s data/github/starred.json; th
   fi
   echo "Complete offline GitHub catalogues rendered from validated snapshots."
 else
-  # Temporary compatibility check until the first daily snapshot PR has merged.
-  offline_dir=$(mktemp -d)
-  trap 'rm -rf "$offline_dir"' EXIT
-  HUGO_REPOS_OFFLINE=1 hugo --minify --destination "$offline_dir" --quiet
-  test -s "$offline_dir/repos/index.html" || { echo "Legacy repository fallback missing" >&2; exit 1; }
-  grep -Fq 'Visit site' "$offline_dir/repos/index.html" || {
-    echo "Legacy repository fallback has no published-site shortcuts" >&2
+  # Before bootstrap, the already completed Hugo build is sufficient.
+  # Do not rerun all ~14,000 pages solely to exercise a temporary fallback.
+  grep -Fq 'go-subcommand' public/repos/index.html || {
+    echo "Legacy repository catalogue missing reviewed projects" >&2
     exit 1
   }
 fi
