@@ -6,10 +6,10 @@ for page in public/index.html public/pages/index.html public/404.html public/rep
   test -s "$page" || { echo "Missing generated output: $page" >&2; exit 1; }
 done
 
-grep -Fq 'id="releases"' public/index.html || { echo "Releases-first section missing" >&2; exit 1; }
-grep -Fq 'id="articles"' public/index.html || { echo "Articles section missing" >&2; exit 1; }
-grep -Fq 'id="resources"' public/index.html || { echo "Resource collections missing" >&2; exit 1; }
-grep -Fq 'id="directory"' public/index.html || { echo "Searchable directory missing" >&2; exit 1; }
+grep -Eq 'id="?releases"?([[:space:]>])' public/index.html || { echo "Releases-first section missing" >&2; exit 1; }
+grep -Eq 'id="?articles"?([[:space:]>])' public/index.html || { echo "Articles section missing" >&2; exit 1; }
+grep -Eq 'id="?resources"?([[:space:]>])' public/index.html || { echo "Resource collections missing" >&2; exit 1; }
+grep -Eq 'id="?directory"?([[:space:]>])' public/index.html || { echo "Searchable directory missing" >&2; exit 1; }
 grep -Fq 'data-catalogue-item' public/index.html || { echo "Public directory cards missing" >&2; exit 1; }
 test -s public/css/workbench-v2.css && test -s public/js/home.js || { echo "Local homepage assets missing" >&2; exit 1; }
 grep -Fq 'Latest releases' public/index.html || { echo "Release entries missing" >&2; exit 1; }
