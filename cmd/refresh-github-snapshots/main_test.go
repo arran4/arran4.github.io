@@ -78,3 +78,31 @@ func TestSnapshotOrderAndZeroCounts(t *testing.T){
  if err:=json.Unmarshal(data,&counts);err!=nil{t.Fatal(err)}
  if len(counts)!=2||counts["arran4/z"]!=7||counts["arran4/a"]!=0{t.Fatal("star counts mismatch")}
 }
+
+func TestSecondaryRateLimitRetryAfter(t *testing.T) {
+ attempts:=0
+ var delays []time.Duration
+ s:=serveJSON(t,func(w http.ResponseWriter,r *http.Request){
+  attempts++
+  if attempts==1{
+   w.Header().Set("Retry-After","3")
+   w.WriteHeader(http.StatusTooManyRequests)
+   return
+  }
+  json.NewEncoder(w).Encode([]repository{sample("success")})
+ });defer s.Close()
+ c:=newClient(s)
+ c.sleep=func(d time.Duration){delays=append(delays,d)}
+ repos,err:=c.collect(context.Background(),"repos")
+ if err!=nil{t.Fatal(err)}
+ if len(repos)!=1||attempts!=2||len(delays)!=1||delays[0]!=3*time.Second{t.Fatalf("unexpected retry: repos=%d attempts=%d delays=%v",len(repos),attempts,delays)}
+}
+func TestExcessiveRetryAfterFailsWithoutWaiting(t *testing.T) {
+ var waited bool
+ s:=serveJSON(t,func(w http.ResponseWriter,r *http.Request){
+  w.Header().Set("Retry-After","3600")
+  w.WriteHeader(http.StatusTooManyRequests)
+ });defer s.Close()
+ c:=newClient(s);c.sleep=func(time.Duration){waited=true}
+ if _,err:=c.collect(context.Background(),"repos");err==nil||waited{t.Fatal("unbounded rate-limit wait accepted")}
+}
