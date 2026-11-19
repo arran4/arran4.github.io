@@ -14,6 +14,7 @@ on:
     branches:
       - main  # Set a branch name to trigger deployment
   pull_request:
+  workflow_dispatch:
   schedule:
     - cron: '5 0 * * *'
 
@@ -29,13 +30,33 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.147.8'
-          extended: true
+          hugo-version: '0.170.1'
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
+      # Hugo 0.170+ no longer bundles LibSass. This temporary tool is required
+      # only while legacy Toha templates still compile SCSS; the new homepage
+      # uses repository-owned plain CSS.
+      - name: Install checksum-verified Dart Sass for legacy Toha templates
+        run: |
+          set -euo pipefail
+          url="https://github.com/sass/dart-sass/releases/download/1.108.2/dart-sass-1.108.2-linux-x64.tar.gz"
+          archive="${RUNNER_TEMP}/dart-sass-1.108.2.tar.gz"
+          curl -fL --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 120 -o "$archive" "$url"
+          printf '%s  %s\n' '32d2eb5b83cbc180fce9657ff3c57401a9006c59eccfe0bfdde0aa755a66d42f' "$archive" | sha256sum --check
+          tar -xzf "$archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/dart-sass" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/dart-sass/sass" --version
+
       - name: Refresh public star-count snapshot (best effort)
         run: python3 scripts/refresh-stars.py
+
+      - name: Test public release refresh logic (offline)
+        run: go test ./tools/refresh-releases
+
+      - name: Refresh public releases (best effort)
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: go run ./tools/refresh-releases
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

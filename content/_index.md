@@ -1,9 +1,7 @@
 ---
-title: "Arran's Github Pages"
-date: 2024-06-20T11:50:17+10:00
+title: "Arran's software, writing and open-source work"
+description: "Recent releases, technical articles, curated resources and public projects."
 draft: false
-tags: ['sample']
-categories: ['sample-pages']
 ---
 
-Hi, this is my humble example github page using hugo.
+Find recent software releases, published technical writing, maintained reference collections and public project pages.

@@ -1,5 +1,5 @@
 baseURL: https://arran4.github.io/
-languageCode: en-us
+locale: en-US
 defaultContentLanguage: en
 outputs:
   home:
@@ -14,8 +14,8 @@ rssLimit: 100
 
 languages:
   en:
-    languageCode: en
-    languageName: English
+    locale: en-US
+    label: English
     title: "Arrans github.io"
     weight: 1
 

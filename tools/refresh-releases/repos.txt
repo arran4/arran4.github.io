@@ -1,0 +1,11 @@
+# Only explicitly reviewed public arran4 repos. No authentication or discovery of private repos.
+arran4/arrans_overlay_workflow_builder
+arran4/eselect-version-manager
+arran4/md2png
+arran4/klookup
+arran4/header
+arran4/flutter_google_datastore
+arran4/goa4web
+arran4/g2
+arran4/go-subcommand
+arran4/golang-ical
