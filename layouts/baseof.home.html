@@ -8,20 +8,27 @@
   <title>{{ site.Title }} — Software, systems & notes</title>
   {{ with resources.Get "images/favicon.png" }}<link rel="icon" type="image/png" href="{{ .RelPermalink }}">{{ end }}
   <link rel="stylesheet" href="{{ "css/workbench.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/workbench-v2.css" | relURL }}">
+  <script defer src="{{ "js/home.js" | relURL }}"></script>
 </head>
 <body class="wb">
   <a class="wb-skip" href="#main-content">Skip to content</a>
   <header class="wb-header">
     <div class="wb-wrap wb-nav">
       <a class="wb-mark" href="{{ "/" | relURL }}" aria-label="Arran — homepage"><span class="wb-monogram" aria-hidden="true">a4</span><span>arran4<span class="wb-accent">.github.io/</span></span></a>
-      <nav class="wb-links" aria-label="Main navigation">
-        <a href="#work">Selected work</a>
-        <a href="#apps">Apps</a>
-        <a href="#sites">Published sites</a>
-        <a href="https://arran4.github.io/gentoo-packages/">Gentoo Packages</a>
+      <nav class="wb-links wb-v2-nav" aria-label="Main navigation">
+        <a href="#releases">Releases</a>
+        <a href="#articles">Writing</a>
+        <a href="#resources">Resources</a>
+        <a href="#directory">Projects</a>
         <a href="https://arran4.github.io/blog/">Blog</a>
-        <a href="{{ "repos/" | relURL }}">All repos</a>
+        <a href="{{ "repos/" | relURL }}">Repositories</a>
       </nav>
+      <div class="wb-v2-theme" role="group" aria-label="Colour theme">
+        <button type="button" data-theme-mode="system" aria-pressed="true">System</button>
+        <button type="button" data-theme-mode="dark" aria-pressed="false">Dark</button>
+        <button type="button" data-theme-mode="light" aria-pressed="false">Light</button>
+      </div>
     </div>
   </header>
   {{ block "main" . }}{{ end }}
