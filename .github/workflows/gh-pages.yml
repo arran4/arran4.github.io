@@ -14,6 +14,7 @@ on:
     branches:
       - main  # Set a branch name to trigger deployment
   pull_request:
+  workflow_dispatch:
   schedule:
     - cron: '5 0 * * *'
 
@@ -29,13 +30,19 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.147.8'
-          extended: true
+          hugo-version: '0.170.1'
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
       - name: Refresh public star-count snapshot (best effort)
         run: python3 scripts/refresh-stars.py
+
+      - name: Test public release refresh logic (offline)
+        run: go test ./tools/refresh-releases
+
+      - name: Refresh public releases (best effort)
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: go run ./tools/refresh-releases
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
