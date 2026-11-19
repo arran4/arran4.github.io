@@ -1,0 +1,6 @@
+# Homepage-only editorial configuration; does not affect the blog or subpages.
+support:
+  enabled: false
+  # Owner-supplied link, intentionally not visible until approved.
+  patreon_url: "https://www.patreon.com/cw/arran4"
+  substack_url: ""
