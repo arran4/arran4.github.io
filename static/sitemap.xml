@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  This writable project-local file overrides the old Toha module's
+  static/sitemap.xml (v4.13.0). Hugo replaces this placeholder with its
+  generated sitemap. Without this override, Hugo copies the theme module's
+  read-only sitemap from the Go module cache and then fails to overwrite it
+  (permission denied). Remove after upgrading the Toha module beyond its
+  upstream sitemap fix: https://github.com/hugo-themes/toha/pull/1135
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>

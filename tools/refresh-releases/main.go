@@ -20,7 +20,7 @@ import (
 
 const (
   cataloguePath = "data/releases.json"
-  allowlistPath = "data/release-repos.txt"
+  allowlistPath = "tools/refresh-releases/repos.txt"
   githubAPI = "https://api.github.com"
 )
 
