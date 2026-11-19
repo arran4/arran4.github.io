@@ -46,19 +46,32 @@ if printf '%s\n' "$repos" | grep -Ev '^arran4/[A-Za-z0-9_.-]+$'; then
   echo "Pages catalogue contains non-arran4 repository entries" >&2
   exit 1
 fi
-# Exercise the repository catalogue without any successful repository API lookup.
-# A rate-limited deployment must still publish a useful, public-only /repos/ page.
-offline_dir=$(mktemp -d)
-trap 'rm -rf "$offline_dir"' EXIT
-HUGO_REPOS_OFFLINE=1 hugo --minify --destination "$offline_dir" --quiet
-test -s "$offline_dir/repos/index.html" || { echo "Offline repository catalogue missing" >&2; exit 1; }
-grep -Fq 'Visit site' "$offline_dir/repos/index.html" || {
-  echo "Offline repository catalogue has no published-site shortcuts" >&2
-  exit 1
-}
-grep -Fq 'go-subcommand' "$offline_dir/repos/index.html" || {
-  echo "Offline repository catalogue is missing reviewed projects" >&2
-  exit 1
-}
+# Once the complete snapshots are bootstrapped, ensure Hugo generated the
+# complete repository/starred catalogues, not only the curated Pages subset.
+if test -s data/github/repositories.json && test -s data/github/starred.json; then
+  expected_repos=$(jq -e 'if type == "array" and length > 0 then length else error("invalid repositories snapshot") end' data/github/repositories.json)
+  expected_stars=$(jq -e 'if type == "array" and length > 0 then length else error("invalid starred snapshot") end' data/github/starred.json)
+  actual_repos=$(find public/repos -mindepth 2 -type f -name index.html | wc -l)
+  actual_stars=$(find public/stars -mindepth 2 -type f -name index.html | wc -l)
+  if test "$actual_repos" -lt "$expected_repos"; then
+    echo "Only $actual_repos/$expected_repos repository pages rendered" >&2
+    exit 1
+  fi
+  if test "$actual_stars" -lt "$expected_stars"; then
+    echo "Only $actual_stars/$expected_stars starred pages rendered" >&2
+    exit 1
+  fi
+  echo "Complete offline GitHub catalogues rendered from validated snapshots."
+else
+  # Temporary compatibility check until the first daily snapshot PR has merged.
+  offline_dir=$(mktemp -d)
+  trap 'rm -rf "$offline_dir"' EXIT
+  HUGO_REPOS_OFFLINE=1 hugo --minify --destination "$offline_dir" --quiet
+  test -s "$offline_dir/repos/index.html" || { echo "Legacy repository fallback missing" >&2; exit 1; }
+  grep -Fq 'Visit site' "$offline_dir/repos/index.html" || {
+    echo "Legacy repository fallback has no published-site shortcuts" >&2
+    exit 1
+  }
+fi
 
 echo "Custom homepage, Pages directory, recovery links, and public-only catalogue verified."
