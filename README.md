@@ -4,28 +4,49 @@ This repository contains the source of my personal website hosted on GitHub Page
 
 ## Building locally
 
-You need the extended version of Hugo, Go, and Node/npm installed. Run the following commands from the project root:
+The site uses [Hugo](https://gohugo.io/) **v0.170.1** and templates, CSS and
+JavaScript maintained directly in this repository. **Toha, NPM, Node.js,
+Bootstrap, Font Awesome and Dart Sass are not required to build or view it.**
+Go is optional for the existing GitHub snapshot tooling; it is not a frontend
+runtime or theme dependency.
 
 ```bash
-hugo mod npm pack && npm install && hugo --minify
+hugo --minify
 ```
 
-`hugo mod npm pack` vendors the theme's JavaScript dependencies, `npm install` installs them, and `hugo --minify` generates the static site into the `public/` directory. You can preview the site by opening `public/index.html` or by running `hugo server`.
+The generated site is in `public/`. Preview locally with `hugo server`.
+The GitHub Pages workflow builds and deploys the generated artifact on merges
+to `main`; PRs build and verify without deploying. Repository and starred
+metadata may originate from public GitHub API queries during the static build
+until [snapshot PR #107](https://github.com/arran4/arran4.github.io/pull/107)
+is merged and bootstrapped; there is **no client-side GitHub API dependency**.
 
-## GitHub Pages workflow
+## Local page templates
 
-Deployment is automated via the workflow in `.github/workflows/gh-pages.yml`. It triggers on pushes to the `main` branch, pull requests, and on a nightly schedule. The workflow performs these steps:
+The homepage remains in `layouts/home.html` and `layouts/baseof.home.html`.
+All other site-owned views use `layouts/_default/`, `layouts/repos/`,
+`layouts/stars/`, `layouts/*-tags/`, `layouts/pages/`, and
+`layouts/partials/catalogue/`. Their local presentation uses
+`static/css/workbench.css` and `static/css/site-pages.css`.
+The eight application landing pages retain their own static CSS and paths.
+Public GitHub repositories and starred projects keep their existing
+generated identifiers and URLs; the lists and taxonomy pages receive a
+consistent, accessible presentation without any external themes.
 
-1. Check out the repository with submodules and full history.
-2. Set up Hugo using the specified version.
-3. Run the same build commands as above to produce the `public/` directory.
-4. Deploy the contents of `public/` to the `gh-pages` branch using `peaceiris/actions-gh-pages` when the workflow runs on `main`.
+The existing `data/pages.yaml` and `data/apps.yaml` continue to control
+curated public project links. RSS uses the site's own content, not sample
+GoHugo.org news. No external theme, NPM manifest or Sass source is retained.
 
-The published site is served from `https://arran4.github.io/`.
+**Migration note:** [homepage PR #115](https://github.com/arran4/arran4.github.io/pull/115)
+also targets `main`. Merge/reconcile the workflow, configuration and README
+deliberately when it lands; do not reintroduce Toha or NPM.
+[Issue #110](https://github.com/arran4/arran4.github.io/issues/110)
+tracks the theme-removal work.
 
 ## License
 
 This content is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE).
+
 ## Published sites and custom homepage
 
 The home page is a custom, accessible visual project index backed by a curated `data/pages.yaml` (Pages-enabled public repositories) and `data/apps.yaml` (the site's eight existing public app landing pages, regardless of whether their individual source repositories are public).
@@ -37,9 +58,9 @@ The `/repos/` catalogue still queries the **unauthenticated public** `https://ap
 
 ### Design and verification
 
-The bespoke homepage and its styles are kept in `layouts/home.html`, `layouts/baseof.home.html` and `static/css/workbench.css`. Legacy app/privacy pages and the old Toha-backed repository browser are retained to preserve their paths.
+The homepage and its styles are kept in `layouts/home.html`, `layouts/baseof.home.html` and `static/css/workbench.css`. The remaining pages use repository-owned templates and CSS to preserve their paths.
 
 To check this change:
 1. Review every public Pages-enabled repository against `data/pages.yaml` and resolve the five missing site URLs where possible.
-2. Run the Hugo build (`hugo mod npm pack && npm install && hugo --minify`), then inspect `public/index.html`, `public/pages/index.html`, `public/404.html` and the generated `/repos/` entries.
+2. Run the Hugo build (`hugo --minify`), then inspect `public/index.html`, `public/pages/index.html`, `public/404.html` and the generated `/repos/` entries.
 3. Verify all links, keyboard navigation, colour contrast, mobile layout and the light/dark presentations before merging.

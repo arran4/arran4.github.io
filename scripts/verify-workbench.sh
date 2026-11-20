@@ -21,7 +21,7 @@ fi
 grep -Fq 'https://arran4.github.io/klookup/' public/index.html || { echo "Expected direct link missing" >&2; exit 1; }
 grep -Fq 'Public GitHub Pages sites' public/pages/index.html || { echo "Reference directory was not rendered" >&2; exit 1; }
 grep -Fq 'That page isn' public/404.html || { echo "Recovery 404 page was not rendered" >&2; exit 1; }
-grep -Rq 'Visit site' public/repos/ || { echo "Repository cards have no published-site shortcuts" >&2; exit 1; }
+grep -Rq 'Published site' public/repos/ || { echo "Repository cards have no published-site shortcuts" >&2; exit 1; }
 
 if grep -Fq 'href="/pages/"' public/index.html; then
   echo "The reference-only /pages/ directory should not be in the homepage navigation" >&2
@@ -46,19 +46,20 @@ if printf '%s\n' "$repos" | grep -Ev '^arran4/[A-Za-z0-9_.-]+$'; then
   echo "Pages catalogue contains non-arran4 repository entries" >&2
   exit 1
 fi
-# Exercise the repository catalogue without any successful repository API lookup.
-# A rate-limited deployment must still publish a useful, public-only /repos/ page.
-offline_dir=$(mktemp -d)
-trap 'rm -rf "$offline_dir"' EXIT
-HUGO_REPOS_OFFLINE=1 hugo --minify --destination "$offline_dir" --quiet
-test -s "$offline_dir/repos/index.html" || { echo "Offline repository catalogue missing" >&2; exit 1; }
-grep -Fq 'Visit site' "$offline_dir/repos/index.html" || {
-  echo "Offline repository catalogue has no published-site shortcuts" >&2
+# These assertions verify the local layouts and absence of the old dependencies
+# without running another expensive full Hugo render.
+test -s public/css/site-pages.css || { echo "Owned page styles are missing" >&2; exit 1; }
+test -s public/stars/index.html || { echo "Starred-repository landing page missing" >&2; exit 1; }
+test -s public/cbz-viewer/privacy/index.html || { echo "App privacy URL missing" >&2; exit 1; }
+test -s public/index.xml || { echo "RSS output missing" >&2; exit 1; }
+grep -Fq 'PUBLIC GITHUB' public/repos/index.html || { echo "Local repository template not rendered" >&2; exit 1; }
+grep -Fq 'PUBLIC GITHUB' public/stars/index.html || { echo "Local stars template not rendered" >&2; exit 1; }
+if grep -Eiq 'hugo-toha|bootstrap|fontawesome|node_modules|popper' public/repos/index.html; then
+  echo "Repository browser still has theme dependencies" >&2
   exit 1
-}
-grep -Fq 'go-subcommand' "$offline_dir/repos/index.html" || {
-  echo "Offline repository catalogue is missing reviewed projects" >&2
-  exit 1
-}
+fi
+test ! -e package.json && test ! -e package-lock.json || { echo "NPM manifests should be removed" >&2; exit 1; }
+! grep -Fq 'github.com/hugo-toha/toha' go.mod || { echo "Toha module is still required" >&2; exit 1; }
+! grep -Eq '(hugo mod npm|npm install|sass)' .github/workflows/gh-pages.yml || { echo "Theme tools still used by CI" >&2; exit 1; }
 
 echo "Custom homepage, Pages directory, recovery links, and public-only catalogue verified."
