@@ -1,34 +1,25 @@
-{{ define "navbar" }}
-  {{ partial "navigators/navbar.html" . }}
-{{ end }}
-{{ define "content" }}
-<link rel="stylesheet" href="{{ "css/workbench.css" | relURL }}">
-<section class="content-section" id="content-section">
-  <div class="content container-fluid" id="content">
-    <div class="container wb-pages">
-      <header class="wb-pages-head">
-        <p class="wb-kicker">REFERENCE / PUBLIC REPOSITORY INVENTORY</p>
-        <h1>Public GitHub Pages sites</h1>
-        <p>This manually reviewed index includes all public repositories found with Pages enabled as of 17 November 2026. It is intentionally not linked from the site's main menu. URLs are listed only when a published destination was advertised by the repository.</p>
-      </header>
-      {{ range site.Data.pages.groups }}
-        <section class="wb-pages-group" aria-label="{{ .name }}">
-          <h2>{{ .name }}</h2>
-          <p>{{ .intro }}</p>
-          <div class="wb-pages-grid">
-            {{ range where site.Data.pages.sites "group" .id }}
-              <article class="wb-pages-card">
-                <h3>{{ .name }}</h3>
-                <p>{{ .summary }}</p>
-                {{ if .archived }}<p class="wb-pages-note">Archived repository</p>{{ end }}
-                {{ if .url }}<a href="{{ .url }}" target="_blank" rel="noopener noreferrer">Published site ↗</a>{{ else }}<span class="wb-pages-note">Published URL not confirmed</span>{{ end }}
-                <a href="https://github.com/{{ .repo }}" target="_blank" rel="noopener noreferrer">Repository ↗</a>
-              </article>
-            {{ end }}
-          </div>
-        </section>
-      {{ end }}
-    </div>
-  </div>
-</section>
+{{ define "main" }}
+<main id="main-content" class="wb-wrap wb-pages wb-local-main">
+  <header class="wb-pages-head">
+    <p class="wb-kicker">REFERENCE / PUBLIC REPOSITORY INVENTORY</p>
+    <h1>Public GitHub Pages sites</h1>
+    <p>Manually reviewed public repositories identified with Pages enabled on 17 November 2026. Published addresses are shown only where a public URL was verified.</p>
+  </header>
+  {{ range site.Data.pages.groups }}
+    <section class="wb-pages-group" aria-label="{{ .name }}">
+      <h2>{{ .name }}</h2>
+      <p>{{ .intro }}</p>
+      <div class="wb-pages-grid">
+        {{ range where site.Data.pages.sites "group" .id }}
+          <article class="wb-pages-card">
+            <h3>{{ .name }}</h3><p>{{ .summary }}</p>
+            {{ if .archived }}<p class="wb-pages-note">Archived repository</p>{{ end }}
+            {{ if .url }}<a href="{{ .url }}" target="_blank" rel="noopener noreferrer">Published site ↗</a>{{ else }}<span class="wb-pages-note">Published URL unconfirmed</span>{{ end }}
+            <a href="https://github.com/{{ .repo }}" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+          </article>
+        {{ end }}
+      </div>
+    </section>
+  {{ end }}
+</main>
 {{ end }}
