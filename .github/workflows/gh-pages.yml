@@ -11,52 +11,44 @@ concurrency:
 
 on:
   push:
-    branches:
-      - main  # Set a branch name to trigger deployment
+    branches: [main]
   pull_request:
   schedule:
     - cron: '5 0 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.147.8'
-          extended: true
+          hugo-version: '0.170.1'
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
-      - name: Refresh public star-count snapshot (best effort)
+      # Existing star-count updater, pending consolidation with the Go
+      # snapshot workflow in PR #107. No theme, Node or Sass is needed.
+      - name: Refresh public star counts (best effort)
         run: python3 scripts/refresh-stars.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Everything required
+      - name: Build and verify owned-site templates
         run: |
-          export HUGO_CACHEDIR=${{ runner.temp }}/hugo_cache
-          mkdir -p ${{ runner.temp }}/hugo_cache
-          hugo mod npm pack
-          npm install @popperjs/core@2.11.8 include-media@1.4.10 --save-dev --legacy-peer-deps
-          npm install --legacy-peer-deps
-          sudo rm -rf public/
-          export HUGO_CACHEDIR=${{ runner.temp }}/hugo_cache
-          mkdir -p $HUGO_CACHEDIR
-          chmod -R u+w $HUGO_CACHEDIR
+          set -euo pipefail
+          export HUGO_CACHEDIR="${RUNNER_TEMP}/hugo_cache"
+          mkdir -p "$HUGO_CACHEDIR"
           hugo --minify --templateMetrics
           bash scripts/verify-workbench.sh
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
         if: ${{ github.ref == 'refs/heads/main' }}
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 

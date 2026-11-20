@@ -1,0 +1,20 @@
+{{ define "main" }}
+<main id="main-content" class="wb-wrap wb-local-main">
+  <header class="wb-local-intro">
+    <p class="wb-kicker">PUBLIC CONTENT</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </header>
+  {{ with .Content }}<div class="wb-local-prose">{{ . }}</div>{{ end }}
+  {{ with .Pages }}
+    <div class="wb-local-grid">
+      {{ range . }}
+        <article class="wb-local-card">
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }} <span aria-hidden="true">↗</span></a></h2>
+          <p>{{ .Summary | plainify | truncate 190 }}</p>
+        </article>
+      {{ end }}
+    </div>
+  {{ end }}
+</main>
+{{ end }}

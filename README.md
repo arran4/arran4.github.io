@@ -1,45 +1,78 @@
 # arran4.github.io
 
-This repository contains the source of my personal website hosted on GitHub Pages. It is built with the [Hugo](https://gohugo.io/) static site generator and uses the Toha theme.
+Source for [arran4.github.io](https://arran4.github.io/), a Hugo-based project
+hub with public software links, technical writing, reference collections and
+application landing pages.
 
-## Building locally
+The site's frontend is owned by this repository. **There is no Toha theme, NPM
+package tree, Bootstrap, Font Awesome, Sass build step or external JavaScript
+framework.** Existing page routes are retained.
 
-You need the extended version of Hugo, Go, and Node/npm installed. Run the following commands from the project root:
+## Build and preview
 
-```bash
-hugo mod npm pack && npm install && hugo --minify
+Use Hugo **v0.170.1**:
+
+```sh
+hugo --minify
+hugo server
 ```
 
-`hugo mod npm pack` vendors the theme's JavaScript dependencies, `npm install` installs them, and `hugo --minify` generates the static site into the `public/` directory. You can preview the site by opening `public/index.html` or by running `hugo server`.
+The build produces static HTML and assets in `public/`. Go and Python are used
+only by optional public GitHub metadata refresh tooling, not to render the
+frontend. The GitHub Pages workflow builds PRs without deploying; a successful
+build on `main` publishes the static site.
 
-## GitHub Pages workflow
+## Content sources
 
-Deployment is automated via the workflow in `.github/workflows/gh-pages.yml`. It triggers on pushes to the `main` branch, pull requests, and on a nightly schedule. The workflow performs these steps:
+- `data/pages.yaml`: a **manually reviewed snapshot** of public
+  GitHub Pages sites, including a separate `/pages/` reference directory.
+  Unverified URLs are never invented. Changes require a normal PR.
+- `data/apps.yaml`: the eight public app landing pages hosted by this
+  website. A public landing page does not imply that the application's source
+  repository is public.
+- `/repos/` and `/stars/`: public GitHub repository/starred-repository
+  indexes. Their generated detail URLs use GitHub's stable IDs when available.
+  The existing unauthenticated API builder may be rate-limited; `/repos/`
+  falls back to the reviewed Pages inventory, while `/stars/` remains
+  available with a clear empty state rather than a 404. The reviewed, durable
+  snapshot replacement is [PR #107](https://github.com/arran4/arran4.github.io/pull/107).
+- The release-first homepage and the native Introducing / Getting started /
+  What's new article workflow are being developed independently in
+  [PR #115](https://github.com/arran4/arran4.github.io/pull/115).
+  Only approved articles should appear publicly.
 
-1. Check out the repository with submodules and full history.
-2. Set up Hugo using the specified version.
-3. Run the same build commands as above to produce the `public/` directory.
-4. Deploy the contents of `public/` to the `gh-pages` branch using `peaceiris/actions-gh-pages` when the workflow runs on `main`.
+## First-party layouts
 
-The published site is served from `https://arran4.github.io/`.
+- `layouts/home.html`, `layouts/baseof.home.html`,
+  `static/css/workbench.css`: custom homepage.
+- `layouts/_default/`, `layouts/repos/`, `layouts/stars/`,
+  `layouts/*-tags/`, `layouts/pages/`, and
+  `layouts/partials/catalogue/`: all other shared views and public
+  repository details, with local styles in `static/css/site-pages.css`.
+- `layouts/<app>/single.html` and `static/<app>/style.css`:
+  existing standalone application pages and their privacy URLs.
+- `layouts/index.rss.xml`: owned-site RSS, without obsolete sample
+  GoHugo.org news items.
+
+The site does not fetch fonts, stylesheets or scripts from a third-party UI
+framework at runtime. Normal external links to GitHub, project documentation
+and other public destinations remain.
+
+## Checks and migration
+
+Run `bash scripts/verify-workbench.sh` **after** building. The checks validate
+generated pages, local CSS, the 404, app/privacy links, public-only catalogue
+rules and absence of Toha/NPM source dependencies. The workflow runs one full
+Hugo build; it does not rerender thousands of pages merely for a duplicate
+fallback check.
+
+[PR #117](https://github.com/arran4/arran4.github.io/pull/117)
+removes the external theme independently of PRs #107 and #115. All target
+`main`; their workflow/configuration/template changes must be reconciled in
+merge order, without reintroducing removed frontend dependencies. The public
+metadata snapshot workflow is a separate concern from the UI theme.
 
 ## License
 
-This content is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE).
-## Published sites and custom homepage
-
-The home page is a custom, accessible visual project index backed by a curated `data/pages.yaml` (Pages-enabled public repositories) and `data/apps.yaml` (the site's eight existing public app landing pages, regardless of whether their individual source repositories are public).
-This manually reviewed static file lists **all 33 public repositories found with Pages enabled on 2026-11-17**, including this website. Entries include a repository, category, description, featured flag and URL. Five Pages-enabled repositories have no confirmed published URL; they remain visible in the inventory with a source link but are not assigned invented web addresses.
-
-Update `data/pages.yaml` through a normal code review whenever a new Pages site is launched, renamed, archived, or removed. This snapshot **does not refresh itself**. Featured projects are deliberately selected using `featured` and `featured_order`: Blog, Gentoo Packages, Header and go-subcommand. KLookup, the overlay and other work remain in the full directory without special prominence. Update `data/apps.yaml` when an on-site app landing page is added or changed. **No Pages API calls occur at build time.** Curated direct links also appear in the existing theme navigation so a user can recover after a broken relative link. The comprehensive `/pages/` directory is generated for reference but intentionally not added to the primary menu.
-
-The `/repos/` catalogue still queries the **unauthenticated public** `https://api.github.com/users/arran4/repos` endpoint when available. If any page fails to load (including HTTP 403/rate limits), the build logs a warning, discards the potentially incomplete API result and uses the 33 reviewed public repositories in `data/pages.yaml` instead. This intentionally narrows the fallback to known public Pages repositories rather than publishing an empty or partial catalogue; cached Pages descriptions and site links remain functional. The fallback metadata date refers to the 2026-11-17 Pages inventory review, not to the repository's last commit. Set `HUGO_REPOS_OFFLINE=1` when running Hugo to exercise this fallback without requesting the repository endpoint. The build verification script runs an additional forced-fallback build. It matches entries from `data/pages.yaml` to attach a direct site link where the published URL is known. No GitHub token is passed to those requests, and the workflow's single public star count request is also unauthenticated. The nightly GitHub Actions job rebuilds even if star counts are unchanged. The separate star-count snapshot refresh is unauthenticated and best-effort; if public requests are rate-limited, the last checked-in counts are retained instead of failing the build. The existing public starred-repository API is subject to unauthenticated rate limits: when it fails, its list stops fetching and Hugo logs a warning rather than aborting the entire site. It may be incomplete during those runs; this does not affect the curated Pages and apps indexes.
-
-### Design and verification
-
-The bespoke homepage and its styles are kept in `layouts/home.html`, `layouts/baseof.home.html` and `static/css/workbench.css`. Legacy app/privacy pages and the old Toha-backed repository browser are retained to preserve their paths.
-
-To check this change:
-1. Review every public Pages-enabled repository against `data/pages.yaml` and resolve the five missing site URLs where possible.
-2. Run the Hugo build (`hugo mod npm pack && npm install && hugo --minify`), then inspect `public/index.html`, `public/pages/index.html`, `public/404.html` and the generated `/repos/` entries.
-3. Verify all links, keyboard navigation, colour contrast, mobile layout and the light/dark presentations before merging.
+This content is licensed under the [Creative Commons Attribution 4.0
+International License](LICENSE).

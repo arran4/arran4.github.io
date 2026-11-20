@@ -1,0 +1,16 @@
+<article class="wb-local-card">
+  <div class="wb-local-card-head">
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <span aria-hidden="true">↗</span>
+  </div>
+  {{ with .Params.language }}<p class="wb-label">{{ . }}</p>{{ end }}
+  <p>{{ .Summary | plainify | truncate 200 }}</p>
+  <div class="wb-local-card-links">
+    <a href="{{ .RelPermalink }}">Details</a>
+    {{ with .Params.pages_url }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">Published site ↗</a>{{ end }}
+    {{ with .Params.html_url }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>{{ end }}
+  </div>
+  {{ if or .Params.fork .Params.archived }}
+    <p class="wb-local-meta">{{ if .Params.fork }}Fork{{ end }}{{ if and .Params.fork .Params.archived }} · {{ end }}{{ if .Params.archived }}Archived{{ end }}</p>
+  {{ end }}
+</article>

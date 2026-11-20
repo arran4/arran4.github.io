@@ -1,0 +1,32 @@
+{{ $ctx := .page }}
+{{ $kind := .kind }}
+<main id="main-content" class="wb-wrap wb-local-main">
+  <nav class="wb-local-back" aria-label="Back to catalogue">
+    <a href="{{ $kind | relURL }}">← All {{ $kind }}</a>
+  </nav>
+  <article class="wb-local-document">
+    <p class="wb-kicker">PUBLIC GITHUB / {{ upper $kind }}</p>
+    <h1>{{ $ctx.Title }}</h1>
+    <div class="wb-local-actions">
+      {{ with $ctx.Params.html_url }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">View repository ↗</a>{{ end }}
+      {{ with $ctx.Params.pages_url }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">Visit published site ↗</a>{{ end }}
+      {{ with $ctx.Params.homepage }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">Project homepage ↗</a>{{ end }}
+    </div>
+    <div class="wb-local-meta">
+      {{ if not $ctx.Date.IsZero }}<time datetime="{{ $ctx.Date.Format "2006-01-02" }}">Repository updated {{ $ctx.Date.Format "2 Jan 2006" }}</time>{{ end }}
+      {{ with $ctx.Params.language }}<span>{{ . }}</span>{{ end }}
+      {{ if $ctx.Params.fork }}<span>Fork</span>{{ end }}
+      {{ if $ctx.Params.archived }}<span>Archived</span>{{ end }}
+    </div>
+    <div class="wb-local-prose">{{ $ctx.Content }}</div>
+    {{ $tags := index $ctx.Params (cond (eq $kind "repos") "repo-tags" "star-tags") }}
+    {{ with $tags }}
+    <div class="wb-local-tags" aria-label="Topics">
+      {{ range . }}
+        {{ $topic := . }}
+        <a href="{{ printf "%s-tags/%s/" (cond (eq $kind "repos") "repo" "star") (urlize $topic) | relURL }}">{{ $topic }}</a>
+      {{ end }}
+    </div>
+    {{ end }}
+  </article>
+</main>

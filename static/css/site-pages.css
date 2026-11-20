@@ -1,0 +1,47 @@
+/* Local site views. Uses the homepage's existing colour tokens and system font stack. */
+.wb-local-pages{min-height:100vh;display:flex;flex-direction:column}
+.wb-local-pages .wb-footer{margin-top:auto}
+.wb-local-main{width:min(1160px,calc(100% - 2.5rem));padding:3.2rem 0 5rem;min-height:55vh}
+.wb-local-intro{border-bottom:1px solid var(--wb-line);padding-bottom:1.3rem;margin-bottom:1.5rem}
+.wb-local-intro h1,.wb-local-document h1,.wb-local-main>h1,.wb-recovery h1{font-size:clamp(2rem,4vw,3.4rem);line-height:1.14;letter-spacing:-.055em;margin:.35rem 0 1rem;max-width:none}
+.wb-local-intro>p:not(.wb-kicker){font-size:.95rem;color:var(--wb-muted);max-width:74ch}
+.wb-local-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+.wb-local-card{background:var(--wb-panel);border:1px solid var(--wb-line);border-radius:9px;min-width:0;padding:1rem 1.15rem;display:flex;flex-direction:column}
+.wb-local-card:hover{border-color:var(--wb-accent)}
+.wb-local-card-head{display:flex;justify-content:space-between;align-items:start;gap:.8rem}
+.wb-local-card h2{font-size:1.08rem;line-height:1.4;letter-spacing:-.02em;margin:.25rem 0 .7rem;overflow-wrap:anywhere}
+.wb-local-card-head>span{color:var(--wb-accent)}
+.wb-local-card p{font-size:.83rem;color:var(--wb-muted);margin:.1rem 0 .75rem;overflow-wrap:anywhere}
+.wb-local-card .wb-label{color:var(--wb-highlight);text-transform:none;letter-spacing:normal}
+.wb-local-card-links{margin-top:auto;display:flex;gap:.45rem 1rem;flex-wrap:wrap;font-size:.82rem;font-weight:650}
+.wb-local-card-links a:first-child{color:var(--wb-accent)}
+.wb-local-card .wb-local-meta{margin-top:.65rem;font-size:.75rem}
+.wb-local-catalogue-nav{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.25rem}
+.wb-local-catalogue-nav a,.wb-local-actions a,.wb-local-tags a{border:1px solid var(--wb-line);border-radius:7px;background:var(--wb-panel);padding:.45rem .75rem;font-size:.85rem}
+.wb-local-catalogue-nav a:hover,.wb-local-actions a:hover,.wb-local-tags a:hover{border-color:var(--wb-accent)}
+.wb-local-meta{display:flex;flex-wrap:wrap;gap:.5rem .9rem;font-size:.78rem;color:var(--wb-muted);line-height:1.6;margin:1rem 0}
+.wb-local-back{font-size:.82rem;color:var(--wb-accent);margin-bottom:1.5rem}
+.wb-local-document{max-width:900px}
+.wb-local-actions{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.2rem 0}
+.wb-local-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.25rem}
+.wb-local-prose{font-size:1rem;line-height:1.8;overflow-wrap:anywhere}
+.wb-local-prose p,.wb-local-prose ul,.wb-local-prose ol{max-width:80ch}
+.wb-local-prose h2{font-size:1.55rem;margin:2rem 0 .7rem}
+.wb-local-prose h3{font-size:1.22rem;margin:1.6rem 0 .6rem}
+.wb-local-prose a,.wb-local-document a:not(.wb-local-actions a){color:var(--wb-accent);text-decoration:underline;text-underline-offset:3px}
+.wb-local-prose pre{white-space:pre;overflow-x:auto;padding:1rem;background:var(--wb-panel);border:1px solid var(--wb-line);border-radius:7px;font-size:.83rem}
+.wb-local-prose :not(pre)>code{background:var(--wb-panel-alt);border-radius:3px;padding:.12em .3em}
+.wb-local-prose blockquote{border-left:3px solid var(--wb-accent);margin:1.2rem 0;padding:.15rem 1.1rem;color:var(--wb-muted)}
+.wb-local-prose img{max-width:100%;height:auto}
+.wb-local-prose table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
+.wb-local-prose td,.wb-local-prose th{border:1px solid var(--wb-line);padding:.5rem .65rem}
+.wb-local-pagination{margin:2rem 0 0}
+.wb-local-pagination ul{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0}
+.wb-local-pagination a,.wb-local-pagination .active{display:inline-block;border:1px solid var(--wb-line);border-radius:5px;padding:.3rem .65rem}
+.wb-local-pagination a:hover{border-color:var(--wb-accent)}
+.wb-pages{padding:3rem 0 5rem}
+.wb-pages h1{font-size:clamp(2rem,4vw,3.4rem);line-height:1.15;letter-spacing:-.045em;margin:.3rem 0 .8rem}
+.wb-recovery{padding:2rem 0}
+.wb-local-pages a:focus-visible{outline:3px solid var(--wb-accent);outline-offset:3px}
+@media(max-width:1020px){.wb-local-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.wb-local-main{width:min(100% - 1.5rem,1200px);padding:2rem 0 3rem}.wb-local-grid{grid-template-columns:1fr}.wb-local-card{padding:.95rem}}
