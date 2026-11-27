@@ -6,6 +6,16 @@ for page in public/index.html public/pages/index.html public/404.html public/rep
   test -s "$page" || { echo "Missing generated output: $page" >&2; exit 1; }
 done
 
+# Toha v4.13.0 publishes a read-only static/sitemap.xml from the module cache.
+# The site-local override must be writable and replaced with Hugo's real sitemap.
+test -s public/sitemap.xml || { echo "Missing generated sitemap" >&2; exit 1; }
+test -w public/sitemap.xml || { echo "Generated sitemap is read-only" >&2; exit 1; }
+if grep -Fq 'This writable project-local file overrides' public/sitemap.xml; then
+  echo "Sitemap placeholder was not replaced by Hugo" >&2
+  exit 1
+fi
+grep -Fq '<urlset' public/sitemap.xml || { echo "Expected XML sitemap missing" >&2; exit 1; }
+
 grep -Fq 'wb-feature-grid' public/index.html || { echo "Custom homepage was not rendered" >&2; exit 1; }
 grep -Fq 'Published sites' public/index.html || { echo "Published-site shortcuts missing" >&2; exit 1; }
 grep -Fq 'Apps and project pages' public/index.html || { echo "App directory missing" >&2; exit 1; }
@@ -31,8 +41,16 @@ if grep -R 'GITHUB_TOKEN' content/ >/dev/null; then
   echo "A content generator still references GITHUB_TOKEN" >&2
   exit 1
 fi
-if grep -Fq 'secrets.GITHUB_TOKEN' .github/workflows/gh-pages.yml; then
-  echo "Build still passes the repository token to a public data request" >&2
+# The refresh job intentionally authenticates its metadata requests.
+# Reject credentials only in the Hugo *build* job, never in the refresh job.
+build_job=$(awk '
+  /^  build:$/ { inside = 1; next }
+  inside && /^  [[:alnum:]_-]+:$/ { exit }
+  inside { print }
+' .github/workflows/gh-pages.yml)
+test -n "$build_job" || { echo "Pages workflow has no build job" >&2; exit 1; }
+if printf '%s\n' "$build_job" | grep -Eq 'secrets\.|GH_TOKEN[[:space:]]*:|GITHUB_TOKEN[[:space:]]*:'; then
+  echo "Hugo build job must not receive an API credential" >&2
   exit 1
 fi
 
@@ -46,19 +64,29 @@ if printf '%s\n' "$repos" | grep -Ev '^arran4/[A-Za-z0-9_.-]+$'; then
   echo "Pages catalogue contains non-arran4 repository entries" >&2
   exit 1
 fi
-# Exercise the repository catalogue without any successful repository API lookup.
-# A rate-limited deployment must still publish a useful, public-only /repos/ page.
-offline_dir=$(mktemp -d)
-trap 'rm -rf "$offline_dir"' EXIT
-HUGO_REPOS_OFFLINE=1 hugo --minify --destination "$offline_dir" --quiet
-test -s "$offline_dir/repos/index.html" || { echo "Offline repository catalogue missing" >&2; exit 1; }
-grep -Fq 'Visit site' "$offline_dir/repos/index.html" || {
-  echo "Offline repository catalogue has no published-site shortcuts" >&2
-  exit 1
-}
-grep -Fq 'go-subcommand' "$offline_dir/repos/index.html" || {
-  echo "Offline repository catalogue is missing reviewed projects" >&2
-  exit 1
-}
+# Once the complete snapshots are bootstrapped, ensure Hugo generated the
+# complete repository/starred catalogues, not only the curated Pages subset.
+if test -s data/github/repositories.json && test -s data/github/starred.json; then
+  expected_repos=$(jq -e 'if type == "array" and length > 0 then length else error("invalid repositories snapshot") end' data/github/repositories.json)
+  expected_stars=$(jq -e 'if type == "array" and length > 0 then length else error("invalid starred snapshot") end' data/github/starred.json)
+  actual_repos=$(find public/repos -mindepth 2 -type f -name index.html | wc -l)
+  actual_stars=$(find public/stars -mindepth 2 -type f -name index.html | wc -l)
+  if test "$actual_repos" -lt "$expected_repos"; then
+    echo "Only $actual_repos/$expected_repos repository pages rendered" >&2
+    exit 1
+  fi
+  if test "$actual_stars" -lt "$expected_stars"; then
+    echo "Only $actual_stars/$expected_stars starred pages rendered" >&2
+    exit 1
+  fi
+  echo "Complete offline GitHub catalogues rendered from validated snapshots."
+else
+  # Before bootstrap, the already completed Hugo build is sufficient.
+  # Do not rerun all ~14,000 pages solely to exercise a temporary fallback.
+  grep -Fq 'go-subcommand' public/repos/index.html || {
+    echo "Legacy repository catalogue missing reviewed projects" >&2
+    exit 1
+  }
+fi
 
 echo "Custom homepage, Pages directory, recovery links, and public-only catalogue verified."

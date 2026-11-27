@@ -1,69 +1,70 @@
-{{/* Use the unauthenticated public API when available, but never fail a site build
-     because of rate limiting. If any page cannot be fetched, discard incomplete
-     remote results and fall back to the reviewed public Pages inventory. */}}
+{{/* Once bootstrapped, the reviewed on-disk snapshot is the only source used
+     for repository pages. The live path is transitional until the first daily
+     snapshot pull request has been merged. */}}
 {{ $data := slice }}
-{{ $url := "https://api.github.com/users/arran4/repos" }}
-{{ $perPage := 100 }}
-{{ $maxPages := 20 }}
-{{ $morePages := true }}
-{{/* Also allow deterministic offline regression testing. */}}
-{{ $useFallback := eq (os.Getenv "HUGO_REPOS_OFFLINE") "1" }}
-
-{{ if not $useFallback }}
-  {{ range seq 1 $maxPages }}
-    {{ if $morePages }}
-      {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
-      {{ $result := try (resources.GetRemote $pagedUrl) }}
-      {{ if $result.Err }}
-        {{ warnf "Public GitHub repository endpoint unavailable at %s: %s; using reviewed Pages inventory" $pagedUrl $result.Err }}
-        {{ $useFallback = true }}
-        {{ $morePages = false }}
-      {{ else if $result.Value }}
-        {{ $pageData := $result.Value | transform.Unmarshal }}
-        {{ $data = $data | append $pageData }}
-        {{ if lt (len $pageData) $perPage }}
-          {{ $morePages = false }}
-        {{ end }}
-      {{ else }}
-        {{ warnf "Public GitHub repository endpoint returned no data at %s; using reviewed Pages inventory" $pagedUrl }}
-        {{ $useFallback = true }}
-        {{ $morePages = false }}
-      {{ end }}
-    {{ end }}
+{{ with site.Data.github }}
+  {{ with .repositories }}
+    {{ $data = . }}
   {{ end }}
 {{ end }}
 
 {{ if eq (len $data) 0 }}
-  {{ $useFallback = true }}
-{{ end }}
-{{ if $useFallback }}
-  {{/* No API-derived or potentially partial results are published in fallback mode.
-       Entries here were manually reviewed for public visibility in data/pages.yaml. */}}
-  {{ $data = slice }}
-  {{ $owner := dict "login" "arran4" "html_url" "https://github.com/arran4" "avatar_url" "https://github.com/arran4.png" }}
-  {{ range site.Data.pages.sites }}
-    {{ $repoName := path.Base .repo }}
-    {{ $repo := dict
-      "node_id" (printf "fallback-%s" $repoName)
-      "name" $repoName
-      "full_name" .repo
-      "description" .summary
-      "updated_at" "2026-11-17T00:00:00Z"
-      "owner" $owner
-      "language" ""
-      "homepage" .url
-      "has_pages" true
-      "html_url" (printf "https://github.com/%s" .repo)
-      "default_branch" "main"
-      "topics" (slice)
-      "private" false
-      "archived" .archived
-      "fork" false
-    }}
-    {{ $data = $data | append $repo }}
+  {{ warnf "Public GitHub repositories snapshot not bootstrapped yet; using temporary legacy API/fallback" }}
+  {{ $url := "https://api.github.com/users/arran4/repos" }}
+  {{ $perPage := 100 }}
+  {{ $maxPages := 20 }}
+  {{ $morePages := true }}
+  {{ $useFallback := eq (os.Getenv "HUGO_REPOS_OFFLINE") "1" }}
+  {{ if not $useFallback }}
+    {{ range seq 1 $maxPages }}
+      {{ if $morePages }}
+        {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
+        {{ $result := try (resources.GetRemote $pagedUrl) }}
+        {{ if $result.Err }}
+          {{ warnf "Legacy public repository API unavailable at %s: %s" $pagedUrl $result.Err }}
+          {{ $useFallback = true }}
+          {{ $morePages = false }}
+        {{ else if $result.Value }}
+          {{ $pageData := $result.Value | transform.Unmarshal }}
+          {{ $data = $data | append $pageData }}
+          {{ if lt (len $pageData) $perPage }}
+            {{ $morePages = false }}
+          {{ end }}
+        {{ else }}
+          {{ $useFallback = true }}
+          {{ $morePages = false }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ if eq (len $data) 0 }}{{ $useFallback = true }}{{ end }}
+  {{ if $useFallback }}
+    {{ $data = slice }}
+    {{ $owner := dict "login" "arran4" "html_url" "https://github.com/arran4" "avatar_url" "https://github.com/arran4.png" }}
+    {{ range site.Data.pages.sites }}
+      {{ $repoName := path.Base .repo }}
+      {{ $repo := dict
+        "node_id" (printf "fallback-%s" $repoName)
+        "name" $repoName
+        "full_name" .repo
+        "description" .summary
+        "updated_at" "2026-11-17T00:00:00Z"
+        "owner" $owner
+        "language" ""
+        "homepage" .url
+        "has_pages" true
+        "html_url" (printf "https://github.com/%s" .repo)
+        "default_branch" "main"
+        "topics" (slice)
+        "private" false
+        "archived" .archived
+        "fork" false
+      }}
+      {{ $data = $data | append $repo }}
+    {{ end }}
   {{ end }}
 {{ end }}
-
 
 {{/* Add pages and page resources. */}}
 {{ range $data }}
