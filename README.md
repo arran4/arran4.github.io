@@ -34,10 +34,16 @@ build on `main` publishes the static site.
   falls back to the reviewed Pages inventory, while `/stars/` remains
   available with a clear empty state rather than a 404. The reviewed, durable
   snapshot replacement was [PR #107](https://github.com/arran4/arran4.github.io/pull/107).
-- The release-first homepage and the native Introducing / Getting started /
-  What's new article workflow are developed in the dependent
-  [PR #115](https://github.com/arran4/arran4.github.io/pull/115).
-  Only approved articles should appear publicly.
+- `data/releases.json`: selected public GitHub release metadata from the
+  allowlist in `tools/refresh-releases/repos.txt`. The same daily Go snapshot
+  job refreshes this cache, retains prior entries on API failures, and proposes
+  changes in the existing data-only PR. No release metadata changes means
+  no timestamp-only churn.
+- `data/articles.yaml`: reviewed, already published technical writing.
+  Native Introducing / Getting started / What's new articles require editorial
+  approval; drafts do not appear in the deployed site.
+- `data/home.yaml`: optional support destinations, disabled by default.
+  Use `?preview-support=1` to review the panel.
 
 ## First-party layouts
 
@@ -60,7 +66,7 @@ and other public destinations remain.
 
 The merged metadata pipeline runs once daily or with manual `refresh=true`.
 It tests and runs `go run ./cmd/refresh-github-snapshots`, validates public
-repository and starred records, paces requests, and proposes a single
+repository and starred records, refreshes allowlisted public releases, paces requests, and proposes a single
 data-only PR when metadata changes. It uses the workflow token only in the
 refresh job. Hugo builds do not receive it. Once both complete snapshots
 are committed, builds use local metadata; until then the transitional API

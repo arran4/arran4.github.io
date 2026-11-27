@@ -10,10 +10,15 @@ done
 test -s public/sitemap.xml || { echo "Missing generated sitemap" >&2; exit 1; }
 grep -Fq '<urlset' public/sitemap.xml || { echo "Expected XML sitemap missing" >&2; exit 1; }
 
-grep -Fq 'wb-feature-grid' public/index.html || { echo "Custom homepage was not rendered" >&2; exit 1; }
-grep -Fq 'Published sites' public/index.html || { echo "Published-site shortcuts missing" >&2; exit 1; }
-grep -Fq 'Apps and project pages' public/index.html || { echo "App directory missing" >&2; exit 1; }
-grep -Fq 'https://arran4.github.io/gentoo-packages/' public/index.html || { echo "Featured Gentoo Packages link missing" >&2; exit 1; }
+grep -Eq 'id="?releases"?([[:space:]>])' public/index.html || { echo "Releases-first section missing" >&2; exit 1; }
+grep -Eq 'id="?articles"?([[:space:]>])' public/index.html || { echo "Articles section missing" >&2; exit 1; }
+grep -Eq 'id="?resources"?([[:space:]>])' public/index.html || { echo "Resource collections missing" >&2; exit 1; }
+grep -Eq 'id="?directory"?([[:space:]>])' public/index.html || { echo "Searchable directory missing" >&2; exit 1; }
+grep -Fq 'data-catalogue-item' public/index.html || { echo "Public directory cards missing" >&2; exit 1; }
+test -s public/css/workbench-v2.css && test -s public/js/home.js || { echo "Local homepage assets missing" >&2; exit 1; }
+grep -Fq 'Latest releases' public/index.html || { echo "Release entries missing" >&2; exit 1; }
+grep -Fq 'CBZ Viewer' public/index.html || { echo "App directory entry missing" >&2; exit 1; }
+grep -Fq 'https://arran4.github.io/gentoo-packages/' public/index.html || { echo "Gentoo Packages directory shortcut missing" >&2; exit 1; }
 for app in arrans-movie-night-scheduler aurelies-dinners cbz-viewer cook-times gizmo-card-creator lojban-messenger-dictionary protein-calculator rpg-gym-stats; do
   test -s "public/$app/index.html" || { echo "Missing public app landing page: $app" >&2; exit 1; }
   grep -Fq "/$app/" public/index.html || { echo "App shortcut missing: $app" >&2; exit 1; }
@@ -22,6 +27,9 @@ if grep -Eq 'github.com/arran4/(cbz_viewer|cards)(["/]|$)' public/index.html; th
   echo "Homepage must not link to private app source repositories" >&2
   exit 1
 fi
+test ! -e public/articles/introducing-arran4-github-io/index.html || { echo "Unapproved draft introduction was published" >&2; exit 1; }
+grep -Fq 'arran4/md2png' public/index.html || { echo "Cached md2png release link missing" >&2; exit 1; }
+grep -Fq 'Awesome Terminal Multiplexers' public/index.html || { echo "Curated resources missing" >&2; exit 1; }
 grep -Fq 'https://arran4.github.io/klookup/' public/index.html || { echo "Expected direct link missing" >&2; exit 1; }
 grep -Fq 'Public GitHub Pages sites' public/pages/index.html || { echo "Reference directory was not rendered" >&2; exit 1; }
 grep -Fq 'That page isn' public/404.html || { echo "Recovery 404 page was not rendered" >&2; exit 1; }
@@ -102,4 +110,4 @@ test ! -e package.json && test ! -e package-lock.json || { echo "NPM manifests s
 ! grep -Eq '(hugo mod npm|npm install|sass)' .github/workflows/gh-pages.yml || { echo "Theme tools still used by CI" >&2; exit 1; }
 
 
-echo "Custom homepage, Pages directory, recovery links, and public-only catalogue verified."
+echo "Releases-first homepage, local templates, public snapshots, privacy pages and draft exclusion verified."

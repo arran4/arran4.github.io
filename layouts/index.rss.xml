@@ -1,13 +1,24 @@
-{{- /* Owned-site feed: only approved native articles. Release items are added by #115. */ -}}
+{{- /* Native first-party RSS: official public releases and approved website articles only. */ -}}
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{{ site.Title }}</title>
     <link>{{ site.Home.Permalink }}</link>
-    <description>Published writing and project notes from arran4.github.io</description>
+    <description>Versioned public software releases and approved articles from arran4.github.io</description>
     <language>{{ site.Language.Locale }}</language>
-    {{ with .OutputFormats.Get "RSS" }}<atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml"/>{{ end }}
-    {{ range where site.RegularPages "Section" "articles" }}
+    {{- with .OutputFormats.Get "RSS" }}
+    <atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />
+    {{- end }}
+    {{- range site.Data.releases.items }}
+    <item>
+      <title>{{ .name }} {{ .tag }}</title>
+      <link>{{ .url }}</link>
+      <guid isPermaLink="true">{{ .url }}</guid>
+      <pubDate>{{ dateFormat "Mon, 02 Jan 2006 15:04:05 -0700" .published }}</pubDate>
+      <description>{{ .summary }}</description>
+    </item>
+    {{- end }}
+    {{- range where site.RegularPages "Section" "articles" }}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
@@ -15,6 +26,6 @@
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
       <description>{{ .Description | default .Summary | plainify }}</description>
     </item>
-    {{ end }}
+    {{- end }}
   </channel>
 </rss>
