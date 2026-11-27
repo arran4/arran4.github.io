@@ -17,9 +17,7 @@ hugo --minify
 hugo server
 ```
 
-The build produces static HTML and assets in `public/`. Go and Python are used
-only by optional public GitHub metadata refresh tooling, not to render the
-frontend. The GitHub Pages workflow builds PRs without deploying; a successful
+The build produces static HTML and assets in `public/`. Go is used by the public GitHub metadata refresh tooling, not to render the frontend. The GitHub Pages workflow builds PRs without deploying; a successful
 build on `main` publishes the static site.
 
 ## Content sources
@@ -35,9 +33,9 @@ build on `main` publishes the static site.
   The existing unauthenticated API builder may be rate-limited; `/repos/`
   falls back to the reviewed Pages inventory, while `/stars/` remains
   available with a clear empty state rather than a 404. The reviewed, durable
-  snapshot replacement is [PR #107](https://github.com/arran4/arran4.github.io/pull/107).
+  snapshot replacement was [PR #107](https://github.com/arran4/arran4.github.io/pull/107).
 - The release-first homepage and the native Introducing / Getting started /
-  What's new article workflow are being developed independently in
+  What's new article workflow are developed in the dependent
   [PR #115](https://github.com/arran4/arran4.github.io/pull/115).
   Only approved articles should appear publicly.
 
@@ -58,19 +56,20 @@ The site does not fetch fonts, stylesheets or scripts from a third-party UI
 framework at runtime. Normal external links to GitHub, project documentation
 and other public destinations remain.
 
-## Checks and migration
+## GitHub metadata and verification
 
-Run `bash scripts/verify-workbench.sh` **after** building. The checks validate
-generated pages, local CSS, the 404, app/privacy links, public-only catalogue
-rules and absence of Toha/NPM source dependencies. The workflow runs one full
-Hugo build; it does not rerender thousands of pages merely for a duplicate
-fallback check.
+The merged metadata pipeline runs once daily or with manual `refresh=true`.
+It tests and runs `go run ./cmd/refresh-github-snapshots`, validates public
+repository and starred records, paces requests, and proposes a single
+data-only PR when metadata changes. It uses the workflow token only in the
+refresh job. Hugo builds do not receive it. Once both complete snapshots
+are committed, builds use local metadata; until then the transitional API
+fallback remains. See #108 for bootstrap and fallback removal.
 
-[PR #117](https://github.com/arran4/arran4.github.io/pull/117)
-removes the external theme independently of PRs #107 and #115. All target
-`main`; their workflow/configuration/template changes must be reconciled in
-merge order, without reintroducing removed frontend dependencies. The public
-metadata snapshot workflow is a separate concern from the UI theme.
+After building, run `bash scripts/verify-workbench.sh`. It verifies generated
+pages, public catalogue completeness when snapshots exist, local CSS,
+app/privacy routes, RSS and the absence of external theme build dependencies.
+Only one full Hugo render is required.
 
 ## License
 

@@ -1,32 +1,36 @@
-{{/* Get remote data. */}}
+{{/* Prefer the stable checked-in snapshot. The API fallback exists only
+     until the first daily starred-repository refresh PR has been merged. */}}
 {{ $data := slice }}
-{{ $url := "https://api.github.com/users/arran4/starred" }}
-{{/* Public starred repositories only. Do not authenticate these requests. */}}
-{{ $headers := dict }}
-{{ $perPage := 100 }}
-{{ $maxPages := 20 }}
-{{ $morePages := true }}
-
-{{ range seq 1 $maxPages }}
-  {{ if $morePages }}
-    {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
-    {{ $result := try (resources.GetRemote $pagedUrl (dict "headers" $headers)) }}
-    {{ if $result.Err }}
-      {{ warnf "Public GitHub starred endpoint unavailable at %s: %s; published list may be incomplete (%d entries fetched)" $pagedUrl $result.Err (len $data) }}
-      {{ $morePages = false }}
-    {{ else if $result.Value }}
-      {{ $pageData := $result.Value | transform.Unmarshal }}
-      {{ $data = $data | append $pageData }}
-      {{ if lt (len $pageData) $perPage }}
+{{ with site.Data.github }}
+  {{ with .starred }}
+    {{ $data = . }}
+  {{ end }}
+{{ end }}
+{{ if eq (len $data) 0 }}
+  {{ warnf "Public GitHub starred snapshot not bootstrapped yet; using temporary legacy API" }}
+  {{ $url := "https://api.github.com/users/arran4/starred" }}
+  {{ $perPage := 100 }}
+  {{ $maxPages := 20 }}
+  {{ $morePages := true }}
+  {{ range seq 1 $maxPages }}
+    {{ if $morePages }}
+      {{ $pagedUrl := printf "%s?page=%d&per_page=%d" $url . $perPage }}
+      {{ $result := try (resources.GetRemote $pagedUrl) }}
+      {{ if $result.Err }}
+        {{ warnf "Legacy starred endpoint unavailable at %s: %s" $pagedUrl $result.Err }}
+        {{ $morePages = false }}
+      {{ else if $result.Value }}
+        {{ $pageData := $result.Value | transform.Unmarshal }}
+        {{ $data = $data | append $pageData }}
+        {{ if lt (len $pageData) $perPage }}
+          {{ $morePages = false }}
+        {{ end }}
+      {{ else }}
         {{ $morePages = false }}
       {{ end }}
-    {{ else }}
-      {{ warnf "Public GitHub starred endpoint returned no data at %s; published list may be incomplete (%d entries fetched)" $pagedUrl (len $data) }}
-      {{ $morePages = false }}
     {{ end }}
   {{ end }}
 {{ end }}
-
 
 {{/* Add pages and page resources. */}}
 {{ range $data }}
