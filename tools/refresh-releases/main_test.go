@@ -50,3 +50,13 @@ func TestFetchRejectsIncorrectReleaseLink(t *testing.T) {
   defer server.Close()
   if _,err:=fetch(context.Background(),server.Client(),server.URL,"arran4/header");err==nil {t.Fatal("accepted wrong release URL")}
 }
+
+func TestUnchangedReleaseKeepsSnapshotDate(t *testing.T) {
+  server:=httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request){
+    fmt.Fprint(w, `{"tag_name":"v1","published_at":"2026-11-19T01:00:00Z","html_url":"https://github.com/arran4/header/releases/tag/v1"}`)
+  }))
+  defer server.Close()
+  before:=snapshot{CheckedAt:"2026-11-19",Items:[]release{{Repo:"arran4/header",Name:"Header",Tag:"v1",Published:"2026-11-19T01:00:00Z",URL:"https://github.com/arran4/header/releases/tag/v1",Summary:"Existing summary"}}}
+  got,count:=refresh(context.Background(),server.Client(),server.URL,[]string{"arran4/header"},before,time.Date(2026,11,27,0,0,0,0,time.UTC))
+  if count!=1 || got.CheckedAt!=before.CheckedAt || got.Items[0]!=before.Items[0] {t.Fatalf("unchanged release caused snapshot churn: %#v",got)}
+}

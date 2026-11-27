@@ -12,6 +12,7 @@ import (
   "net/http"
   "os"
   "path/filepath"
+  "reflect"
   "regexp"
   "sort"
   "strings"
@@ -92,7 +93,12 @@ func refresh(ctx context.Context,client *http.Client,base string,repos []string,
   for _,r:=range before.Items {existing[r.Repo]=r}
   result:=snapshot{CheckedAt:before.CheckedAt}
   successful:=0
-  for _,repo:=range repos {
+  changed:=false
+  for i,repo:=range repos {
+    // Bound the pace of public requests; cancellation still applies.
+    if i>0 && base==githubAPI {
+      select {case <-ctx.Done(): case <-time.After(2*time.Second):}
+    }
     previous,ok:=existing[repo]
     fetched,err:=fetch(ctx,client,base,repo)
     if err!=nil {
@@ -103,6 +109,11 @@ func refresh(ctx context.Context,client *http.Client,base string,repos []string,
     if !ok {
       previous=release{Repo:repo,Name:strings.TrimPrefix(repo,"arran4/"),Summary:"See the official GitHub release notes."}
     }
+    if !ok || previous.Tag!=fetched.Tag || previous.Published!=fetched.Published || previous.URL!=fetched.URL {
+      changed=true
+      // Do not present old release-specific descriptions as descriptions of new releases.
+      previous.Summary="See the official GitHub release notes."
+    }
     previous.Tag=fetched.Tag
     previous.Published=fetched.Published
     previous.URL=fetched.URL
@@ -110,7 +121,7 @@ func refresh(ctx context.Context,client *http.Client,base string,repos []string,
     successful++
   }
   sort.SliceStable(result.Items,func(i,j int)bool{return result.Items[i].Published>result.Items[j].Published})
-  if successful>0 {result.CheckedAt=now.UTC().Format("2006-01-02")}
+  if successful>0 && (changed || !reflect.DeepEqual(result.Items,before.Items)) {result.CheckedAt=now.UTC().Format("2006-01-02")}
   return result,successful
 }
 func persist(path string,value snapshot) error {
@@ -140,6 +151,7 @@ func main(){
     fmt.Fprintln(os.Stderr,"::warning::No new public release data; preserving the existing snapshot")
     return
   }
+  if reflect.DeepEqual(current,next) {fmt.Println("No public release changes; keeping the existing snapshot");return}
   if err:=persist(cataloguePath,next);err!=nil{fmt.Fprintln(os.Stderr,err);os.Exit(1)}
   fmt.Printf("Refreshed %d of %d public repositories (%d cached or unavailable)\n",count,len(repos),len(repos)-count)
 }

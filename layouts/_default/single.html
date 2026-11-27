@@ -1,0 +1,10 @@
+{{ define "main" }}
+<main id="main-content" class="wb-wrap wb-local-main">
+  <article class="wb-local-document">
+    <p class="wb-kicker">ARTICLE / REFERENCE</p>
+    <h1>{{ .Title }}</h1>
+    {{ if not .Date.IsZero }}<p class="wb-local-meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time></p>{{ end }}
+    <div class="wb-local-prose">{{ .Content }}</div>
+  </article>
+</main>
+{{ end }}

@@ -1,30 +1,9 @@
-{{ define "header" }}
-{{ partial "single/header.html" . }}
-{{ end }}
-
-{{ define "navbar" }}
-{{ partial "navigators/navbar.html" . }}
-{{ end }}
-
-{{ define "sidebar" }}{{ end }}
-
-{{ define "content" }}
-<section class="content-section" id="content-section" style="padding-top: 80px;">
-  <div class="content">
-    <div class="container p-0 read-area">
-      <div class="page-content">
-        <div class="title">
-          <h1>{{ .Title }}</h1>
-        </div>
-        <div class="post-content" id="post-content">
-          {{ .Content }}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{{ end }}
-
-{{ define "toc" }}
-{{ partial "single/toc.html" . }}
+{{ define "main" }}
+<main id="main-content" class="wb-wrap wb-local-main">
+  <article class="wb-local-document">
+    <p class="wb-kicker">PRIVACY POLICY</p>
+    <h1>{{ .Title }}</h1>
+    <div class="wb-local-prose">{{ .Content }}</div>
+  </article>
+</main>
 {{ end }}

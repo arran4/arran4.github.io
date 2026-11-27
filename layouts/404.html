@@ -1,19 +1,16 @@
-{{ define "navbar" }}
-  {{ partial "navigators/navbar.html" . }}
-{{ end }}
-
-{{ define "content" }}
-<link rel="stylesheet" href="{{ "css/workbench.css" | relURL }}">
-<section class="wb-recovery">
-  <p class="wb-kicker">404 / WRONG TURN</p>
-  <h1>That page isn't here.</h1>
-  <p>A relative link may have sent you into the wrong project directory. Return to the main index or jump directly to a familiar published site:</p>
-  <p><a href="{{ "/" | relURL }}">Return to the homepage ↗</a></p>
-  <ul>
+{{ define "main" }}
+<main id="main-content" class="wb-wrap wb-local-main">
+  <div class="wb-recovery">
+    <p class="wb-kicker">404 / WRONG TURN</p>
+    <h1>That page isn't here.</h1>
+    <p>The page may have moved. Return to the homepage or explore these public destinations:</p>
+    <p><a class="wb-v2-text-link" href="{{ "/" | relURL }}">Return to homepage ↗</a></p>
+    <ul>
     {{ range sort (where site.Data.pages.sites "featured" true) "featured_order" }}
-      {{ with .url }}<li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ end }}{{ .name }} <span aria-hidden="true">↗</span>{{ with .url }}</a></li>{{ end }}
+      {{ if .url }}<li><a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name }} ↗</a></li>{{ end }}
     {{ end }}
-  </ul>
-  <p>Or visit <a href="{{ "repos/" | relURL }}">the complete repository index</a> or <a href="{{ "/" | relURL }}#apps">the application directory</a>.</p>
-</section>
+    </ul>
+    <p>Or explore <a href="{{ "repos/" | relURL }}">the complete repository index</a>.</p>
+  </div>
+</main>
 {{ end }}

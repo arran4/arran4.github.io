@@ -1,0 +1,11 @@
+{{ define "main" }}
+<main id="main-content" class="wb-wrap wb-local-main">
+  <p class="wb-kicker">TOPICS</p>
+  <h1>{{ .Title }}</h1>
+  <div class="wb-local-tags">
+    {{ range .Data.Terms.Alphabetical }}
+      <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <span class="wb-muted">({{ .Count }})</span></a>
+    {{ end }}
+  </div>
+</main>
+{{ end }}
