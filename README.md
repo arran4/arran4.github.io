@@ -1,52 +1,77 @@
 # arran4.github.io
 
-This repository contains the source of my personal website hosted on GitHub Pages. It is built with the [Hugo](https://gohugo.io/) static site generator and uses the Toha theme.
+Source for [arran4.github.io](https://arran4.github.io/), a Hugo-based project
+hub with public software links, technical writing, reference collections and
+application landing pages.
 
-## Building locally
+The site's frontend is owned by this repository. **There is no Toha theme, NPM
+package tree, Bootstrap, Font Awesome, Sass build step or external JavaScript
+framework.** Existing page routes are retained.
 
-You need the extended version of Hugo, Go, and Node/npm installed. Run the following commands from the project root:
+## Build and preview
 
-```bash
-hugo mod npm pack && npm install && hugo --minify
+Use Hugo **v0.170.1**:
+
+```sh
+hugo --minify
+hugo server
 ```
 
-`hugo mod npm pack` vendors the theme's JavaScript dependencies, `npm install` installs them, and `hugo --minify` generates the static site into the `public/` directory. You can preview the site by opening `public/index.html` or by running `hugo server`.
+The build produces static HTML and assets in `public/`. Go is used by the public GitHub metadata refresh tooling, not to render the frontend. The GitHub Pages workflow builds PRs without deploying; a successful
+build on `main` publishes the static site.
 
-## GitHub Pages workflow and metadata refresh
+## Content sources
 
-The existing `.github/workflows/gh-pages.yml` handles both publishing and the daily refresh; there is no separate low-value verification workflow.
+- `data/pages.yaml`: a **manually reviewed snapshot** of public
+  GitHub Pages sites, including a separate `/pages/` reference directory.
+  Unverified URLs are never invented. Changes require a normal PR.
+- `data/apps.yaml`: the eight public app landing pages hosted by this
+  website. A public landing page does not imply that the application's source
+  repository is public.
+- `/repos/` and `/stars/`: public GitHub repository/starred-repository
+  indexes. Their generated detail URLs use GitHub's stable IDs when available.
+  The existing unauthenticated API builder may be rate-limited; `/repos/`
+  falls back to the reviewed Pages inventory, while `/stars/` remains
+  available with a clear empty state rather than a 404. The reviewed, durable
+  snapshot replacement was [PR #107](https://github.com/arran4/arran4.github.io/pull/107).
+- The release-first homepage and the native Introducing / Getting started /
+  What's new article workflow are developed in the dependent
+  [PR #115](https://github.com/arran4/arran4.github.io/pull/115).
+  Only approved articles should appear publicly.
 
-- **Push to `main`:** test the Go refresh utility, build and verify Hugo, then deploy Pages.
-- **Pull requests:** test and build but do not deploy.
-- **Daily at 00:05 UTC / 11:05 AEDT:** run the Go refresher only. Authenticate public API queries with the workflow's short-lived `GITHUB_TOKEN`, rate-limit requests with 2-second pagination pauses, respect bounded `Retry-After` waits, and fail without publishing partial data.
-- **Changed metadata:** propose a single `automation/daily-github-snapshots` PR, update it on later runs, and dispatch CI explicitly because a `GITHUB_TOKEN`-created PR does not trigger normal PR workflows. No changes means no PR or rebuild.
-- **Manual refresh:** run the existing Pages workflow with `workflow_dispatch` and `refresh=true`.
+## First-party layouts
 
-The refresh requires repository Actions settings to permit `GITHUB_TOKEN` to create pull requests. Its job requests `contents:write`, `pull-requests:write`, and `actions:write` only for refreshing metadata and dispatching validation. Hugo builds never receive the API token.
+- `layouts/home.html`, `layouts/baseof.home.html`,
+  `static/css/workbench.css`: custom homepage.
+- `layouts/_default/`, `layouts/repos/`, `layouts/stars/`,
+  `layouts/*-tags/`, `layouts/pages/`, and
+  `layouts/partials/catalogue/`: all other shared views and public
+  repository details, with local styles in `static/css/site-pages.css`.
+- `layouts/<app>/single.html` and `static/<app>/style.css`:
+  existing standalone application pages and their privacy URLs.
+- `layouts/index.rss.xml`: owned-site RSS, without obsolete sample
+  GoHugo.org news items.
 
-The Go command is `go run ./cmd/refresh-github-snapshots`. It writes `data/github/repositories.json` (all public user-owned repos), `data/github/starred.json` (public starred repos), and `data/stars.json` (star counts for public owned repos). Snapshots are sorted, retain stable GitHub `node_id` URLs and topic metadata, reject private or duplicated records, and refuse unexpected >10% reductions without review. It collects and validates *both* paginated lists before writing anything. Tests use local HTTP fixtures and run without GitHub access.
+The site does not fetch fonts, stylesheets or scripts from a third-party UI
+framework at runtime. Normal external links to GitHub, project documentation
+and other public destinations remain.
 
-The initial complete snapshots must be generated by the first refresh run and merged via the generated data PR. Until then the Hugo adapters retain their temporary, legacy public API/curated fallback. Once both snapshots land in `main`, the website uses only the local snapshot files, never querying the GitHub API during Hugo generation. A follow-up cleanup should remove this transitional fallback.
+## GitHub metadata and verification
 
-The published site is https://arran4.github.io/.
+The merged metadata pipeline runs once daily or with manual `refresh=true`.
+It tests and runs `go run ./cmd/refresh-github-snapshots`, validates public
+repository and starred records, paces requests, and proposes a single
+data-only PR when metadata changes. It uses the workflow token only in the
+refresh job. Hugo builds do not receive it. Once both complete snapshots
+are committed, builds use local metadata; until then the transitional API
+fallback remains. See #108 for bootstrap and fallback removal.
+
+After building, run `bash scripts/verify-workbench.sh`. It verifies generated
+pages, public catalogue completeness when snapshots exist, local CSS,
+app/privacy routes, RSS and the absence of external theme build dependencies.
+Only one full Hugo render is required.
 
 ## License
 
-This content is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE).
-## Published sites and custom homepage
-
-The home page is a custom, accessible visual project index backed by a curated `data/pages.yaml` (Pages-enabled public repositories) and `data/apps.yaml` (the site's eight existing public app landing pages, regardless of whether their individual source repositories are public).
-This manually reviewed static file lists **all 33 public repositories found with Pages enabled on 2026-11-17**, including this website. Entries include a repository, category, description, featured flag and URL. Five Pages-enabled repositories have no confirmed published URL; they remain visible in the inventory with a source link but are not assigned invented web addresses.
-
-Update `data/pages.yaml` through a normal code review whenever a new Pages site is launched, renamed, archived, or removed. This snapshot **does not refresh itself**. Featured projects are deliberately selected using `featured` and `featured_order`: Blog, Gentoo Packages, Header and go-subcommand. KLookup, the overlay and other work remain in the full directory without special prominence. Update `data/apps.yaml` when an on-site app landing page is added or changed. **No Pages API calls occur at build time.** Curated direct links also appear in the existing theme navigation so a user can recover after a broken relative link. The comprehensive `/pages/` directory is generated for reference but intentionally not added to the primary menu.
-
-The `/repos/` catalogue and `/stars/` catalogue use their complete checked-in snapshots when available. The full repository browser is distinct from the deliberately curated 33-entry public Pages directory and must not silently collapse into that narrower catalogue. Repositories retain the original `node_id` paths, dates, tags, languages, archived flags and public source links. The Pages directory continues to be maintained manually via `data/pages.yaml`.
-
-### Design and verification
-
-The bespoke homepage and its styles are kept in `layouts/home.html`, `layouts/baseof.home.html` and `static/css/workbench.css`. Legacy app/privacy pages and the old Toha-backed repository browser are retained to preserve their paths.
-
-To check this change:
-1. Review every public Pages-enabled repository against `data/pages.yaml` and resolve the five missing site URLs where possible.
-2. Run the Hugo build (`hugo mod npm pack && npm install && hugo --minify`), then inspect `public/index.html`, `public/pages/index.html`, `public/404.html` and the generated `/repos/` entries.
-3. Verify all links, keyboard navigation, colour contrast, mobile layout and the light/dark presentations before merging.
+This content is licensed under the [Creative Commons Attribution 4.0
+International License](LICENSE).

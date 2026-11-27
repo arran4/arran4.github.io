@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>{{ if not .IsHome }}{{ .Title }} · {{ end }}{{ site.Title }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Title }}{{ end }}">
+  {{ with resources.Get "images/favicon.png" }}<link rel="icon" href="{{ .RelPermalink }}" type="image/png">{{ end }}
+  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="stylesheet" href="{{ "css/workbench.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/site-pages.css" | relURL }}">
+</head>
+<body class="wb wb-local-pages">
+  <a class="wb-skip" href="#main-content">Skip to content</a>
+  <header class="wb-header">
+    <div class="wb-wrap wb-nav">
+      <a class="wb-mark" href="{{ "/" | relURL }}" aria-label="arran4 homepage"><span class="wb-monogram">a4</span><span>arran4<span class="wb-accent">.github.io/</span></span></a>
+      <nav class="wb-links" aria-label="Site navigation">
+        <a href="{{ "/" | relURL }}">Home</a>
+        <a href="{{ "repos/" | relURL }}">Repositories</a>
+        <a href="{{ "stars/" | relURL }}">Stars</a>
+        <a href="https://arran4.github.io/blog/">Writing</a>
+        <a href="https://github.com/arran4">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  {{ block "main" . }}
+    <main id="main-content" class="wb-wrap wb-local-main">
+      <h1>{{ .Title }}</h1>
+      <div class="wb-local-prose">{{ .Content }}</div>
+    </main>
+  {{ end }}
+  <footer class="wb-footer">
+    <div class="wb-wrap wb-footer-inner">
+      <p><strong>arran4</strong> <span class="wb-muted">/ Software, tools and public notes.</span></p>
+      <nav aria-label="Footer">
+        <a href="{{ "/" | relURL }}">Home</a>
+        <a href="{{ "repos/" | relURL }}">Repositories</a>
+        <a href="{{ "stars/" | relURL }}">Stars</a>
+        <a href="https://github.com/arran4">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

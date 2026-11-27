@@ -6,14 +6,8 @@ for page in public/index.html public/pages/index.html public/404.html public/rep
   test -s "$page" || { echo "Missing generated output: $page" >&2; exit 1; }
 done
 
-# Toha v4.13.0 publishes a read-only static/sitemap.xml from the module cache.
-# The site-local override must be writable and replaced with Hugo's real sitemap.
+# Preserve the generated sitemap after removing the legacy theme.
 test -s public/sitemap.xml || { echo "Missing generated sitemap" >&2; exit 1; }
-test -w public/sitemap.xml || { echo "Generated sitemap is read-only" >&2; exit 1; }
-if grep -Fq 'This writable project-local file overrides' public/sitemap.xml; then
-  echo "Sitemap placeholder was not replaced by Hugo" >&2
-  exit 1
-fi
 grep -Fq '<urlset' public/sitemap.xml || { echo "Expected XML sitemap missing" >&2; exit 1; }
 
 grep -Fq 'wb-feature-grid' public/index.html || { echo "Custom homepage was not rendered" >&2; exit 1; }
@@ -31,7 +25,7 @@ fi
 grep -Fq 'https://arran4.github.io/klookup/' public/index.html || { echo "Expected direct link missing" >&2; exit 1; }
 grep -Fq 'Public GitHub Pages sites' public/pages/index.html || { echo "Reference directory was not rendered" >&2; exit 1; }
 grep -Fq 'That page isn' public/404.html || { echo "Recovery 404 page was not rendered" >&2; exit 1; }
-grep -Rq 'Visit site' public/repos/ || { echo "Repository cards have no published-site shortcuts" >&2; exit 1; }
+grep -Rq 'Published site' public/repos/ || { echo "Repository cards have no published-site shortcuts" >&2; exit 1; }
 
 if grep -Fq 'href="/pages/"' public/index.html; then
   echo "The reference-only /pages/ directory should not be in the homepage navigation" >&2
@@ -88,5 +82,24 @@ else
     exit 1
   }
 fi
+
+# These assertions verify the local layouts and absence of the old dependencies
+# without running another expensive full Hugo render.
+test -s public/css/site-pages.css || { echo "Owned page styles are missing" >&2; exit 1; }
+test -s public/stars/index.html || { echo "Starred-repository landing page missing" >&2; exit 1; }
+for app in arrans-movie-night-scheduler aurelies-dinners cbz-viewer cook-times gizmo-card-creator lojban-messenger-dictionary protein-calculator rpg-gym-stats; do
+  test -s "public/$app/privacy/index.html" || { echo "App privacy URL missing: $app" >&2; exit 1; }
+done
+test -s public/index.xml || { echo "RSS output missing" >&2; exit 1; }
+grep -Fq 'PUBLIC GITHUB' public/repos/index.html || { echo "Local repository template not rendered" >&2; exit 1; }
+grep -Fq 'PUBLIC GITHUB' public/stars/index.html || { echo "Local stars template not rendered" >&2; exit 1; }
+if grep -Eiq '<(link|script)[^>]*(href|src)=[^ >]*(bootstrap|fontawesome|node_modules|popper|hugo-toha)' public/repos/index.html; then
+  echo "Repository browser still has theme dependencies" >&2
+  exit 1
+fi
+test ! -e package.json && test ! -e package-lock.json || { echo "NPM manifests should be removed" >&2; exit 1; }
+! grep -Fq 'github.com/hugo-toha/toha' go.mod || { echo "Toha module is still required" >&2; exit 1; }
+! grep -Eq '(hugo mod npm|npm install|sass)' .github/workflows/gh-pages.yml || { echo "Theme tools still used by CI" >&2; exit 1; }
+
 
 echo "Custom homepage, Pages directory, recovery links, and public-only catalogue verified."

@@ -73,7 +73,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: true
           fetch-depth: 0
 
       - uses: actions/setup-go@v5
@@ -85,8 +84,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.147.8'
-          extended: true
+          hugo-version: '0.170.1'
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
@@ -97,9 +95,6 @@ jobs:
         run: |
           export HUGO_CACHEDIR=${{ runner.temp }}/hugo_cache
           mkdir -p "$HUGO_CACHEDIR"
-          hugo mod npm pack
-          npm install @popperjs/core@2.11.8 include-media@1.4.10 --save-dev --legacy-peer-deps
-          npm install --legacy-peer-deps
           rm -rf public/
           hugo --minify --templateMetrics
           bash scripts/verify-workbench.sh

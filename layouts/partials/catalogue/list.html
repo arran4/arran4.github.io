@@ -1,0 +1,29 @@
+{{ $ctx := .page }}
+{{ $kind := .kind }}
+<main id="main-content" class="wb-wrap wb-local-main">
+  <header class="wb-local-intro">
+    <p class="wb-kicker">PUBLIC GITHUB / {{ upper $kind }}</p>
+    <h1>{{ $ctx.Title }}</h1>
+    <p>{{ if eq $kind "repos" }}Public source repositories, including links to reviewed published project pages.{{ else }}Publicly starred projects and reference links.{{ end }}</p>
+    <nav class="wb-local-catalogue-nav" aria-label="Catalogue">
+      <a href="{{ "repos/" | relURL }}">Repositories</a>
+      <a href="{{ "stars/" | relURL }}">Stars</a>
+      <a href="{{ printf "%s-tags/" (cond (eq $kind "repos") "repo" "star") | relURL }}">Browse tags</a>
+    </nav>
+  </header>
+  {{ $posts := $ctx.RegularPagesRecursive }}
+  {{ $paginator := $ctx.Paginate $posts (site.Params.features.pagination.maxPostsPerPage | default 1000) }}
+  <p class="wb-local-meta">{{ len $posts }} entries</p>
+  {{ if $posts }}
+    <div class="wb-local-grid">
+      {{ range $paginator.Pages }}
+        {{ partial "catalogue/card.html" . }}
+      {{ end }}
+    </div>
+    <nav aria-label="Catalogue pagination" class="wb-local-pagination">
+      {{ template "_internal/pagination.html" $ctx }}
+    </nav>
+  {{ else }}
+    <p class="wb-local-empty">The public catalogue is temporarily unavailable. Check again after the next metadata snapshot is published, or visit <a href="https://github.com/arran4">the GitHub profile</a>.</p>
+  {{ end }}
+</main>
